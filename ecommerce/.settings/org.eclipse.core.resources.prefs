@@ -1,0 +1,10 @@
+eclipse.preferences.version=1
+encoding//src/main/java/com/ecommerce/config/AppContext.java=UTF-8
+encoding//src/main/java/com/ecommerce/config/AppInitializer.java=UTF-8
+encoding//src/main/java/com/ecommerce/config/WebMvcConfig.java=UTF-8
+encoding//src/main/java/com/ecommerce/controller/AdminController.java=UTF-8
+encoding//src/main/java/com/ecommerce/dao/impl/ProductDAOImpl.java=UTF-8
+encoding//src/main/java/com/ecommerce/model/OrderDetailInfo.java=UTF-8
+encoding//src/main/java/com/ecommerce/model/PaginationResult.java=UTF-8
+encoding//src/main/java/com/ecommerce/util/Utils.java=UTF-8
+encoding//src/main/java/com/ecommerce/validator/ProductValidator.java=UTF-8
