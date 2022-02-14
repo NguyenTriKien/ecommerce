@@ -17,17 +17,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ecommerce.dao.AccountDAO;
-//import com.shoppingcart2.dao.OrderDAO;
+import com.ecommerce.dao.ProducerDAO;
+//import com.ecommerce.dao.OrderDAO;
 import com.ecommerce.dao.ProductDAO;
 import com.ecommerce.dao.TypeDAO;
 import com.ecommerce.entity.Account;
+import com.ecommerce.entity.Producer;
 import com.ecommerce.entity.Type;
 import com.ecommerce.model.AccountInfo;
 import com.ecommerce.model.PaginationResult;
-//import com.shoppingcart2.model.OrderDetailInfo;
-//import com.shoppingcart2.model.OrderInfo;
+//import com.ecommerce.model.OrderDetailInfo;
+//import com.ecommerce.model.OrderInfo;
 import com.ecommerce.model.ProductInfo;
-import com.ecommerce.model.TypeInfo;
 import com.ecommerce.validator.AccountInfoValidator;
 import com.ecommerce.validator.ProductValidator;
 
@@ -42,6 +43,9 @@ public class AdminController {
 	
 	@Autowired
 	private TypeDAO typeDAO;
+	
+	@Autowired
+	private ProducerDAO producerDAO;
 
 	@Autowired
 	private ProductValidator productValidator;
@@ -110,7 +114,8 @@ public class AdminController {
 
 	@RequestMapping(value = { "/product" }, method = RequestMethod.GET)
 	public String product(Model model, @RequestParam(value = "code", defaultValue = "") String code, 
-			@RequestParam(value = "type", defaultValue = "") String typeid) {
+			@RequestParam(value = "type", defaultValue = "") String typeid,
+			@RequestParam(value = "producer", defaultValue = "") String producerid) {
 		ProductInfo productInfo = null;
 		//TypeInfo typeInfo = null;
 		if (code != null && code.length() > 0) {
@@ -123,6 +128,8 @@ public class AdminController {
 		}
 		List<Type> types = typeDAO.getAllType(typeid);
 		productInfo.setTypes(types);
+		List<Producer> producers = producerDAO.getAllProducer(producerid);
+		productInfo.setProducers(producers);
 		//model.addAttribute("productForm", typeinfo);
 		model.addAttribute("productForm", productInfo);
 		return "product";

@@ -13,11 +13,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/responsive.css" />
-<script type="text/javascript">
-function getValue(){
-	document.getElementById("types1").value=document.getElementById("typelist").value;
-}
-</script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/functions.js"></script>
 </head>
 <body>
 	<jsp:include page="_header.jsp" />
@@ -56,6 +52,48 @@ function getValue(){
 							</tr>
 							
 							<tr>
+								<td>CPU *</td>
+								<td><form:input path="cpu" /></td>
+								<td style="color: red;"><form:errors path="cpu" class="error-message" /></td>
+							</tr>
+							
+							<tr>
+								<td>RAM *</td>
+								<td><form:input path="ram" /></td>
+								<td style="color: red;"><form:errors path="ram" class="error-message" /></td>
+							</tr>
+							
+							<tr>
+								<td>Screen *</td>
+								<td><form:input path="screen" /></td>
+								<td style="color: red;"><form:errors path="screen" class="error-message" /></td>
+							</tr>
+							
+							<tr>
+								<td>GPU *</td>
+								<td><form:input path="gpu" /></td>
+								<td style="color: red;"><form:errors path="gpu" class="error-message" /></td>
+							</tr>
+							
+							<tr>
+								<td>Storage *</td>
+								<td><form:input path="storage" /></td>
+								<td style="color: red;"><form:errors path="gpu" class="error-message" /></td>
+							</tr>
+							
+							<tr>
+								<td>OS *</td>
+								<td><form:input path="os" /></td>
+								<td style="color: red;"><form:errors path="os" class="error-message" /></td>
+							</tr>
+							
+							<tr>
+								<td>Quantity *</td>
+								<td><form:input path="quantity" /></td>
+								<td style="color: red;"><form:errors path="quantity" class="error-message" /></td>
+							</tr>
+							
+							<tr>
 								<td>Type *</td>
 								<td>
 								 <form:input path="type.id" id="types1" style="width:250px"/>
@@ -67,6 +105,20 @@ function getValue(){
 								  </form:select>
                                 </td>
 								<td style="color: red;"><form:errors path="type" class="error-message" /></td>
+							</tr>
+							
+							<tr>
+								<td>Producer *</td>
+								<td>
+								 <form:input path="producer.producerid" id="producers1" style="width:250px"/>
+								  <form:select path="producers" id="producerlist" multiple="" onChange="getValue2();" style="height:50px">
+								     <form:option value="">--Select Type--</form:option>
+								     <c:forEach items="${productForm.producers}" var="producer">
+								     	<form:option value="${producer.producerid}">${producer.producerid}</form:option>
+								     </c:forEach>
+								  </form:select>
+                                </td>
+								<td style="color: red;"><form:errors path="producer" class="error-message" /></td>
 							</tr>
 							
 							<tr>

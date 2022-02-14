@@ -13,8 +13,6 @@ import com.ecommerce.dao.TypeDAO;
 import com.ecommerce.entity.Type;
 import com.ecommerce.model.TypeInfo;
 
-
-
 @Repository
 @Transactional
 public class TypeDAOImpl implements TypeDAO {

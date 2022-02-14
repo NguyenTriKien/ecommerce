@@ -1,5 +1,7 @@
 function getValue(){
-	var d = document.getElementById("typelist");
-	var displaytext=d.option[d.selectedIndex].text;
-	document.getElementById("types").value=displaytext;
+	document.getElementById("types1").value=document.getElementById("typelist").value;
+}
+
+function getValue2(){
+	document.getElementById("producers1").value=document.getElementById("producerlist").value;
 }
