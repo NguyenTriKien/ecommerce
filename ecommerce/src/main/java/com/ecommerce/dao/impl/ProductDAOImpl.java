@@ -67,7 +67,10 @@ public class ProductDAOImpl implements ProductDAO {
 		if (product == null) {
 			return null;
 		}
-		ProductInfo productInfo = new ProductInfo(product.getCode(), product.getName(), product.getType() ,product.getPrice());
+		ProductInfo productInfo = new ProductInfo(product.getCode(), product.getName(),product.getCpu(),
+		                                          product.getRam(), product.getScreen(),product.getGpu(),
+		                                          product.getStorage(), product.getOs(), product.getQuantity(), 
+		                                          product.getType(), product.getProducer() ,product.getPrice());
 		return productInfo;
 	}
 
@@ -88,11 +91,15 @@ public class ProductDAOImpl implements ProductDAO {
 		}
 		product.setCode(code);
 		product.setName(productInfo.getName());
-		product.setType(productInfo.getTypes().get(0));//get(0) -->lấy phần tử đầu tiên
-		//productInfo.getTypes() là 1 mảng kiểu Type
-		//giờ e muốn lấy ra phần tử Type đầu tiên thì dùng productInfo.getTypes().get(0)
-		//thấy số 0 là phần tử đầu tiên ko? dạ có thầy
-		//sau khi lấy đc Type thì 3 set vào product.setType là xong
+		product.setCpu(productInfo.getCpu());
+		product.setRam(productInfo.getRam());
+		product.setScreen(productInfo.getScreen());
+		product.setGpu(productInfo.getGpu());
+		product.setStorage(productInfo.getStorage());
+		product.setOs(productInfo.getOs());
+		product.setQuantity(productInfo.getQuantity());
+		product.setType(productInfo.getTypes().get(0));
+		product.setProducer(productInfo.getProducers().get(0));
 		product.setPrice(productInfo.getPrice());
 
 		if (productInfo.getFileData() != null) {

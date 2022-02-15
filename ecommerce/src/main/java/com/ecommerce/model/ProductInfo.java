@@ -54,6 +54,25 @@ public class ProductInfo {
 		this.price = price;
 	}
 	
+	
+
+	public ProductInfo(String code, String name, String cpu, String ram, double screen, String gpu, String storage,
+			String os, int quantity, Type type, Producer producer, double price) {
+		super();
+		this.code = code;
+		this.name = name;
+		this.cpu = cpu;
+		this.ram = ram;
+		this.screen = screen;
+		this.gpu = gpu;
+		this.storage = storage;
+		this.os = os;
+		this.quantity = quantity;
+		this.type = type;
+		this.producer = producer;
+		this.price = price;
+	}
+
 	public ProductInfo(String code, String name, String cpu, String ram, double screen, String gpu, String storage,
 			String os, int quantity, Type type, Producer producer, double price, boolean newProduct,
 			CommonsMultipartFile fileData, List<Type> types, List<Producer> producers) {
