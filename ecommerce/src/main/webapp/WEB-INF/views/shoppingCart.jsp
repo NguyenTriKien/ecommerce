@@ -64,6 +64,7 @@
 					<div class="box" style="width: 500px; height: auto; text-align: center; margin-left: 340px; font-size: 20px">
 						<input style="border-radius: 10px; color: white; background-color: blue;" type="submit" value="Update Quantity">
 						<a style="padding-left: 20px; color: green;" class="navi-item" href="${contextPath}/shoppingCartCustomer"> Enter Customer</a>
+						<a style="padding-left: 20px; color: green;" class="navi-item" href="${contextPath}/pay">Paypal payment</a>
 						<a style="padding-left: 20px; color: blue;" class="navi-item" href="${contextPath}/productList">Continue Buy </a>
 					</div>
 				</form:form>

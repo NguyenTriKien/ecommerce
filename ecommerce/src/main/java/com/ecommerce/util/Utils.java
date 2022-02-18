@@ -29,4 +29,6 @@ public class Utils {
 	public static CartInfo getLastOrderedCartInfoInSession(HttpServletRequest request) {
 		return (CartInfo) request.getSession().getAttribute("lastOrderedCartInfo");
 	}
+	
+	
 }
