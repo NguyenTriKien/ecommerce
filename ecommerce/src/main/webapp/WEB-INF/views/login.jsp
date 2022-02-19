@@ -180,6 +180,11 @@ svg {
 				<div>
 					<input class="button" type="submit" value="Sign In">
 				</div>
+				<div>
+				    <a href="https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://localhost:8080/ecommerce/login-google&response_type=code
+    &client_id=476708859592-ssrek4ntjos4ikd8sr0i9adg2pdfmr9v.apps.googleusercontent.com&approval_prompt=force">Login With Google</a>  
+
+				</div>
 				
 			</form>
 			<span class="error-message">${error}</span>

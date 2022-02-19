@@ -39,8 +39,8 @@ public class ClientController {
 	
 
 	@RequestMapping({ "/" })
-	public String home() {
-		return "home";
+	public String login() {
+		return "login";
 	}
 	
 	@RequestMapping({"/productList"})

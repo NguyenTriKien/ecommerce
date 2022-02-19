@@ -19,6 +19,7 @@ import com.ecommerce.entity.Product;
 import com.ecommerce.model.CartInfo;
 import com.ecommerce.model.CartLineInfo;
 import com.ecommerce.model.CustomerInfo;
+import com.ecommerce.model.GooglePojo;
 import com.ecommerce.model.OrderDetailInfo;
 import com.ecommerce.model.OrderInfo;
 import com.ecommerce.model.PaginationResult;
@@ -29,6 +30,8 @@ public class OrderDAOImpl implements OrderDAO {
 
 	@Autowired
 	private ProductDAO productDAO;
+	
+	GooglePojo googlePojo;
 
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -57,7 +60,7 @@ public class OrderDAOImpl implements OrderDAO {
 
 		CustomerInfo customerInfo = cartInfo.getCustomerInfo();
 		order.setCustomerName(customerInfo.getName());
-		order.setCustomerEmail(customerInfo.getEmail());
+		order.setCustomerEmail(googlePojo.getEmail());
 		order.setCustomerPhone(customerInfo.getPhone());
 		order.setCustomerAddress(customerInfo.getAddress());
 		session.persist(order);

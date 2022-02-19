@@ -32,11 +32,13 @@
 									<td><form:input path="name"/></td>
 									<td style="color: red;"><form:errors path="name" class="error-message"/></td>
 								</tr>
-								<tr>
+								
+							    <tr>
 									<td>Email *</td>
 									<td><form:input path="email"/></td>
 									<td style="color: red;"><form:errors path="email" class="error-message"/></td>
 								</tr>
+								
 								<tr>
 									<td>Phone *</td>
 									<td><form:input path="phone"/></td>

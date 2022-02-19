@@ -2,7 +2,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com</groupId>
-  <artifactId>shoppingcart</artifactId>
+  <artifactId>ecommerce</artifactId>
   <packaging>war</packaging>
   <version>0.0.1-SNAPSHOT</version>
   <name>shoppingcart Maven Webapp</name>
@@ -55,6 +55,21 @@
 			<artifactId>standard</artifactId>
 			<version>${tld.version}</version>
 		</dependency>
+		
+		<!-- org.apache.httpcomponents -->
+	    <dependency>
+	      <groupId>org.apache.httpcomponents</groupId>
+	      <artifactId>fluent-hc</artifactId>
+	      <version>4.5.5</version>
+	    </dependency>
+	    
+	    <!-- Jackson -->
+	    <dependency>
+	      <groupId>com.fasterxml.jackson.core</groupId>
+	      <artifactId>jackson-databind</artifactId>
+	      <version>2.9.3</version>
+	    </dependency>
+	    
 		<!-- Servlet Dependency -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -69,71 +84,104 @@
 			<version>${jsp.version}</version>
 			<scope>provided</scope>
 		</dependency>
+		
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.47</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>javax.xml.bind</groupId>
 			<artifactId>jaxb-api</artifactId>
 			<version>2.3.0</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.javassist</groupId>
 			<artifactId>javassist</artifactId>
 			<version>3.25.0-GA</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 			<version>2.9.3</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
 			<version>2.9.3</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-annotations</artifactId>
 			<version>2.9.3</version>
 		</dependency>
+		
 		<!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-jpa -->
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-jpa</artifactId>
             <version>2.1.0.RELEASE</version>
         </dependency>
+        
 		<!-- http://mvnrepository.com/artifact/org.springframework.security/spring-security-web -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
 			<version>4.0.4.RELEASE</version>
 		</dependency>
+		
+        <!-- Jstl for jsp page -->
+        <!-- http://mvnrepository.com/artifact/javax.servlet/jstl -->
         <dependency>
-		    <groupId>com.paypal.sdk</groupId>
-		    <artifactId>rest-api-sdk</artifactId>
-		    <version>1.14.0</version>
+           <groupId>javax.servlet</groupId>
+           <artifactId>jstl</artifactId>
+           <version>1.2</version>
         </dependency>
+
+        <!-- Servlet API -->
+        <!-- http://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+        <dependency>
+           <groupId>javax.servlet</groupId>
+           <artifactId>javax.servlet-api</artifactId>
+           <version>3.1.0</version>
+           <scope>provided</scope>
+        </dependency>
+
+        <!-- JSP API -->
+        <!-- http://mvnrepository.com/artifact/javax.servlet.jsp/jsp-api -->
+        <dependency>
+           <groupId>javax.servlet.jsp</groupId>
+           <artifactId>jsp-api</artifactId>
+           <version>2.2</version>
+           <scope>provided</scope>
+        </dependency>
+       
 		<!-- http://mvnrepository.com/artifact/org.springframework.security/spring-security-config -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
 			<version>4.0.4.RELEASE</version>
 		</dependency>
+		
 		<!-- http://mvnrepository.com/artifact/org.springframework.security/spring-security-taglibs -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-taglibs</artifactId>
 			<version>4.0.4.RELEASE</version>
 		</dependency>
+		
 		<!-- https://mvnrepository.com/artifact/commons-validator/commons-validator -->
 		<dependency>
 			<groupId>commons-validator</groupId>
 			<artifactId>commons-validator</artifactId>
 			<version>1.7</version>
 		</dependency>
+		
 		<!-- Apache Commons FileUpload -->
 		<!-- http://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
 		<dependency>
@@ -141,12 +189,87 @@
 			<artifactId>commons-fileupload</artifactId>
 			<version>1.3.1</version>
 		</dependency>
+		
 		<!-- paypal configuration-->
 		<dependency>
 			<groupId>com.paypal.sdk</groupId>
 			<artifactId>rest-api-sdk</artifactId>
 			<version>1.4.2</version>
 		</dependency>
+		
+		<!-- http://mvnrepository.com/artifact/org.springframework.social/spring-social-config -->
+       <dependency>
+           <groupId>org.springframework.social</groupId>
+           <artifactId>spring-social-config</artifactId>
+           <version>1.1.4.RELEASE</version>
+       </dependency>
+
+       <!-- http://mvnrepository.com/artifact/org.springframework.social/spring-social-core -->
+       <dependency>
+           <groupId>org.springframework.social</groupId>
+           <artifactId>spring-social-core</artifactId>
+           <version>1.1.4.RELEASE</version>
+       </dependency>
+
+       <!-- http://mvnrepository.com/artifact/org.springframework.social/spring-social-security -->
+       <dependency>
+           <groupId>org.springframework.social</groupId>
+           <artifactId>spring-social-security</artifactId>
+           <version>1.1.4.RELEASE</version>
+       </dependency>
+
+       <!-- http://mvnrepository.com/artifact/org.springframework.social/spring-social-web -->
+       <dependency>
+           <groupId>org.springframework.social</groupId>
+           <artifactId>spring-social-web</artifactId>
+           <version>1.1.4.RELEASE</version>
+       </dependency>
+
+       <!-- http://mvnrepository.com/artifact/org.springframework.social/spring-social-facebook -->
+       <dependency>
+           <groupId>org.springframework.social</groupId>
+           <artifactId>spring-social-facebook</artifactId>
+           <version>2.0.3.RELEASE</version>
+           <exclusions>
+               <exclusion>
+                   <artifactId>spring-social-core</artifactId>
+                   <groupId>org.springframework.social</groupId>
+               </exclusion>
+               <exclusion>
+                   <artifactId>spring-social-config</artifactId>
+                   <groupId>org.springframework.social</groupId>
+               </exclusion>
+           </exclusions>
+       </dependency>
+
+       <!-- http://mvnrepository.com/artifact/org.springframework.social/spring-social-google -->
+       <dependency>
+           <groupId>org.springframework.social</groupId>
+           <artifactId>spring-social-google</artifactId>
+           <version>1.0.0.RELEASE</version>
+       </dependency>
+       
+       <!-- http://mvnrepository.com/artifact/org.springframework.social/spring-social-twitter -->
+       <dependency>
+           <groupId>org.springframework.social</groupId>
+           <artifactId>spring-social-twitter</artifactId>
+           <version>1.1.2.RELEASE</version>
+       </dependency>
+
+       <!-- http://mvnrepository.com/artifact/org.springframework.social/spring-social-linkedin -->
+       <dependency>
+           <groupId>org.springframework.social</groupId>
+           <artifactId>spring-social-linkedin</artifactId>
+           <version>1.0.2.RELEASE</version>
+       </dependency>
+
+       <!-- Email validator,... -->
+       <!-- http://mvnrepository.com/artifact/commons-validator/commons-validator -->
+       <dependency>
+            <groupId>commons-validator</groupId>
+            <artifactId>commons-validator</artifactId>
+            <version>1.5.0</version>
+       </dependency>
 	</dependencies>
 	<build>
 		<plugins>
