@@ -5,7 +5,11 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -41,6 +45,13 @@ private static final long serialVersionUID = 1L;
 	
 	@Column(name = "Customer_Phone", length = 128, nullable = false)
 	private String customerPhone;
+	
+	@Column(name = "Order_Status", length = 128, nullable = false)
+	private String orderstatus;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "USER_ID", nullable = false, foreignKey = @ForeignKey(name ="ORDER_USER_FK"),updatable = true, insertable = true)
+	private User customer;
 
 	public String getId() {
 		return id;
@@ -105,4 +116,23 @@ private static final long serialVersionUID = 1L;
 	public void setCustomerPhone(String customerPhone) {
 		this.customerPhone = customerPhone;
 	}
+
+	public String getOrderstatus() {
+		return orderstatus;
+	}
+
+	public void setOrderstatus(String orderstatus) {
+		this.orderstatus = orderstatus;
+	}
+
+	public User getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(User customer) {
+		this.customer = customer;
+	}
+	
+	
 }
+

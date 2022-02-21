@@ -29,7 +29,8 @@ public class AccountDAOImpl implements AccountDAO {
 		Query<Account> query = session.createQuery(hql);
 		query.setParameter("USERNAME", userName);
 		Account account = (Account) query.uniqueResult();
-		return account;	}
+		return account;	
+	}
 
 	public PaginationResult<AccountInfo> getAllAccountInfos(int page, int maxResult, int maxNavigationPage) {
 		Session session = sessionFactory.getCurrentSession();

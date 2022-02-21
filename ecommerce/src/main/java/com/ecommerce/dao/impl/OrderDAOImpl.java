@@ -60,7 +60,7 @@ public class OrderDAOImpl implements OrderDAO {
 
 		CustomerInfo customerInfo = cartInfo.getCustomerInfo();
 		order.setCustomerName(customerInfo.getName());
-		order.setCustomerEmail(googlePojo.getEmail());
+		order.setCustomerEmail(customerInfo.getEmail());
 		order.setCustomerPhone(customerInfo.getPhone());
 		order.setCustomerAddress(customerInfo.getAddress());
 		session.persist(order);
