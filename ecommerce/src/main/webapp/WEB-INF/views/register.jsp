@@ -9,7 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Account</title>
+<title>Register</title>
 <link rel="stylesheet" href="css/normalize.css">
 <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="css/main.css">
@@ -139,30 +139,19 @@ label.light {
 <body>
 	<jsp:include page="_header.jsp" />
 	
-	<form12:form action="${contextPath}/register" method="post"
-		modelAttribute="userForm">
-
+	<form12:form action="${pageContext.request.contextPath}/register" method="POST" modelAttribute="user">
 		<fieldset>
 			<label for="username">Username:</label>
-			 ${userForm.username} <form12:errors style="color: red;" path="username"
-			class="error-message"></form12:errors>
-			<c:if test="${not empty accountForm.username}">
-				        <form12:input type="text" id="username" path="username"/>
-				</c:if>
-				<c:if test="${empty accountForm.username}">
-						<form12:input type="text" id="username" path="username"
-				placeholder="Enter your username" />
-				</c:if>
+	          
+				<form12:input path="username"/>
+	            <form12:errors style="color: red;" path="username" class="error-message"></form12:errors>
 			<div>
 				<label for="password">Password:</label>
-				<form12:input type="text" id="password" path="password"
-					placeholder="Enter your password" />
-				<form12:errors style="color: red;" path="password"
-					class="error-message"></form12:errors>
+				<form12:input type="text" id="password" path="password" placeholder="Enter your password" />
+				<form12:errors style="color: red;" path="password" class="error-message"></form12:errors>
 			</div>
 
-			<form12:errors style="color: red;" path="userRole"
-				class="error-message"></form12:errors>
+			<form12:errors style="color: red;" path="userRole" class="error-message"></form12:errors>
 			<label for="role">User Role:</label>
 			<form12:hidden type="text" id="role" path="useRole" value="USER"/>
 			<form12:errors path="userRole" class="error-message"></form12:errors>

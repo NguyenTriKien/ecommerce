@@ -20,6 +20,8 @@ public class OrderInfo {
 	private String customerEmail;
 
 	private String customerPhone;
+	
+	private String GoogleAccount;
 
 	private List<OrderDetailInfo> orderDetailInfos;
 
@@ -35,6 +37,24 @@ public class OrderInfo {
 		this.customerEmail = customerEmail;
 		this.customerPhone = customerPhone;
 	}
+
+	public OrderInfo(String id, Date orderDate, int orderNum, double amount, String customerName,
+			String customerAddress, String customerEmail, String customerPhone, String googleAccount,
+			List<OrderDetailInfo> orderDetailInfos) {
+		super();
+		this.id = id;
+		this.orderDate = orderDate;
+		this.orderNum = orderNum;
+		this.amount = amount;
+		this.customerName = customerName;
+		this.customerAddress = customerAddress;
+		this.customerEmail = customerEmail;
+		this.customerPhone = customerPhone;
+		GoogleAccount = googleAccount;
+		this.orderDetailInfos = orderDetailInfos;
+	}
+
+
 
 	public String getId() {
 		return id;
@@ -107,4 +127,13 @@ public class OrderInfo {
 	public void setOrderDetailInfos(List<OrderDetailInfo> orderDetailInfos) {
 		this.orderDetailInfos = orderDetailInfos;
 	}
+
+	public String getGoogleAccount() {
+		return GoogleAccount;
+	}
+
+	public void setGoogleAccount(String googleAccount) {
+		GoogleAccount = googleAccount;
+	}
+	
 }

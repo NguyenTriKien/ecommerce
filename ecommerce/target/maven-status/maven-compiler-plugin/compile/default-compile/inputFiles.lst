@@ -1,22 +1,53 @@
-D:\Final Project\finalproject\ecommerce\src\main\java\com\ecommerce\config\WebSecurityConfig.java
-D:\Final Project\finalproject\ecommerce\src\main\java\com\ecommerce\controller\AdminController.java
-D:\Final Project\finalproject\ecommerce\src\main\java\com\ecommerce\model\TypeInfo.java
-D:\Final Project\finalproject\ecommerce\src\main\java\com\ecommerce\config\AppInitializer.java
-D:\Final Project\finalproject\ecommerce\src\main\java\com\ecommerce\entity\Product.java
-D:\Final Project\finalproject\ecommerce\src\main\java\com\ecommerce\dao\impl\TypeDAOImpl.java
-D:\Final Project\finalproject\ecommerce\src\main\java\com\ecommerce\dao\impl\AccountDAOImpl.java
-D:\Final Project\finalproject\ecommerce\src\main\java\com\ecommerce\model\PaginationResult.java
-D:\Final Project\finalproject\ecommerce\src\main\java\com\ecommerce\config\AppContext.java
-D:\Final Project\finalproject\ecommerce\src\main\java\com\ecommerce\config\WebMvcConfig.java
-D:\Final Project\finalproject\ecommerce\src\main\java\com\ecommerce\dao\AccountDAO.java
-D:\Final Project\finalproject\ecommerce\src\main\java\com\ecommerce\model\CustomerInfo.java
-D:\Final Project\finalproject\ecommerce\src\main\java\com\ecommerce\dao\ProductDAO.java
-D:\Final Project\finalproject\ecommerce\src\main\java\com\ecommerce\authentication\MyDBAuthenticationService.java
-D:\Final Project\finalproject\ecommerce\src\main\java\com\ecommerce\model\AccountInfo.java
-D:\Final Project\finalproject\ecommerce\src\main\java\com\ecommerce\config\SpringSecurityInitializer.java
-D:\Final Project\finalproject\ecommerce\src\main\java\com\ecommerce\model\ProductInfo.java
-D:\Final Project\finalproject\ecommerce\src\main\java\com\ecommerce\dao\TypeDAO.java
-D:\Final Project\finalproject\ecommerce\src\main\java\com\ecommerce\dao\impl\ProductDAOImpl.java
-D:\Final Project\finalproject\ecommerce\src\main\java\com\ecommerce\validator\AccountInfoValidator.java
-D:\Final Project\finalproject\ecommerce\src\main\java\com\ecommerce\entity\Type.java
-D:\Final Project\finalproject\ecommerce\src\main\java\com\ecommerce\entity\Account.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\dao\impl\ProducerDAOImpl.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\entity\Producer.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\model\OrderInfo.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\model\PaginationResult.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\dao\UserDAO.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\entity\Product.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\entity\Type.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\config\PaypalPaymentMethod.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\dao\TypeDAO.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\entity\Account.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\model\ProducerInfo.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\model\CustomerInfo.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\util\Utils.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\dao\impl\OrderDAOImpl.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\entity\Payment.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\model\TypeInfo.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\config\AppContext.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\model\ProductInfo.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\controller\PaymentController.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\dao\impl\ProductDAOImpl.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\entity\Order.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\authentication\MyDBAuthenticationService.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\controller\ClientController.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\util\GoogleUtils.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\model\CartInfo.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\dao\impl\UserDAOImpl.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\dao\impl\AccountDAOImpl.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\util\Util.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\validator\UserInfoValidator.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\dao\ProductDAO.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\config\PaypalConfig.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\model\OrderDetailInfo.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\controller\GoogleLoginController.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\dao\impl\TypeDAOImpl.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\entity\User.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\config\WebSecurityConfig.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\model\CartLineInfo.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\entity\OrderDetail.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\config\WebMvcConfig.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\service\PaypalService.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\config\SpringSecurityInitializer.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\validator\AccountInfoValidator.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\config\AppInitializer.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\dao\OrderDAO.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\config\PaypalPaymentIntent.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\model\UserInfo.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\validator\CustomerInfoValidator.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\dao\ProducerDAO.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\validator\ProductValidator.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\dao\AccountDAO.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\model\AccountInfo.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\model\GooglePojo.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\controller\AdminController.java

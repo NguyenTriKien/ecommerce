@@ -17,6 +17,8 @@ public interface OrderDAO {
 	public Order getOrderById(String orderId);
 
 	public OrderInfo getOrderInfoById(String orderId);
+	
+	public Order getOrderByGoogleId(String GoogleAccount);
 
 	public List<OrderDetailInfo> getAllDetailInfos(String orderId);
 }

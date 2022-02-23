@@ -14,7 +14,7 @@
 
 </head>
 <body>
-	<jsp:include page="_header.jsp" />
+	<jsp:include page="userHeader.jsp" />
 	
 	<section class="u-align-center u-clearfix u-palette-3-base u-section-1" id="carousel_2870">
 		<div class="u-clearfix u-sheet u-sheet-1">

@@ -11,8 +11,6 @@ import com.ecommerce.entity.Account;
 import com.ecommerce.model.AccountInfo;
 import com.ecommerce.model.CustomerInfo;
 
-
-
 @Component
 public class AccountInfoValidator implements Validator{
 	

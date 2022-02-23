@@ -23,6 +23,7 @@ import com.ecommerce.model.GooglePojo;
 import com.ecommerce.model.OrderDetailInfo;
 import com.ecommerce.model.OrderInfo;
 import com.ecommerce.model.PaginationResult;
+import com.ecommerce.util.GoogleUtils;
 
 @Repository
 @Transactional
@@ -31,8 +32,8 @@ public class OrderDAOImpl implements OrderDAO {
 	@Autowired
 	private ProductDAO productDAO;
 	
-	GooglePojo googlePojo;
-
+	GoogleUtils googleUtils = new GoogleUtils();
+    
 	@Autowired
 	private SessionFactory sessionFactory;
 
@@ -57,7 +58,7 @@ public class OrderDAOImpl implements OrderDAO {
 		order.setOrderNum(orderNum);
 		order.setOrderDate(new Date());
 		order.setAmount(cartInfo.getAmountTotal());
-
+		
 		CustomerInfo customerInfo = cartInfo.getCustomerInfo();
 		order.setCustomerName(customerInfo.getName());
 		order.setCustomerEmail(customerInfo.getEmail());
@@ -125,7 +126,17 @@ public class OrderDAOImpl implements OrderDAO {
 		Query<Order> query = session.createQuery(hql);
 		query.setParameter("ORDERID", orderId);
 		Order order = (Order) query.uniqueResult();
+		return order;
+	}
 
+	@Override
+	public Order getOrderByGoogleId(String GoogleAccount) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "SELECT ORD FROM Order ORD WHERE ORD.GoogleAccount = :ORDERGID";
+		Query<Order> query = session.createQuery(hql);
+		query.setParameter("ORDERGID", GoogleAccount);
+		Order order = (Order) query.uniqueResult();
 		return order;
 	}
 

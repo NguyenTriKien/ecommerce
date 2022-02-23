@@ -16,7 +16,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/responsive.css" />
 </head>
 <body>
-	<jsp:include page="_header.jsp" />
+	<jsp:include page="userHeader.jsp" />
 	<fmt:setLocale value="en_US" scope="session" />
 	
 	<section class="shop_section layout_padding">

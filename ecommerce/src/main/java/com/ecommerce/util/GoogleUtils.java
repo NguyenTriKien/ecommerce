@@ -12,19 +12,22 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import com.ecommerce.dao.GoogleAccountDAO;
+import com.ecommerce.entity.Order;
 import com.ecommerce.model.GooglePojo;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Component
 public class GoogleUtils {
-
 	  public static String GOOGLE_CLIENT_ID = "476708859592-ssrek4ntjos4ikd8sr0i9adg2pdfmr9v.apps.googleusercontent.com";
 	  public static String GOOGLE_CLIENT_SECRET = "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";
 	  public static String GOOGLE_REDIRECT_URI = "http://localhost:8080/ecommerce/login-google";
 	  public static String GOOGLE_LINK_GET_TOKEN = "https://accounts.google.com/o/oauth2/token";
 	  public static String GOOGLE_LINK_GET_USER_INFO = "https://www.googleapis.com/oauth2/v1/userinfo?access_token=";
 	  public static String GOOGLE_GRANT_TYPE = "authorization_code";
+	  
+	 
 	  
 	  public String getToken(final String code) throws ClientProtocolException, IOException {
 	    String response = Request.Post(GOOGLE_LINK_GET_TOKEN)
@@ -44,7 +47,6 @@ public class GoogleUtils {
 	    ObjectMapper mapper = new ObjectMapper();
 	    GooglePojo googlePojo = mapper.readValue(response, GooglePojo.class);
 	    System.out.println(googlePojo.getId());
-	    System.out.println(googlePojo);
 	    return googlePojo;
 	  }
 	  

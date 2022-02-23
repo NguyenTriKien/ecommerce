@@ -30,9 +30,6 @@
 					<li class="nav-item">
 						<a class="nav-link" href="${contextPath}/productList">Product List</a>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="${contextPath}/shoppingCart">My Cart</a>
-					</li>
 					<security:authorize access="hasAnyRole('ROLE_MANAGER','ROLE_EMPLOYEE')">
 					<li class="nav-item">
 						<a class="nav-link" href="${contextPath}/orderList">Order List</a>
@@ -51,7 +48,7 @@
 				</ul>
 				<div class="user_option-box" style="padding-bottom: 10px;">
 					<c:if test="${name != null}">
-						Hello <a href="${contextPath }/accountInfo">${name }</a>
+						Hello <a href="${contextPath }/accountInfo">${name}</a>
 					&nbsp; &nbsp;
 					<a href="${contextPath }/logout">Logout</a>
 					</c:if>

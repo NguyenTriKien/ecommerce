@@ -15,6 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ecommerce.dao.GoogleAccountDAO;
+import com.ecommerce.entity.GoogleAccount;
 import com.ecommerce.model.GooglePojo;
 import com.ecommerce.util.GoogleUtils;
 
@@ -23,6 +25,11 @@ public class GoogleLoginController {
 
 	  @Autowired
 	  private GoogleUtils googleUtils;
+	  
+	  @Autowired
+	  private GoogleAccountDAO googleaccoutdao;
+	  
+	  private GoogleAccount gooleaccount;
 	  
 	    @RequestMapping(value = {"/login" })
 	    public String login(@RequestParam(required = false) String message, final Model model) {
@@ -50,6 +57,7 @@ public class GoogleLoginController {
 	    String accessToken = googleUtils.getToken(code);
 	    
 	    GooglePojo googlePojo = googleUtils.getUserInfo(accessToken);
+	    googleaccoutdao.saveGoogleAccount(googlePojo);
 	    UserDetails userDetail = googleUtils.buildUser(googlePojo);
 	    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetail, null,
 	        userDetail.getAuthorities());

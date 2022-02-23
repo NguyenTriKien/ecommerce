@@ -7,6 +7,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ecommerce.dao.UserDAO;
 import com.ecommerce.entity.User;
@@ -14,6 +16,8 @@ import com.ecommerce.model.OrderInfo;
 import com.ecommerce.model.PaginationResult;
 import com.ecommerce.model.UserInfo;
 
+@Repository
+@Transactional
 public class UserDAOImpl implements UserDAO{
 
 	@Autowired
@@ -34,14 +38,14 @@ public class UserDAOImpl implements UserDAO{
 	
 	public User getUserByName(String username) {
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "SELECT USER FROM USER User WHERE USER.username = :USERNAME";
+		String hql = "SELECT USER FROM User USER WHERE USER.username = :USERNAME";
 		Query<User> query = session.createQuery(hql);
 		query.setParameter("USERNAME", username);
 		User user = (User) query.uniqueResult();
 		return user;	
 	}
 
-	public void SaveUserInfo(UserInfo userInfo) {
+	public void saveUserInfo(UserInfo userInfo) {
 		Session session = sessionFactory.getCurrentSession();
 		String username = userInfo.getUsername();
 		User user = null;

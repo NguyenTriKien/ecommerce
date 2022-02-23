@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,13 +18,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ecommerce.dao.OrderDAO;
 import com.ecommerce.dao.ProductDAO;
+import com.ecommerce.dao.UserDAO;
 import com.ecommerce.entity.Product;
+import com.ecommerce.entity.User;
 import com.ecommerce.model.CartInfo;
 import com.ecommerce.model.CustomerInfo;
 import com.ecommerce.model.PaginationResult;
 import com.ecommerce.model.ProductInfo;
+import com.ecommerce.model.UserInfo;
 import com.ecommerce.util.Utils;
 import com.ecommerce.validator.CustomerInfoValidator;
+import com.ecommerce.validator.UserInfoValidator;
 
 @Controller
 public class ClientController {
@@ -35,7 +40,13 @@ public class ClientController {
 	private OrderDAO orderDAO;
 	
 	@Autowired
+	private UserDAO userDAO;
+	
+	@Autowired
 	private CustomerInfoValidator customerInfoValidator;
+	
+	@Autowired
+	private UserInfoValidator userInfoValidator;
 	
 
 	@RequestMapping({ "/" })
@@ -201,4 +212,35 @@ public class ClientController {
 		}
 		return "shoppingCartFinalize";
 	}
+	
+	/*@RequestMapping(value = "/register", method = RequestMethod.GET)
+	public String register(Model model, @RequestParam(value = "userid", defaultValue = "") String userid) {
+		User user = null;
+		if(userid != null) {
+			user = userDAO.getUserById(userid);
+		}
+		if(userid == null) {
+			user = new User();
+		}
+		model.addAttribute("user", user);
+		return "register";
+		
+	}
+	
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public String registerSave(Model model, @ModelAttribute("user") UserInfo userInfo, 
+			BindingResult result) {
+		userInfoValidator.validate(userInfo, result);
+		
+		if(result.hasErrors()) {
+			return "register";
+		}try {
+			userDAO.saveUserInfo(userInfo);
+		}catch(Exception e) {
+			model.addAttribute("errorMessage", e.getMessage());
+			return "register";
+		}
+		return "redirect:/login";
+		
+	}*/
 }

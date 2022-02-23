@@ -20,7 +20,7 @@ public class UserInfo {
 		this.password = password;
 		this.userRole = userRole;
 	}
-	
+
 	public UserInfo(User user) {
 		this.userid = user.getUserid();
 		this.username = user.getUsername();
