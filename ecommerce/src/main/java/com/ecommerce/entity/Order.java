@@ -49,8 +49,9 @@ private static final long serialVersionUID = 1L;
 	@Column(name = "Order_Status", length = 128, nullable = false)
 	private String orderstatus;
 	
-	@Column(name = "GoogleAccount", length = 255, nullable = false)
-	private String GoogleAccount;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "GoogleEmail", foreignKey = @ForeignKey(name = "ORDER_GMAIL_FK"), updatable = true, insertable = true )
+	private GoogleAccount gmail;
 	
 	/*@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "USER_ID", nullable = false, foreignKey = @ForeignKey(name ="ORDER_USER_FK"),updatable = true, insertable = true)
@@ -128,6 +129,14 @@ private static final long serialVersionUID = 1L;
 		this.orderstatus = orderstatus;
 	}
 
+	public GoogleAccount getGmail() {
+		return gmail;
+	}
+
+	public void setGmail(GoogleAccount gmail) {
+		this.gmail = gmail;
+	}
+
 	/*public User getUser() {
 		return user;
 	}
@@ -140,9 +149,11 @@ private static final long serialVersionUID = 1L;
 		return GoogleAccount;
 	}*/
 
-	public void setGoogleAccount(String googleAccount) {
+	/*public void setGoogleAccount(String googleAccount) {
 		GoogleAccount = googleAccount;
-	}
+	}*/
+	
+	
 	
 	
 }
