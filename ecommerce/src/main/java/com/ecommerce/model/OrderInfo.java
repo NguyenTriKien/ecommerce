@@ -3,6 +3,9 @@ package com.ecommerce.model;
 import java.util.Date;
 import java.util.List;
 
+import com.ecommerce.entity.GoogleAccount;
+import com.ecommerce.entity.Order;
+
 public class OrderInfo {
  
 	private String id;
@@ -21,12 +24,15 @@ public class OrderInfo {
 
 	private String customerPhone;
 	
-	private String GoogleAccount;
+	private String orderstatus;
+	
+	private GoogleAccount gmail;
 
 	private List<OrderDetailInfo> orderDetailInfos;
 
 	public OrderInfo(String id, Date orderDate, int orderNum, double amount, String customerName,
-			String customerAddress, String customerEmail, String customerPhone) {
+			String customerAddress, String customerEmail, String customerPhone, String orderstatus,
+			GoogleAccount gmail) {
 		super();
 		this.id = id;
 		this.orderDate = orderDate;
@@ -36,25 +42,9 @@ public class OrderInfo {
 		this.customerAddress = customerAddress;
 		this.customerEmail = customerEmail;
 		this.customerPhone = customerPhone;
+		this.orderstatus = orderstatus;
+		this.gmail = gmail;
 	}
-
-	public OrderInfo(String id, Date orderDate, int orderNum, double amount, String customerName,
-			String customerAddress, String customerEmail, String customerPhone, String googleAccount,
-			List<OrderDetailInfo> orderDetailInfos) {
-		super();
-		this.id = id;
-		this.orderDate = orderDate;
-		this.orderNum = orderNum;
-		this.amount = amount;
-		this.customerName = customerName;
-		this.customerAddress = customerAddress;
-		this.customerEmail = customerEmail;
-		this.customerPhone = customerPhone;
-		GoogleAccount = googleAccount;
-		this.orderDetailInfos = orderDetailInfos;
-	}
-
-
 
 	public String getId() {
 		return id;
@@ -128,12 +118,20 @@ public class OrderInfo {
 		this.orderDetailInfos = orderDetailInfos;
 	}
 
-	public String getGoogleAccount() {
-		return GoogleAccount;
+	public GoogleAccount getGmail() {
+		return gmail;
 	}
 
-	public void setGoogleAccount(String googleAccount) {
-		GoogleAccount = googleAccount;
+	public void setGmail(GoogleAccount gmail) {
+		this.gmail = gmail;
+	}
+
+	public String getOrderstatus() {
+		return orderstatus;
+	}
+
+	public void setOrderstatus(String orderstatus) {
+		this.orderstatus = orderstatus;
 	}
 	
 }

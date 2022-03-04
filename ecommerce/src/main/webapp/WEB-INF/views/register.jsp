@@ -153,7 +153,7 @@ label.light {
 
 			<form12:errors style="color: red;" path="userRole" class="error-message"></form12:errors>
 			<label for="role">User Role:</label>
-			<form12:hidden type="text" id="role" path="useRole" value="USER"/>
+			<form12:hidden id="role" path="userRole" value="USER"/>
 			<form12:errors path="userRole" class="error-message"></form12:errors>
 
 		</fieldset>

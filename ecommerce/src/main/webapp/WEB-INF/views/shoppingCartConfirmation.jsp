@@ -10,7 +10,6 @@
 <meta charset="ISO-8859-1">
 <title>Shopping Cart Conformation</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/responsive.css" />
 </head>
 <body>

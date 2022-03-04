@@ -11,6 +11,8 @@ import javax.persistence.Table;
 @Table(name = "GoogleAccount")
 public class GoogleAccount implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@Column(name = "email", length=255, nullable=false)
 	String email;

@@ -3,6 +3,7 @@ encoding//src/main/java/com/ecommerce/config/AppContext.java=UTF-8
 encoding//src/main/java/com/ecommerce/config/AppInitializer.java=UTF-8
 encoding//src/main/java/com/ecommerce/config/WebMvcConfig.java=UTF-8
 encoding//src/main/java/com/ecommerce/controller/AdminController.java=UTF-8
+encoding//src/main/java/com/ecommerce/controller/ClientController.java=UTF-8
 encoding//src/main/java/com/ecommerce/dao/impl/ProductDAOImpl.java=UTF-8
 encoding//src/main/java/com/ecommerce/model/OrderDetailInfo.java=UTF-8
 encoding//src/main/java/com/ecommerce/model/PaginationResult.java=UTF-8

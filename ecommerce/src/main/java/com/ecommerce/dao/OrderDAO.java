@@ -12,13 +12,19 @@ public interface OrderDAO {
 
 	public void saveOrder(CartInfo cartInfo);
 
-	public PaginationResult<OrderInfo> getAllOrderInfos(int page, int maxResult, int maxNavigationPage);
+	public PaginationResult<OrderInfo> getAllOrderInfos(int page, int maxResult, int maxNavigationPage, String gmail);
 
 	public Order getOrderById(String orderId);
 
 	public OrderInfo getOrderInfoById(String orderId);
 	
+	public OrderInfo getOrderInfoByGoogleId(String gmail);
+	
 	public Order getOrderByGoogleId(String GoogleAccount);
 
 	public List<OrderDetailInfo> getAllDetailInfos(String orderId);
+	
+	
+	
+	
 }

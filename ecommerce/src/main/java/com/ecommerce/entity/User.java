@@ -7,17 +7,18 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+@Entity
+@Table(name = "User")
+public class User implements Serializable {
 
-public class User  implements Serializable {
-	
 	private static final long serialVersionUID = 1L;
-	
+
 	public static final String ROLE_USER = "USER";
-	
+
 	@Id
 	@Column(name = "UserId", length = 255, nullable = false)
 	private String userid;
-	
+
 	@Column(name = "User_Name", length = 255, nullable = false)
 	private String username;
 
@@ -59,5 +60,4 @@ public class User  implements Serializable {
 		this.userRole = userRole;
 	}
 
-	
 }

@@ -10,8 +10,8 @@ com\ecommerce\model\AccountInfo.class
 com\ecommerce\validator\UserInfoValidator.class
 com\ecommerce\config\AppInitializer.class
 com\ecommerce\dao\impl\UserDAOImpl.class
-com\ecommerce\service\PaypalService.class
 com\ecommerce\entity\Payment.class
+com\ecommerce\dao\impl\GoogleAccountDAOImpl.class
 com\ecommerce\dao\OrderDAO.class
 com\ecommerce\model\GooglePojo.class
 com\ecommerce\config\SpringSecurityInitializer.class
@@ -29,12 +29,14 @@ com\ecommerce\config\PaypalPaymentIntent.class
 com\ecommerce\dao\impl\OrderDAOImpl.class
 com\ecommerce\dao\TypeDAO.class
 com\ecommerce\entity\Product.class
+com\ecommerce\dao\GoogleAccountDAO.class
 com\ecommerce\dao\impl\ProducerDAOImpl.class
 com\ecommerce\util\GoogleUtils.class
 com\ecommerce\dao\AccountDAO.class
 com\ecommerce\model\CustomerInfo.class
 com\ecommerce\config\WebSecurityConfig.class
 com\ecommerce\entity\OrderDetail.class
+com\ecommerce\entity\GoogleAccount.class
 com\ecommerce\model\TypeInfo.class
 com\ecommerce\dao\impl\AccountDAOImpl.class
 com\ecommerce\dao\ProductDAO.class
@@ -44,7 +46,6 @@ com\ecommerce\entity\Type.class
 com\ecommerce\model\UserInfo.class
 com\ecommerce\controller\AdminController.class
 com\ecommerce\dao\impl\TypeDAOImpl.class
-com\ecommerce\controller\PaymentController.class
 com\ecommerce\model\OrderInfo.class
 com\ecommerce\config\AppContext.class
 com\ecommerce\dao\impl\ProductDAOImpl.class

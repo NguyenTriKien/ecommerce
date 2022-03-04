@@ -1,12 +1,15 @@
 package com.ecommerce.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,13 +19,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ecommerce.dao.GoogleAccountDAO;
 import com.ecommerce.dao.OrderDAO;
 import com.ecommerce.dao.ProductDAO;
 import com.ecommerce.dao.UserDAO;
+import com.ecommerce.entity.Account;
+import com.ecommerce.entity.GoogleAccount;
+import com.ecommerce.entity.Order;
 import com.ecommerce.entity.Product;
 import com.ecommerce.entity.User;
+import com.ecommerce.model.AccountInfo;
 import com.ecommerce.model.CartInfo;
 import com.ecommerce.model.CustomerInfo;
+import com.ecommerce.model.OrderDetailInfo;
+import com.ecommerce.model.OrderInfo;
 import com.ecommerce.model.PaginationResult;
 import com.ecommerce.model.ProductInfo;
 import com.ecommerce.model.UserInfo;
@@ -48,10 +58,13 @@ public class ClientController {
 	@Autowired
 	private UserInfoValidator userInfoValidator;
 	
+	@Autowired
+	private GoogleAccountDAO gmailDAO;
+	
 
 	@RequestMapping({ "/" })
-	public String login() {
-		return "login";
+	public String home() {
+		return "home";
 	}
 	
 	@RequestMapping({"/productList"})
@@ -61,7 +74,7 @@ public class ClientController {
 		final int maxNavigationPage = 10;
 		PaginationResult<ProductInfo> productInfos = productDAO.getAllProductInfos(page, maxResult, maxNavigationPage, likeName);
 		
-		model.addAttribute("paginationProductInfos",productInfos);
+		model.addAttribute("paginationProductInfos", productInfos);
 		return "productList";
 	}
 	
@@ -181,7 +194,6 @@ public class ClientController {
 	@RequestMapping(value = {"/shoppingCartConfirmation"}, method = RequestMethod.POST)
 	public String shoppingCartConfirmationSave(HttpServletRequest request,  Model model) {
 		CartInfo cartInfo = Utils.getCartInfoInSession(request);
-		
 		if(cartInfo.isEmpty()) {
 
 			return "redirect:/shoppingCart";
@@ -213,13 +225,55 @@ public class ClientController {
 		return "shoppingCartFinalize";
 	}
 	
-	/*@RequestMapping(value = "/register", method = RequestMethod.GET)
+	//http://localhost:8080/ecommerce/myOrder?gmail=www@gmail.com
+	@RequestMapping(value = { "/myOrder" }, method = RequestMethod.GET)
+	public String orderView(Model model, @RequestParam("orderId") String orderId) {
+		OrderInfo orderInfo = null;
+		//Order order;
+		if (orderId != null) {
+			orderInfo = orderDAO.getOrderInfoById(orderId);
+			//nhớ chuyển hàm getOrderById trong getOrderInfoById thành getOrderByGoogleId
+		}
+		if (orderInfo == null) {
+			return "myOrderList";
+		}
+		List<OrderDetailInfo> orderDetailInfos = orderDAO.getAllDetailInfos(orderId);
+		orderInfo.setOrderDetailInfos(orderDetailInfos);
+		model.addAttribute("orderInfo", orderInfo);
+		return "myOrder";
+	}
+	
+	@RequestMapping(value = { "/myOrderList" }, method = RequestMethod.GET)
+	public String orderList(Model model, @RequestParam(value = "page", defaultValue = "1") String pageStr,
+			 @RequestParam("gmail") String gmail) {
+		// đặt thêm điều kiện cho phân trang cho orderlist
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = authentication.getName();
+		
+		int page = 1;
+		try {
+			page = Integer.parseInt(pageStr);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		final int MAX_RESULT = 5;
+		final int MAX_NAVIGATION_PAGE = 10;
+		if(gmail.equals(currentPrincipalName)) {
+			PaginationResult<OrderInfo> paginationOrderInfos = orderDAO.getAllOrderInfos(page, MAX_RESULT,
+					MAX_NAVIGATION_PAGE, gmail);
+			model.addAttribute("paginationOrderInfos", paginationOrderInfos);
+		}
+		return "myOrderList";
+	}
+	
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String register(Model model, @RequestParam(value = "userid", defaultValue = "") String userid) {
 		User user = null;
 		if(userid != null) {
 			user = userDAO.getUserById(userid);
 		}
-		if(userid == null) {
+		if(userid.isEmpty()) {
 			user = new User();
 		}
 		model.addAttribute("user", user);
@@ -242,5 +296,5 @@ public class ClientController {
 		}
 		return "redirect:/login";
 		
-	}*/
+	}
 }

@@ -8,14 +8,20 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ecommerce.dao.GoogleAccountDAO;
 import com.ecommerce.dao.OrderDAO;
 import com.ecommerce.dao.ProductDAO;
+import com.ecommerce.entity.GoogleAccount;
 import com.ecommerce.entity.Order;
 import com.ecommerce.entity.OrderDetail;
 import com.ecommerce.entity.Product;
+import com.ecommerce.entity.Type;
+import com.ecommerce.model.AccountInfo;
 import com.ecommerce.model.CartInfo;
 import com.ecommerce.model.CartLineInfo;
 import com.ecommerce.model.CustomerInfo;
@@ -32,8 +38,11 @@ public class OrderDAOImpl implements OrderDAO {
 	@Autowired
 	private ProductDAO productDAO;
 	
-	GoogleUtils googleUtils = new GoogleUtils();
-    
+	@Autowired
+	private GoogleAccountDAO gmailDAO;
+	
+	
+	
 	@Autowired
 	private SessionFactory sessionFactory;
 
@@ -51,13 +60,17 @@ public class OrderDAOImpl implements OrderDAO {
 	@Override
 	public void saveOrder(CartInfo cartInfo) {
 		Session session = sessionFactory.getCurrentSession();
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = authentication.getName();
+		GoogleAccount gmail = gmailDAO.getGoogleAccountByEmail(currentPrincipalName);
 		int orderNum = getMaxOrderNum() + 1;
-
 		Order order = new Order();
 		order.setId(UUID.randomUUID().toString());
 		order.setOrderNum(orderNum);
 		order.setOrderDate(new Date());
 		order.setAmount(cartInfo.getAmountTotal());
+		order.setGmail(gmail);
+		order.setOrderstatus("SHIPPING");
 		
 		CustomerInfo customerInfo = cartInfo.getCustomerInfo();
 		order.setCustomerName(customerInfo.getName());
@@ -85,12 +98,19 @@ public class OrderDAOImpl implements OrderDAO {
 	}
 
 	@Override
-	public PaginationResult<OrderInfo> getAllOrderInfos(int page, int maxResult, int maxNavigationPage) {
+	public PaginationResult<OrderInfo> getAllOrderInfos(int page, int maxResult, int maxNavigationPage, String gmail) {
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "SELECT NEW " + OrderInfo.class.getName()
-				+ " (ORD.id, ORD.orderDate, ORD.orderNum, ORD.amount, ORD.customerName, ORD.customerAddress, "
-				+ "ORD.customerEmail, ORD.customerPhone) FROM Order ORD ORDER BY ORD.orderNum DESC";
+		String hql = "SELECT NEW " + OrderInfo.class.getName() + "(ORD.id, ORD.orderDate, ORD.orderNum, ORD.amount, ORD.customerName, ORD.customerAddress, ORD.customerEmail,"
+				+ " ORD.customerPhone, ORD.orderstatus, ORD.gmail) FROM Order ORD";
+		if(gmail != null && gmail.length() > 0) {
+			hql+= " WHERE (ORD.gmail.email) like :GMAIL ";
+		}
+		hql += "ORDER BY ORD.gmail.email DESC";
 		Query<OrderInfo> query = session.createQuery(hql);
+		if(gmail != null && gmail.length() > 0) {
+			query.setParameter("GMAIL","%");
+		}
+		List<OrderInfo> orderInfos = query.list();
 		return new PaginationResult<OrderInfo>(query, page, maxResult, maxNavigationPage);
 	}
 
@@ -102,8 +122,8 @@ public class OrderDAOImpl implements OrderDAO {
 		}
 
 		OrderInfo orderInfo = new OrderInfo(order.getId(), order.getOrderDate(), getMaxOrderNum(), order.getAmount(),
-				order.getCustomerName(), order.getCustomerAddress(), order.getCustomerEmail(),
-				order.getCustomerPhone());
+				order.getCustomerName(), order.getCustomerAddress(), order.getCustomerEmail(), order.getCustomerPhone(),
+				order.getOrderstatus(), order.getGmail());
 		return orderInfo;
 	}
 
@@ -130,14 +150,29 @@ public class OrderDAOImpl implements OrderDAO {
 	}
 
 	@Override
-	public Order getOrderByGoogleId(String GoogleAccount) {
+	public Order getOrderByGoogleId(String gmail) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "SELECT ORD FROM Order ORD WHERE ORD.GoogleAccount = :ORDERGID";
+		String hql = "SELECT ORD FROM Order ORD WHERE ORD.gmail.email = :ORDERGID";
 		Query<Order> query = session.createQuery(hql);
-		query.setParameter("ORDERGID", GoogleAccount);
+		query.setParameter("ORDERGID", gmail);
 		Order order = (Order) query.uniqueResult();
 		return order;
 	}
+
+	@Override
+	public OrderInfo getOrderInfoByGoogleId(String gmail) {
+		Order order = getOrderByGoogleId(gmail);
+		if (order == null) {
+			return null;
+		}
+
+		OrderInfo orderInfo = new OrderInfo(order.getId(), order.getOrderDate(),order.getOrderNum(),order.getAmount(),
+				order.getCustomerName(), order.getCustomerAddress(), order.getCustomerEmail(),
+				order.getCustomerPhone(), order.getOrderstatus(), order.getGmail());
+		return orderInfo;
+	}
+
+
 
 }

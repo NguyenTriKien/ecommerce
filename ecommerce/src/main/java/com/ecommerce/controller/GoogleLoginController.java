@@ -61,7 +61,7 @@ public class GoogleLoginController {
 	    UserDetails userDetail = googleUtils.buildUser(googlePojo);
 	    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetail, null,
 	        userDetail.getAuthorities());
-	    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+	    //authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 	    SecurityContextHolder.getContext().setAuthentication(authentication);
 	    return "redirect:/home";
 	  }

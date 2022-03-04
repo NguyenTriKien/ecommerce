@@ -26,7 +26,7 @@ public class UserDAOImpl implements UserDAO{
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-	
+	@Override
 	public User getUserById(String userId) {
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "SELECT USER FROM User USER WHERE USER.userid = :USERID";
@@ -36,6 +36,7 @@ public class UserDAOImpl implements UserDAO{
 		return user;
 	}
 	
+	@Override
 	public User getUserByName(String username) {
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "SELECT USER FROM User USER WHERE USER.username = :USERNAME";
@@ -45,6 +46,7 @@ public class UserDAOImpl implements UserDAO{
 		return user;	
 	}
 
+	@Override
 	public void saveUserInfo(UserInfo userInfo) {
 		Session session = sessionFactory.getCurrentSession();
 		String username = userInfo.getUsername();

@@ -25,13 +25,16 @@
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav">
 					<li class="nav-item active">
-						<a class="nav-link" href="${contextPath}/">Home</a>
+						<a class="nav-link" href="${contextPath}/home">Home</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="${contextPath}/productList">Product List</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="${contextPath}/shoppingCart">My Cart</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="${contextPath}/myOrderList?gmail=${name}">My Order</a>
 					</li>
 					<security:authorize access="hasAnyRole('ROLE_MANAGER','ROLE_EMPLOYEE')">
 					<li class="nav-item">
