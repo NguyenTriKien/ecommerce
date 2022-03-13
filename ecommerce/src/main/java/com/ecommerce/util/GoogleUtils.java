@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import com.ecommerce.dao.GoogleAccountDAO;
+import com.ecommerce.dao.UserAccountDAO;
 import com.ecommerce.entity.Order;
 import com.ecommerce.model.GooglePojo;
 import com.fasterxml.jackson.databind.JsonNode;

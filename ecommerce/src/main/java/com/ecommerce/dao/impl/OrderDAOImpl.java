@@ -13,10 +13,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ecommerce.dao.GoogleAccountDAO;
+import com.ecommerce.dao.UserAccountDAO;
 import com.ecommerce.dao.OrderDAO;
 import com.ecommerce.dao.ProductDAO;
-import com.ecommerce.entity.GoogleAccount;
+import com.ecommerce.entity.UserAccount;
 import com.ecommerce.entity.Order;
 import com.ecommerce.entity.OrderDetail;
 import com.ecommerce.entity.Product;
@@ -39,7 +39,7 @@ public class OrderDAOImpl implements OrderDAO {
 	private ProductDAO productDAO;
 	
 	@Autowired
-	private GoogleAccountDAO gmailDAO;
+	private UserAccountDAO userAccountDAO;
 	
 	
 	
@@ -62,14 +62,14 @@ public class OrderDAOImpl implements OrderDAO {
 		Session session = sessionFactory.getCurrentSession();
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String currentPrincipalName = authentication.getName();
-		GoogleAccount gmail = gmailDAO.getGoogleAccountByEmail(currentPrincipalName);
+		UserAccount userAccount = userAccountDAO.getAccountByUsername(currentPrincipalName);
 		int orderNum = getMaxOrderNum() + 1;
 		Order order = new Order();
 		order.setId(UUID.randomUUID().toString());
 		order.setOrderNum(orderNum);
 		order.setOrderDate(new Date());
 		order.setAmount(cartInfo.getAmountTotal());
-		order.setGmail(gmail);
+		order.setUserAccount(userAccount);
 		order.setOrderstatus("SHIPPING");
 		
 		CustomerInfo customerInfo = cartInfo.getCustomerInfo();
@@ -98,17 +98,17 @@ public class OrderDAOImpl implements OrderDAO {
 	}
 
 	@Override
-	public PaginationResult<OrderInfo> getAllOrderInfos(int page, int maxResult, int maxNavigationPage, String gmail) {
+	public PaginationResult<OrderInfo> getAllOrderInfos(int page, int maxResult, int maxNavigationPage, String userAccount) {
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "SELECT NEW " + OrderInfo.class.getName() + "(ORD.id, ORD.orderDate, ORD.orderNum, ORD.amount, ORD.customerName, ORD.customerAddress, ORD.customerEmail,"
-				+ " ORD.customerPhone, ORD.orderstatus, ORD.gmail) FROM Order ORD";
-		if(gmail != null && gmail.length() > 0) {
-			hql+= " WHERE (ORD.gmail.email) like :GMAIL ";
+				+ " ORD.customerPhone, ORD.orderstatus, ORD.userAccount) FROM Order ORD";
+		if(userAccount != null && userAccount.length() > 0) {
+			hql+= " WHERE (ORD.userAccount.username) like :USERNAME ";
 		}
-		hql += "ORDER BY ORD.gmail.email DESC";
+		hql += "ORDER BY ORD.userAccount.username DESC";
 		Query<OrderInfo> query = session.createQuery(hql);
-		if(gmail != null && gmail.length() > 0) {
-			query.setParameter("GMAIL","%");
+		if(userAccount != null && userAccount.length() > 0) {
+			query.setParameter("USERNAME", userAccount);
 		}
 		List<OrderInfo> orderInfos = query.list();
 		return new PaginationResult<OrderInfo>(query, page, maxResult, maxNavigationPage);
@@ -123,7 +123,7 @@ public class OrderDAOImpl implements OrderDAO {
 
 		OrderInfo orderInfo = new OrderInfo(order.getId(), order.getOrderDate(), getMaxOrderNum(), order.getAmount(),
 				order.getCustomerName(), order.getCustomerAddress(), order.getCustomerEmail(), order.getCustomerPhone(),
-				order.getOrderstatus(), order.getGmail());
+				order.getOrderstatus(), order.getUserAccount());
 		return orderInfo;
 	}
 
@@ -169,8 +169,18 @@ public class OrderDAOImpl implements OrderDAO {
 
 		OrderInfo orderInfo = new OrderInfo(order.getId(), order.getOrderDate(),order.getOrderNum(),order.getAmount(),
 				order.getCustomerName(), order.getCustomerAddress(), order.getCustomerEmail(),
-				order.getCustomerPhone(), order.getOrderstatus(), order.getGmail());
+				order.getCustomerPhone(), order.getOrderstatus(), order.getUserAccount());
 		return orderInfo;
+	}
+
+	@Override
+	public Order updateOrderStatus(String orderId) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "UPDATE Order ORD SET ORD.orderstatus= 'CANCELLED' where ORD.id = :ORDERID";
+		Query<Order> query = session.createQuery(hql);
+		query.setParameter("ORDERID", orderId);
+		int result = query.executeUpdate();
+		return new Order();
 	}
 
 

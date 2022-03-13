@@ -142,19 +142,13 @@ label.light {
 	<form12:form action="${pageContext.request.contextPath}/register" method="POST" modelAttribute="user">
 		<fieldset>
 			<label for="username">Username:</label>
-	          
-				<form12:input path="username"/>
+				<form12:input type="text" id="username" path="username" placeholder="Enter your username" />
 	            <form12:errors style="color: red;" path="username" class="error-message"></form12:errors>
 			<div>
 				<label for="password">Password:</label>
 				<form12:input type="text" id="password" path="password" placeholder="Enter your password" />
 				<form12:errors style="color: red;" path="password" class="error-message"></form12:errors>
 			</div>
-
-			<form12:errors style="color: red;" path="userRole" class="error-message"></form12:errors>
-			<label for="role">User Role:</label>
-			<form12:hidden id="role" path="userRole" value="USER"/>
-			<form12:errors path="userRole" class="error-message"></form12:errors>
 
 		</fieldset>
 		<button style="margin-bottom: 10px; margin-top: 10px; border-radius: 5px;" type="submit">Apply &nbsp;</button>

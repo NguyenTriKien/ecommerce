@@ -54,8 +54,8 @@ private static final long serialVersionUID = 1L;
 	private String orderstatus;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "GoogleEmail",foreignKey = @ForeignKey(name = "ORDER_GMAIL_FK"), updatable = true, insertable = true)
-	private GoogleAccount gmail;
+	@JoinColumn(name = "UserAccount",foreignKey = @ForeignKey(name = "ORDER_USERACCOUNT_FK"), updatable = true, insertable = true)
+	private UserAccount userAccount;
 	
 	/*@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "USER_ID", nullable = false, foreignKey = @ForeignKey(name ="ORDER_USER_FK"),updatable = true, insertable = true)
@@ -134,13 +134,15 @@ private static final long serialVersionUID = 1L;
 		this.orderstatus = orderstatus;
 	}
 
-	public GoogleAccount getGmail() {
-		return gmail;
+	public UserAccount getUserAccount() {
+		return userAccount;
 	}
 
-	public void setGmail(GoogleAccount gmail) {
-		this.gmail = gmail;
+	public void setUserAccount(UserAccount userAccount) {
+		this.userAccount = userAccount;
 	}
+
+	
 
 	/*public User getUser() {
 		return user;

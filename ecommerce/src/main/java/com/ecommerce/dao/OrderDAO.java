@@ -24,6 +24,7 @@ public interface OrderDAO {
 
 	public List<OrderDetailInfo> getAllDetailInfos(String orderId);
 	
+	public Order updateOrderStatus(String status);
 	
 	
 	

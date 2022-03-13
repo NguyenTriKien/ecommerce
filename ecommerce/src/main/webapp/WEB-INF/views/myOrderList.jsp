@@ -33,6 +33,7 @@
 					<th>Amount</th>
 					<th>Order status</th>
 					<th>View</th>
+					<th>Cancel</th>
 				</tr>
 				<c:forEach items="${paginationOrderInfos.list }" var="orderInfo">
 					<tr>
@@ -42,14 +43,17 @@
 						</td>
 						<td style="text-align: left;">${orderInfo.customerName }</td>
 						<td style="text-align: left;">${orderInfo.customerAddress}</td>
-						<td style="text-align: left;">${orderInfo.gmail.email}</td>
+						<td style="text-align: left;">${orderInfo.userAccount.username}</td>
 						<td style="color: red; text-align: right;">
 							<fmt:formatNumber value="${orderInfo.amount }" type="currency"></fmt:formatNumber>
 						</td>
 						<td style="text-align: left;">${orderInfo.orderstatus}</td>
 						<td>
 							<a href="${contextPath}/myOrder?orderId=${orderInfo.id}">View</a>
-							<button onclick="changeStatus()">Cancel order</button>
+							
+						</td>
+						<td>
+						    <a href="${contextPath}/cancelOrder?status=${orderInfo.orderstatus}&orderId=${orderInfo.id}">Cancel</a>
 						</td>
 					</tr>
 				</c:forEach>

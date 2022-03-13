@@ -34,7 +34,7 @@
 						<a class="nav-link" href="${contextPath}/shoppingCart">My Cart</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="${contextPath}/myOrderList?gmail=${name}">My Order</a>
+						<a class="nav-link" href="${contextPath}/myOrderList?username=${name}">My Order</a>
 					</li>
 					<security:authorize access="hasAnyRole('ROLE_MANAGER','ROLE_EMPLOYEE')">
 					<li class="nav-item">

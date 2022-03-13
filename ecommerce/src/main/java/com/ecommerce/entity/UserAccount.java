@@ -8,14 +8,15 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "GoogleAccount")
-public class GoogleAccount implements Serializable {
-	
-	private static final long serialVersionUID = 1L;
+@Table(name = "UserAccount")
+public class UserAccount implements Serializable {
 
 	@Id
-	@Column(name = "email", length=255, nullable=false)
-	String email;
+	@Column(name = "username", length=255, nullable=false)
+	String username;
+	
+	@Column(name = "password", length=255)
+	String password;
 	
 	@Column(name = "id", length=255, nullable = false)
 	String id;
@@ -37,13 +38,21 @@ public class GoogleAccount implements Serializable {
 	
 	@Column(name = "picture", length=255)
 	String picture;
-
-	public String getEmail() {
-		return email;
+	
+	public String getUsername() {
+		return username;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getId() {
@@ -54,12 +63,12 @@ public class GoogleAccount implements Serializable {
 		this.id = id;
 	}
 
-	public boolean getVerifiedemail() {
+	public boolean isVerifiedemail() {
 		return verifiedemail;
 	}
 
-	public void setVerifiedemail(boolean b) {
-		this.verifiedemail = b;
+	public void setVerifiedemail(boolean verifiedemail) {
+		this.verifiedemail = verifiedemail;
 	}
 
 	public String getName() {
@@ -101,7 +110,6 @@ public class GoogleAccount implements Serializable {
 	public void setPicture(String picture) {
 		this.picture = picture;
 	}
-	
-	
 
+    
 }

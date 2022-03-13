@@ -3,7 +3,7 @@ package com.ecommerce.model;
 import java.util.Date;
 import java.util.List;
 
-import com.ecommerce.entity.GoogleAccount;
+import com.ecommerce.entity.UserAccount;
 import com.ecommerce.entity.Order;
 
 public class OrderInfo {
@@ -26,13 +26,13 @@ public class OrderInfo {
 	
 	private String orderstatus;
 	
-	private GoogleAccount gmail;
+	private UserAccount userAccount;
 
 	private List<OrderDetailInfo> orderDetailInfos;
 
 	public OrderInfo(String id, Date orderDate, int orderNum, double amount, String customerName,
 			String customerAddress, String customerEmail, String customerPhone, String orderstatus,
-			GoogleAccount gmail) {
+			UserAccount userAccount) {
 		super();
 		this.id = id;
 		this.orderDate = orderDate;
@@ -43,7 +43,7 @@ public class OrderInfo {
 		this.customerEmail = customerEmail;
 		this.customerPhone = customerPhone;
 		this.orderstatus = orderstatus;
-		this.gmail = gmail;
+		this.userAccount = userAccount;
 	}
 
 	public String getId() {
@@ -118,12 +118,12 @@ public class OrderInfo {
 		this.orderDetailInfos = orderDetailInfos;
 	}
 
-	public GoogleAccount getGmail() {
-		return gmail;
+	public UserAccount getUserAccount() {
+		return userAccount;
 	}
 
-	public void setGmail(GoogleAccount gmail) {
-		this.gmail = gmail;
+	public void setUserAccount(UserAccount userAccount) {
+		this.userAccount = userAccount;
 	}
 
 	public String getOrderstatus() {

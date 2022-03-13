@@ -7,9 +7,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.apache.http.client.ClientProtocolException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,12 +22,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.ecommerce.dao.GoogleAccountDAO;
+import com.ecommerce.dao.UserAccountDAO;
 import com.ecommerce.dao.OrderDAO;
 import com.ecommerce.dao.ProductDAO;
-import com.ecommerce.dao.UserDAO;
 import com.ecommerce.entity.Account;
-import com.ecommerce.entity.GoogleAccount;
+import com.ecommerce.entity.UserAccount;
 import com.ecommerce.entity.Order;
 import com.ecommerce.entity.Product;
 import com.ecommerce.entity.User;
@@ -35,10 +37,11 @@ import com.ecommerce.model.OrderDetailInfo;
 import com.ecommerce.model.OrderInfo;
 import com.ecommerce.model.PaginationResult;
 import com.ecommerce.model.ProductInfo;
-import com.ecommerce.model.UserInfo;
+import com.ecommerce.model.UserAccountInfo;
+import com.ecommerce.util.LoginUtils;
 import com.ecommerce.util.Utils;
 import com.ecommerce.validator.CustomerInfoValidator;
-import com.ecommerce.validator.UserInfoValidator;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 public class ClientController {
@@ -50,17 +53,16 @@ public class ClientController {
 	private OrderDAO orderDAO;
 	
 	@Autowired
-	private UserDAO userDAO;
+	private UserAccountDAO userAccountDAO;
 	
 	@Autowired
 	private CustomerInfoValidator customerInfoValidator;
 	
 	@Autowired
-	private UserInfoValidator userInfoValidator;
+	private UserAccountDAO gmailDAO;
 	
 	@Autowired
-	private GoogleAccountDAO gmailDAO;
-	
+	private LoginUtils loginUtils;
 
 	@RequestMapping({ "/" })
 	public String home() {
@@ -245,7 +247,7 @@ public class ClientController {
 	
 	@RequestMapping(value = { "/myOrderList" }, method = RequestMethod.GET)
 	public String orderList(Model model, @RequestParam(value = "page", defaultValue = "1") String pageStr,
-			 @RequestParam("gmail") String gmail) {
+			 @RequestParam("username") String username) {
 		// đặt thêm điều kiện cho phân trang cho orderlist
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String currentPrincipalName = authentication.getName();
@@ -259,37 +261,36 @@ public class ClientController {
 
 		final int MAX_RESULT = 5;
 		final int MAX_NAVIGATION_PAGE = 10;
-		if(gmail.equals(currentPrincipalName)) {
+		if(username.equals(currentPrincipalName)) {
 			PaginationResult<OrderInfo> paginationOrderInfos = orderDAO.getAllOrderInfos(page, MAX_RESULT,
-					MAX_NAVIGATION_PAGE, gmail);
+					MAX_NAVIGATION_PAGE, username);
 			model.addAttribute("paginationOrderInfos", paginationOrderInfos);
 		}
 		return "myOrderList";
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public String register(Model model, @RequestParam(value = "userid", defaultValue = "") String userid) {
-		User user = null;
-		if(userid != null) {
-			user = userDAO.getUserById(userid);
+	public String register(Model model, @RequestParam(value = "username", defaultValue = "") String username) {
+		UserAccount userAccount = null;
+		if(username != null) {
+			userAccount = userAccountDAO.getAccountByUsername(username);
 		}
-		if(userid.isEmpty()) {
-			user = new User();
+		if(username.isEmpty()) {
+			userAccount = new UserAccount();
 		}
-		model.addAttribute("user", user);
+		model.addAttribute("user", userAccount);
 		return "register";
 		
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String registerSave(Model model, @ModelAttribute("user") UserInfo userInfo, 
+	public String registerSave(Model model, @ModelAttribute("user") UserAccountInfo userAccountInfo, 
 			BindingResult result) {
-		userInfoValidator.validate(userInfo, result);
 		
 		if(result.hasErrors()) {
 			return "register";
 		}try {
-			userDAO.saveUserInfo(userInfo);
+			userAccountDAO.saveUserAccount(userAccountInfo);
 		}catch(Exception e) {
 			model.addAttribute("errorMessage", e.getMessage());
 			return "register";
@@ -297,4 +298,39 @@ public class ClientController {
 		return "redirect:/login";
 		
 	}
+	
+	@RequestMapping({"/cancelOrder"})
+	public String cancelOrder(HttpServletRequest request, Model model,
+			@RequestParam(value = "status", defaultValue = "") String status,  
+			@RequestParam(value = "orderId", defaultValue = "") String orderId) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = authentication.getName();
+		Order order = null;
+		if(status.equals("SHIPPED")) {
+			return "myOrderList";
+		}
+		if(status.equals("SHIPPING")) {
+			order = orderDAO.getOrderById(orderId);
+			orderDAO.updateOrderStatus(orderId);
+		}
+		String username = currentPrincipalName;
+		return "redirect:/myOrderList?username=" + username;//chỗ này chưa gọi đc do thiếu @
+		
+	}
+	
+	 @RequestMapping("/user-login")
+	 public String userLogin(HttpServletRequest request) throws ClientProtocolException, IOException {
+		/*ObjectMapper mapper = new ObjectMapper();
+		UserAccountInfo userAccountInfo = mapper.readValue(respone, userAccountInfo);
+		UserDetails userDetail = loginUtils.buildUser(userAccountInfo);
+		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetail, null,
+			        userDetail.getAuthorities());
+		SecurityContextHolder.getContext().setAuthentication(authentication);*/
+		return null;
+		 
+	 }
+	/*UserDetails userDetail = loginUtils.buildUser(userAccountInfo);
+			UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetail, null,
+			        userDetail.getAuthorities());
+			SecurityContextHolder.getContext().setAuthentication(authentication);*/
 }

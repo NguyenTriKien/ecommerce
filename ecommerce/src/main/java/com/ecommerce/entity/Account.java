@@ -26,7 +26,7 @@ public class Account implements Serializable {
 	@Column(name = "Active", length = 1, nullable = false)
 	private boolean active;
 
-	@Column(name = "User_Role", length = 20, nullable = false)
+	@Column(name = "User_Role", length = 20)
 	private String userRole;
 
 	public String getUsername() {

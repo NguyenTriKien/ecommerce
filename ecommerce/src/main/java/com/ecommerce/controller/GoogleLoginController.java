@@ -15,8 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.ecommerce.dao.GoogleAccountDAO;
-import com.ecommerce.entity.GoogleAccount;
+import com.ecommerce.dao.UserAccountDAO;
+import com.ecommerce.entity.UserAccount;
 import com.ecommerce.model.GooglePojo;
 import com.ecommerce.util.GoogleUtils;
 
@@ -27,9 +27,9 @@ public class GoogleLoginController {
 	  private GoogleUtils googleUtils;
 	  
 	  @Autowired
-	  private GoogleAccountDAO googleaccoutdao;
+	  private UserAccountDAO googleaccoutdao;
 	  
-	  private GoogleAccount gooleaccount;
+	  private UserAccount gooleaccount;
 	  
 	    @RequestMapping(value = {"/login" })
 	    public String login(@RequestParam(required = false) String message, final Model model) {
