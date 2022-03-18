@@ -38,7 +38,11 @@
 			<form method="POST" action="${contextPath}/shoppingCartConfirmation">
 				<a style="margin-right: 15px; color: #CC0000; font-size: 20px;" href="${contextPath}/shoppingCart">Edit Cart</a>
 				<a style="margin-right: 15px; color: blue; font-size: 20px;" class="navi-item" href="${contextPath}/shoppingCartCustomer">Edit Customer Info</a>
-				<button style="font-size: 20px; border-radius: 15px; background-color: #009900; color: white;" type="submit" value="Send">Send</button>				
+				<button style="font-size: 20px; border-radius: 15px; background-color: #009900; color: white;" type="submit" value="Cash on delivery">Cash on delivery</button>
+			</form>
+			<form method="POST" action="${pageContext.request.contextPath}/pay">
+			    <input type="hidden" id="price" value="${myCartInfo.amountTotal}" name="price" />
+			    <button style="font-size: 20px; border-radius: 15px; background-color: #009900; color: white;" type="submit" value="Paypal payment">Paypal payment</button>
 			</form>
 			<c:forEach items="${myCartInfo.cartLineInfos }" var="cartLineInfo">
 				<div class="row" style="display: inline-block;">

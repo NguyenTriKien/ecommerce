@@ -59,7 +59,7 @@
 					<a href="${contextPath }/logout">Logout</a>
 					</c:if>
 					<c:if test="${name == null}">
-						<a href="${contextPath }/login">Login</a>
+						<a href="${contextPath }/userLogin">Login</a>
 					</c:if>
 				</div>
 			</div>

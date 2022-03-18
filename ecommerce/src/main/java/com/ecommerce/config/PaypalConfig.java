@@ -12,8 +12,8 @@ import com.paypal.base.rest.PayPalRESTException;
 @Configuration
 public class PaypalConfig {
 
-	private String clientId = "AXHhJ1aYwN3U1i6Xj5DjGCGK47nqAF1GgkimwtpOxHLomMgGgpOrgU7nIV76WiqIvAxzCt4pAYVIh-oX";
-	private String clientSecret= "EIcLgPUPaFyuG-rek81P_TQ1A_jNGcTd-o_xfMfiwxZgCfLxncQkHmKGV-P1NNTLK9a_EcsopjNMk9oT";
+	private String clientId = "AT466csfkdtD71dGeoWGmz4oUQJmodSqfcqfLhw9pufuluDUVtN3i7J9pUYGiD-U1mkHqvNWAXWIFi4H";
+	private String clientSecret= "EIpCYypzEY52Av2yxSC5SFO2eTrZXwgzNqo9jo9tHGbJBIItQH0A4zxNOJuu_7d238d9b6vpn5ikqOXn";
 	private String mode="sandbox";
 	
 	@Bean

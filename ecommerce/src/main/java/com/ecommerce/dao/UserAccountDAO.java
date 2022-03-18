@@ -13,4 +13,6 @@ public interface UserAccountDAO {
 	public UserAccount getGoogleAccountByEmail(String email);
 	
 	public UserAccount getAccountByUsername(String username);
+	
+	public UserAccountInfo getUserAccountInfo(String username);
 }

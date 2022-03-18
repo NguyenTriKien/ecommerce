@@ -17,7 +17,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,12 +27,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.ecommerce.dao.UserAccountDAO;
 import com.ecommerce.dao.OrderDAO;
 import com.ecommerce.dao.ProductDAO;
-import com.ecommerce.entity.Account;
 import com.ecommerce.entity.UserAccount;
 import com.ecommerce.entity.Order;
 import com.ecommerce.entity.Product;
-import com.ecommerce.entity.User;
-import com.ecommerce.model.AccountInfo;
 import com.ecommerce.model.CartInfo;
 import com.ecommerce.model.CustomerInfo;
 import com.ecommerce.model.OrderDetailInfo;
@@ -41,7 +40,7 @@ import com.ecommerce.model.UserAccountInfo;
 import com.ecommerce.util.LoginUtils;
 import com.ecommerce.util.Utils;
 import com.ecommerce.validator.CustomerInfoValidator;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 @Controller
 public class ClientController {
@@ -318,19 +317,23 @@ public class ClientController {
 		
 	}
 	
-	 @RequestMapping("/user-login")
-	 public String userLogin(HttpServletRequest request) throws ClientProtocolException, IOException {
-		/*ObjectMapper mapper = new ObjectMapper();
-		UserAccountInfo userAccountInfo = mapper.readValue(respone, userAccountInfo);
+	@GetMapping("/userLogin")
+	public String displayLogin(Model model) {
+		UserAccountInfo userAccountInfo = new UserAccountInfo();
+		model.addAttribute("userAccount", userAccountInfo);
+		return "userLogin";
+		
+	}
+	
+	@PostMapping("/userLogin")
+	public String processLogin(@ModelAttribute("userAccount") UserAccountInfo userAccountInfo, Model model) {
 		UserDetails userDetail = loginUtils.buildUser(userAccountInfo);
 		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetail, null,
-			        userDetail.getAuthorities());
-		SecurityContextHolder.getContext().setAuthentication(authentication);*/
-		return null;
-		 
-	 }
-	/*UserDetails userDetail = loginUtils.buildUser(userAccountInfo);
-			UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetail, null,
-			        userDetail.getAuthorities());
-			SecurityContextHolder.getContext().setAuthentication(authentication);*/
+		userDetail.getAuthorities());
+		    //authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		return "home";
+		
+	}
+	 
 }

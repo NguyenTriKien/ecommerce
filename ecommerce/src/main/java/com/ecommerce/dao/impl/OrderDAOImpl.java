@@ -63,6 +63,7 @@ public class OrderDAOImpl implements OrderDAO {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String currentPrincipalName = authentication.getName();
 		UserAccount userAccount = userAccountDAO.getAccountByUsername(currentPrincipalName);
+		
 		int orderNum = getMaxOrderNum() + 1;
 		Order order = new Order();
 		order.setId(UUID.randomUUID().toString());

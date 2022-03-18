@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ecommerce.dao.UserAccountDAO;
 import com.ecommerce.entity.UserAccount;
+import com.ecommerce.entity.Account;
 import com.ecommerce.entity.Product;
 import com.ecommerce.model.GooglePojo;
 import com.ecommerce.model.UserAccountInfo;
@@ -97,6 +98,18 @@ public class UserAccountDAOImpl implements UserAccountDAO {
 		}
 		
 		session.flush();
+	}
+
+	@Override
+	public UserAccountInfo getUserAccountInfo(String username) {
+		// TODO Auto-generated method stub
+		UserAccount userAccount = getAccountByUsername(username);
+		if(userAccount == null) {
+			return null;
+		}
+		
+		UserAccountInfo userAccountInfo = new UserAccountInfo(userAccount.getUsername(), userAccount.getPassword());
+		return userAccountInfo;
 	}
 
 	
