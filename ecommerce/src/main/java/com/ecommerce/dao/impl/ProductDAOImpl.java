@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ecommerce.dao.ProductDAO;
 import com.ecommerce.dao.TypeDAO;
+import com.ecommerce.entity.Order;
 import com.ecommerce.entity.Product;
 import com.ecommerce.entity.Type;
 import com.ecommerce.model.PaginationResult;
@@ -127,6 +128,17 @@ public class ProductDAOImpl implements ProductDAO {
 		}
 		return false;
 	}
-	
+
+	@Override
+	public Product updateProductQuantity(String code, int quantity) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "UPDATE Product PRO SET PRO.quantity= :QUANTITY " + "WHERE PRO.code = :CODE";
+		Query<Order> query = session.createQuery(hql);
+		query.setParameter("QUANTITY", quantity);
+		query.setParameter("CODE", code);
+		int result = query.executeUpdate();
+		return new Product();
+	}
+
 
 }

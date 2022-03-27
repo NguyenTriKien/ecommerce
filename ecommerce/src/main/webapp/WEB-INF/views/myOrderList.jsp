@@ -67,7 +67,7 @@
 			
 			<c:forEach items="${paginationOrderInfos.navigationPages }" var="page">
 				<c:if test="${page != -1 }">
-					<a style="font-size: 20px;" href="orderList?page=${page }" class="nav-item">${page }</a>
+					<a style="font-size: 20px;" href="myOrderList?page=${page }" class="nav-item">${page }</a>
 				</c:if>
 				<c:if test="${page == -1 }">
 					<span>...</span>

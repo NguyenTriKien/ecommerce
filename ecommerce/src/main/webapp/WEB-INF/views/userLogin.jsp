@@ -13,6 +13,8 @@
 <link rel="stylesheet" href="css/normalize.css">
 <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="css/main.css">
+<!-- Compiled and minified CSS -->
+
 <style>
 *, *:before, *:after {
 	-moz-box-sizing: border-box;
@@ -68,14 +70,31 @@ select {
 button {
 	padding: 19px 39px 18px 39px;
 	color: #FFF;
-	background-color: #4bc970;
+	background-color: #00BFFF;
 	font-size: 18px;
+	font-weight: bold;
 	text-align: center;
 	font-style: normal;
 	border-radius: 5px;
 	width: 100%;
-	border: 1px solid #3ac162;
-	border-width: 1px 1px 3px;
+	border: 1px solid #00BFFF;
+	border-width: 1px 1px 1px;
+	box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.1) inset;
+	margin-bottom: 10px;
+}
+
+#googleLogin {
+    padding: 19px 39px 18px 39px;
+	color: black;
+	background-color: white;
+	font-size: 15px;
+	font-weight: bold;
+	text-align: center;
+	font-style: normal;
+	border-radius: 5px;
+	width: 100%;
+	border: 1px solid black;
+	border-width: 1px 1px 1px;
 	box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.1) inset;
 	margin-bottom: 10px;
 }
@@ -137,7 +156,7 @@ label.light {
 </style>
 </head>
 <body>
-	<jsp:include page="_header.jsp" />
+	<jsp:include page="userHeader.jsp" />
 	
 	<form12:form action="${pageContext.request.contextPath}/userLogin" method="POST" modelAttribute="userAccount">
 		<fieldset>
@@ -149,12 +168,15 @@ label.light {
 				<form12:input type="password" id="password" path="password" placeholder="Enter your password" />
 				<form12:errors style="color: red;" path="password" class="error-message"></form12:errors>
 			</div>
-            <div>
-			    <a href="https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://localhost:8080/ecommerce/login-google&response_type=code
-    &client_id=476708859592-ssrek4ntjos4ikd8sr0i9adg2pdfmr9v.apps.googleusercontent.com&approval_prompt=force">Login With Google</a>  
-            </div>
 		</fieldset>
 		<button style="margin-bottom: 10px; margin-top: 10px; border-radius: 5px;" type="submit">Login &nbsp;</button>
+		<div>
+		   <a id="googleLogin" class="btn btn-info" style="margin-bottom: 10px; margin-top: 10px; border-radius: 5px;" href="https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://localhost:8080/ecommerce/login-google&response_type=code
+    &client_id=476708859592-ssrek4ntjos4ikd8sr0i9adg2pdfmr9v.apps.googleusercontent.com&approval_prompt=force"> 
+              <img width="15px" style="margin-bottom:3px; margin-right:5px" alt="Google login" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+              Login with Google
+           </a>   
+         </div>
 	</form12:form>
 	
 	<div style="margin-bottom: 240px;"></div>

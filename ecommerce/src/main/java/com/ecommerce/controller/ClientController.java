@@ -31,6 +31,7 @@ import com.ecommerce.entity.UserAccount;
 import com.ecommerce.entity.Order;
 import com.ecommerce.entity.Product;
 import com.ecommerce.model.CartInfo;
+import com.ecommerce.model.CartLineInfo;
 import com.ecommerce.model.CustomerInfo;
 import com.ecommerce.model.OrderDetailInfo;
 import com.ecommerce.model.OrderInfo;
@@ -122,6 +123,7 @@ public class ClientController {
 	public String shoppingCartUpdateQuantity(HttpServletRequest request,  Model model,
 			@ModelAttribute("cartForm") CartInfo cartForm) {
 		CartInfo cartInfo = Utils.getCartInfoInSession(request);
+		
 		cartInfo.updateQuantity(cartForm);
 		return "redirect:/shoppingCart";
 	}
@@ -189,12 +191,15 @@ public class ClientController {
 
 			return "redirect:/shoppingCartCustomer";
 		}
+		
 		return "shoppingCartConfirmation";
 	}
 	
 	@RequestMapping(value = {"/shoppingCartConfirmation"}, method = RequestMethod.POST)
 	public String shoppingCartConfirmationSave(HttpServletRequest request,  Model model) {
 		CartInfo cartInfo = Utils.getCartInfoInSession(request);
+		List<CartLineInfo> cartLineInfo = cartInfo.getCartLineInfos();
+		
 		if(cartInfo.isEmpty()) {
 
 			return "redirect:/shoppingCart";
@@ -204,7 +209,22 @@ public class ClientController {
 		}
 		
 		try {
-			orderDAO.saveOrder(cartInfo);
+			for(int i = 0; i < cartLineInfo.size(); i++) {
+				String code = cartLineInfo.get(i).getProductInfo().getCode();
+				Product product = productDAO.getProductByCode(code);
+				int proquantity = product.getQuantity();
+				int cartquantity = cartLineInfo.get(i).getQuantity();
+				//System.out.println("Product quantity: " + proquantity);
+				if(cartquantity > proquantity) {
+					return "redirect:/shoppingCart";
+				}
+				else {
+					int newQuantity = proquantity - cartquantity;
+					//System.out.println("New quantity:" + newQuantity);
+					productDAO.updateProductQuantity(code, newQuantity);
+					orderDAO.saveOrder(cartInfo);
+				}
+			}
 		} catch (Exception e) {
 			return "shoppingCartConfirmation";
 		}
@@ -227,6 +247,7 @@ public class ClientController {
 	}
 	
 	//http://localhost:8080/ecommerce/myOrder?gmail=www@gmail.com
+	//Dung de xem order
 	@RequestMapping(value = { "/myOrder" }, method = RequestMethod.GET)
 	public String orderView(Model model, @RequestParam("orderId") String orderId) {
 		OrderInfo orderInfo = null;
@@ -258,7 +279,7 @@ public class ClientController {
 			System.out.println(e.getMessage());
 		}
 
-		final int MAX_RESULT = 5;
+		final int MAX_RESULT = 10;
 		final int MAX_NAVIGATION_PAGE = 10;
 		if(username.equals(currentPrincipalName)) {
 			PaginationResult<OrderInfo> paginationOrderInfos = orderDAO.getAllOrderInfos(page, MAX_RESULT,
@@ -298,6 +319,7 @@ public class ClientController {
 		
 	}
 	
+	//Dung de huy don hang cua nguoi dung
 	@RequestMapping({"/cancelOrder"})
 	public String cancelOrder(HttpServletRequest request, Model model,
 			@RequestParam(value = "status", defaultValue = "") String status,  

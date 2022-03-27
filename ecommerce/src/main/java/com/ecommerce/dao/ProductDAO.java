@@ -21,6 +21,6 @@ public interface ProductDAO {
 
 	public boolean removeProductByCode(String code);
 	
-	
+	public Product updateProductQuantity(String code, int quantity);
 
 }
