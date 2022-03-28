@@ -1,5 +1,7 @@
 package com.ecommerce.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.ecommerce.config.PaypalPaymentIntent;
 import com.ecommerce.config.PaypalPaymentMethod;
 import com.ecommerce.dao.OrderDAO;
+import com.ecommerce.dao.ProductDAO;
+import com.ecommerce.entity.Product;
 import com.ecommerce.model.CartInfo;
+import com.ecommerce.model.CartLineInfo;
 import com.ecommerce.model.PaypalService;
 import com.ecommerce.util.PaymentUtil;
 import com.ecommerce.util.Utils;
@@ -32,12 +37,16 @@ public class PaymentController {
 	@Autowired
 	private OrderDAO orderDAO;
 	
+	@Autowired
+	private ProductDAO productDAO;
+	
 	@PostMapping("/pay")
 	public String pay(HttpServletRequest request,@RequestParam("price") double price ){
 		String cancelUrl = PaymentUtil.getBaseURL(request) + "/" + URL_PAYPAL_CANCEL;
 		String successUrl = PaymentUtil.getBaseURL(request) + "/" + URL_PAYPAL_SUCCESS;
 		
 		CartInfo cartInfo = Utils.getCartInfoInSession(request);
+		List<CartLineInfo> cartLineInfo = cartInfo.getCartLineInfos();
 		if(cartInfo.isEmpty()) {
 
 			return "redirect:/shoppingCart";
@@ -47,6 +56,16 @@ public class PaymentController {
 		}
 		
 		try {
+			for(int i = 0; i < cartLineInfo.size(); i++) {
+				String code = cartLineInfo.get(i).getProductInfo().getCode();
+				Product product = productDAO.getProductByCode(code);
+				int proquantity = product.getQuantity();
+				int cartquantity = cartLineInfo.get(i).getQuantity();
+				//System.out.println("Product quantity: " + proquantity);
+				int newQuantity = proquantity - cartquantity;
+				//System.out.println("New quantity:" + newQuantity);
+				productDAO.updateProductQuantity(code, newQuantity);
+			}
 			orderDAO.saveOrder(cartInfo);
 		} catch (Exception e) {
 			return "shoppingCartConfirmation";

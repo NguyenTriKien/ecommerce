@@ -99,7 +99,7 @@ public class OrderDAOImpl implements OrderDAO {
 	}
 
 	@Override
-	public PaginationResult<OrderInfo> getAllOrderInfos(int page, int maxResult, int maxNavigationPage, String userAccount) {
+	public PaginationResult<OrderInfo> getAllOrderInfosByEmail(int page, int maxResult, int maxNavigationPage, String userAccount) {
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "SELECT NEW " + OrderInfo.class.getName() + "(ORD.id, ORD.orderDate, ORD.orderNum, ORD.amount, ORD.customerName, ORD.customerAddress, ORD.customerEmail,"
 				+ " ORD.customerPhone, ORD.orderstatus, ORD.userAccount) FROM Order ORD";

@@ -54,8 +54,6 @@ public class ProductInfo {
 		this.price = price;
 	}
 	
-	
-
 	public ProductInfo(String code, String name, String cpu, String ram, double screen, String gpu, String storage,
 			String os, int quantity, Type type, Producer producer, double price) {
 		super();

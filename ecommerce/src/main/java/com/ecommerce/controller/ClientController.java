@@ -69,12 +69,29 @@ public class ClientController {
 		return "home";
 	}
 	
+	@RequestMapping({ "/quantityNotification" })
+	public String quantityNotification() {
+		return "quantityNotification";
+	}
+	
 	@RequestMapping({"/productList"})
 	public String getAllProductInfos(Model model, @RequestParam(value = "name", defaultValue = "") String likeName,
+			@RequestParam(value = "price", defaultValue = "0") double price,
 			@RequestParam(value = "page", defaultValue = "1") int page) {
 		final int maxResult = 15;
 		final int maxNavigationPage = 10;
-		PaginationResult<ProductInfo> productInfos = productDAO.getAllProductInfos(page, maxResult, maxNavigationPage, likeName);
+		PaginationResult<ProductInfo> productInfos = productDAO.getAllProductInfos(page, maxResult, maxNavigationPage, likeName, price);
+		
+		model.addAttribute("paginationProductInfos", productInfos);
+		return "productList";
+	}
+	
+	@RequestMapping({"/productList/producttype"})
+	public String getAllProductInfosByType(Model model, @RequestParam(value = "type", defaultValue = "") String type,
+			@RequestParam(value = "page", defaultValue = "1") int page) {
+		final int maxResult = 15;
+		final int maxNavigationPage = 10;
+		PaginationResult<ProductInfo> productInfos = productDAO.getAllProductInfoByType(page, maxResult, maxNavigationPage, type);
 		
 		model.addAttribute("paginationProductInfos", productInfos);
 		return "productList";
@@ -148,7 +165,17 @@ public class ClientController {
 	@RequestMapping(value = {"/shoppingCartCustomer"}, method = RequestMethod.GET)
 	public String shoppingCartCustomerForm(HttpServletRequest request,  Model model) {
 		CartInfo cartInfo = Utils.getCartInfoInSession(request); 
-		
+		List<CartLineInfo> cartLineInfo = cartInfo.getCartLineInfos();
+		for(int i = 0; i < cartLineInfo.size(); i++) {
+			String code = cartLineInfo.get(i).getProductInfo().getCode();
+			Product product = productDAO.getProductByCode(code);
+			int proquantity = product.getQuantity();
+			int cartquantity = cartLineInfo.get(i).getQuantity();
+			//System.out.println("Product quantity: " + proquantity);
+			if(cartquantity > proquantity) {
+				return "redirect:/quantityNotification";
+			}
+		}
 		if(cartInfo.isEmpty()) {
 			return "redirect:/shoppingCart";
 		}
@@ -166,6 +193,7 @@ public class ClientController {
 	public String shoppingCartCustomer(HttpServletRequest request,  Model model,
 			@ModelAttribute("customerForm") @Validated CustomerInfo customerForm, BindingResult result) {
 		customerInfoValidator.validate(customerForm, result);
+		
 
 		if(result.hasErrors()) {
 			customerForm.setValid(false);
@@ -183,7 +211,6 @@ public class ClientController {
 	@RequestMapping(value = {"/shoppingCartConfirmation"}, method = RequestMethod.GET)
 	public String shoppingCartConfirmationReview(HttpServletRequest request,  Model model) {
 		CartInfo cartInfo = Utils.getCartInfoInSession(request);
-		
 		if(cartInfo.isEmpty()) {
 
 			return "redirect:/shoppingCart";
@@ -215,16 +242,12 @@ public class ClientController {
 				int proquantity = product.getQuantity();
 				int cartquantity = cartLineInfo.get(i).getQuantity();
 				//System.out.println("Product quantity: " + proquantity);
-				if(cartquantity > proquantity) {
-					return "redirect:/shoppingCart";
-				}
-				else {
-					int newQuantity = proquantity - cartquantity;
+			    int newQuantity = proquantity - cartquantity;
 					//System.out.println("New quantity:" + newQuantity);
-					productDAO.updateProductQuantity(code, newQuantity);
-					orderDAO.saveOrder(cartInfo);
-				}
+				productDAO.updateProductQuantity(code, newQuantity);
+			
 			}
+			orderDAO.saveOrder(cartInfo);
 		} catch (Exception e) {
 			return "shoppingCartConfirmation";
 		}
@@ -282,12 +305,13 @@ public class ClientController {
 		final int MAX_RESULT = 10;
 		final int MAX_NAVIGATION_PAGE = 10;
 		if(username.equals(currentPrincipalName)) {
-			PaginationResult<OrderInfo> paginationOrderInfos = orderDAO.getAllOrderInfos(page, MAX_RESULT,
+			PaginationResult<OrderInfo> paginationOrderInfos = orderDAO.getAllOrderInfosByEmail(page, MAX_RESULT,
 					MAX_NAVIGATION_PAGE, username);
 			model.addAttribute("paginationOrderInfos", paginationOrderInfos);
 		}
 		return "myOrderList";
 	}
+	
 	
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String register(Model model, @RequestParam(value = "username", defaultValue = "") String username) {

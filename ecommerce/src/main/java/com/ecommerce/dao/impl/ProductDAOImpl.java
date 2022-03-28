@@ -15,6 +15,7 @@ import com.ecommerce.dao.TypeDAO;
 import com.ecommerce.entity.Order;
 import com.ecommerce.entity.Product;
 import com.ecommerce.entity.Type;
+import com.ecommerce.model.OrderInfo;
 import com.ecommerce.model.PaginationResult;
 import com.ecommerce.model.ProductInfo;
 import com.ecommerce.model.TypeInfo;
@@ -34,11 +35,17 @@ public class ProductDAOImpl implements ProductDAO {
 	
 	@Override
 	public PaginationResult<ProductInfo> getAllProductInfos(int page, int maxResult, int maxNavigationPage,
-			String likeName) {
+			String likeName, double price) {
 		Session session = sessionFactory.getCurrentSession();
 		String hql = " SELECT NEW " + ProductInfo.class.getName() + " (PRO.code, PRO.name, PRO.type, PRO.price) FROM Product PRO ";
-		if (likeName != null && likeName.length() > 0) {
-			hql += " WHERE LOWER(PRO.name) like :LIKENAME ";
+		if (likeName != null && likeName.length() > 0 && price > 0) {
+			hql += " WHERE LOWER(PRO.name) like :LIKENAME AND PRO.price = :PRICE";
+		} else if(likeName != null && likeName.length() > 0 && price < 0) {
+			hql += " WHERE LOWER(PRO.name) like :LIKENAME";
+		} else if(likeName == null || likeName.length() == 0 && price > 0) {
+			hql += " WHERE PRO.price = :PRICE";
+		} else if(likeName == null || likeName.length() > 0) {
+			hql += " WHERE LOWER(PRO.name) like :LIKENAME";
 		}
 		hql += " ORDER BY PRO.createDate DESC ";
 
@@ -46,6 +53,9 @@ public class ProductDAOImpl implements ProductDAO {
 
 		if (likeName != null && likeName.length() > 0) {
 			query.setParameter("LIKENAME", "%" + likeName.toLowerCase() + "%");
+		}
+		if (price > 0) {
+			query.setParameter("PRICE", price);
 		}
 		List<ProductInfo> productInfos = query.list();
 		
@@ -138,6 +148,26 @@ public class ProductDAOImpl implements ProductDAO {
 		query.setParameter("CODE", code);
 		int result = query.executeUpdate();
 		return new Product();
+	}
+
+	@Override
+	public PaginationResult<ProductInfo> getAllProductInfoByType(int page, int maxResult, int maxNavigationPage,
+			String type) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = " SELECT NEW " + ProductInfo.class.getName() + " (PRO.code, PRO.name, PRO.type, PRO.price) FROM Product PRO ";
+		if (type != null && type.length() > 0) {
+			hql += " WHERE LOWER(PRO.type.id) like :TYPE ";
+		}
+		hql += " ORDER BY PRO.createDate DESC ";
+
+		Query<ProductInfo> query = session.createQuery(hql);
+
+		if (type != null && type.length() > 0) {
+			query.setParameter("TYPE", type);
+		}
+		List<ProductInfo> productInfos = query.list();
+		
+		return new PaginationResult<ProductInfo>(query, page, maxResult, maxNavigationPage);
 	}
 
 

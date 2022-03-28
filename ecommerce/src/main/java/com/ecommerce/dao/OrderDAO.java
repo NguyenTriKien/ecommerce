@@ -12,7 +12,7 @@ public interface OrderDAO {
 
 	public void saveOrder(CartInfo cartInfo);
 
-	public PaginationResult<OrderInfo> getAllOrderInfos(int page, int maxResult, int maxNavigationPage, String gmail);
+	public PaginationResult<OrderInfo> getAllOrderInfosByEmail(int page, int maxResult, int maxNavigationPage, String userAccount);
 
 	public Order getOrderById(String orderId);
 

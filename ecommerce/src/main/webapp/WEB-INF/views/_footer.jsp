@@ -15,7 +15,7 @@
 <body>
 	<footer class="footer_section">
     <div class="container">
-      	<p style="text-align: center;">@Copyrights 2021 JDEV-D012</p>
+      	<p style="text-align: center;">@Copyrights 2022 Nguyen Tri Kien - GCS190036</p>
     </div>
   </footer>
 </body>

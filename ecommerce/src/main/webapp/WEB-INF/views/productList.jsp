@@ -27,9 +27,11 @@
 				<h2>Product List</h2>				
 					<table>
 						<tr>
-							<td ><input style="margin-right: 5px;" type="text" name="name"></td>
+							<td><label style="margin-right: 5px;">Name</label>
+							<input style="margin-right: 5px; width: 75%" type="text" name="name"></td>
+							<td><label style="margin-right: 5px;">Price</label><input style="margin-right: 5px; width: 80%" type="text" name="price"></td>
 							<td colspan="2" align="center">
-								<input style="color: white; background-color: #33CC00; border-radius: 5px;" type="submit" value="Search">
+								<input style="color: white; background-color: #33CC00; border-radius: 5px; margin-top: -10px" type="submit" value="Search">
 							</td>
 						</tr>
 					</table>	
