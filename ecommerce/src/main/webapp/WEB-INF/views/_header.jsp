@@ -15,6 +15,50 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/responsive.css" />
 </head>
+<style>
+/* Dropdown Button */
+.dropbtn {
+  background-color: white;
+  color: black;
+  padding: 20px;
+  font-size: 16px;
+  margin-top: -15px;
+  border: none;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd;}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: block;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {background-color: white}
+</style>
 <body>
 	<header class="header_section">
 		<div class="container-fluid">
@@ -27,9 +71,13 @@
 					<li class="nav-item active">
 						<a class="nav-link" href="${contextPath}/">Home</a>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="${contextPath}/productList">Product List</a>
-					</li>
+				    <div class="dropdown">
+					  <button class="dropbtn" onClick="location.href='${contextPath}/manageProductList'">PRODUCT LIST</button>
+					  <div class="dropdown-content">
+					    <a href="${contextPath}/manageProductList/producttype?type=Phone">Phone</a>
+					    <a href="${contextPath}/manageProductList/producttype?type=Laptop">Laptop</a>
+					  </div>
+					</div>
 					<security:authorize access="hasAnyRole('ROLE_MANAGER','ROLE_EMPLOYEE')">
 					<li class="nav-item">
 						<a class="nav-link" href="${contextPath}/orderList">Order List</a>
@@ -39,10 +87,15 @@
 					<security:authorize access="hasRole('ROLE_MANAGER')">
 					<li class="nav-item">
 						<a class="nav-link" href="${contextPath}/product">Create Product</a>
-						
 					</li>
 					<li class="nav-item">
-						<a class="nav-link"  href="${contextPath}/accountList"> User Management </a>
+						<a class="nav-link"  href="${contextPath}/accountList">User Management </a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Type</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Producer</a>
 					</li>
 					</security:authorize>
 				</ul>

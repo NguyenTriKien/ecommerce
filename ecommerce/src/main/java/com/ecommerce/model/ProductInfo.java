@@ -46,14 +46,17 @@ public class ProductInfo {
 		super();
 	}
 
-	public ProductInfo(String code, String name, Type type, double price) {
+	
+	
+	public ProductInfo(String code, String name, int quantity, Type type, double price) {
 		super();
 		this.code = code;
 		this.name = name;
+		this.quantity = quantity;
 		this.type = type;
 		this.price = price;
 	}
-	
+
 	public ProductInfo(String code, String name, String cpu, String ram, double screen, String gpu, String storage,
 			String os, int quantity, Type type, Producer producer, double price) {
 		super();

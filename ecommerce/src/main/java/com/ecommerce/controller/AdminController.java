@@ -17,14 +17,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ecommerce.dao.AccountDAO;
+import com.ecommerce.dao.OrderDAO;
 import com.ecommerce.dao.ProducerDAO;
 //import com.ecommerce.dao.OrderDAO;
 import com.ecommerce.dao.ProductDAO;
 import com.ecommerce.dao.TypeDAO;
 import com.ecommerce.entity.Account;
 import com.ecommerce.entity.Producer;
+import com.ecommerce.entity.Product;
 import com.ecommerce.entity.Type;
 import com.ecommerce.model.AccountInfo;
+import com.ecommerce.model.OrderDetailInfo;
+import com.ecommerce.model.OrderInfo;
 import com.ecommerce.model.PaginationResult;
 //import com.ecommerce.model.OrderDetailInfo;
 //import com.ecommerce.model.OrderInfo;
@@ -43,6 +47,9 @@ public class AdminController {
 	
 	@Autowired
 	private TypeDAO typeDAO;
+	
+	@Autowired
+	private OrderDAO orderDAO;
 	
 	@Autowired
 	private ProducerDAO producerDAO;
@@ -78,8 +85,32 @@ public class AdminController {
 		model.addAttribute("userDetails", userDetails);
 		return "accountInfo";
 	}
+	
 
-	/*@RequestMapping(value = { "/orderList" }, method = RequestMethod.GET)
+	@RequestMapping({"/manageProductList"})
+	public String getAllProductInfos(Model model, @RequestParam(value = "name", defaultValue = "") String likeName,
+			@RequestParam(value = "price", defaultValue = "0") double price,
+			@RequestParam(value = "page", defaultValue = "1") int page) {
+		final int maxResult = 15;
+		final int maxNavigationPage = 10;
+		PaginationResult<ProductInfo> productInfos = productDAO.getAllProductInfos(page, maxResult, maxNavigationPage, likeName, price);
+		
+		model.addAttribute("paginationProductInfos", productInfos);
+		return "manageProductList";
+	}
+
+	@RequestMapping({"/manageProductList/producttype"})
+	public String getAllProductInfosByType(Model model, @RequestParam(value = "type", defaultValue = "") String type,
+			@RequestParam(value = "page", defaultValue = "1") int page) {
+		final int maxResult = 15;
+		final int maxNavigationPage = 10;
+		PaginationResult<ProductInfo> productInfos = productDAO.getAllProductInfoByType(page, maxResult, maxNavigationPage, type);
+		
+		model.addAttribute("paginationProductInfos", productInfos);
+		return "manageProductList";
+	}
+	
+	@RequestMapping(value = { "/orderList" }, method = RequestMethod.GET)
 	public String orderList(Model model, @RequestParam(value = "page", defaultValue = "1") String pageStr) {
 		int page = 1;
 		try {
@@ -88,15 +119,15 @@ public class AdminController {
 			System.out.println(e.getMessage());
 		}
 
-		final int MAX_RESULT = 5;
+		final int MAX_RESULT = 10;
 		final int MAX_NAVIGATION_PAGE = 10;
 		PaginationResult<OrderInfo> paginationOrderInfos = orderDAO.getAllOrderInfos(page, MAX_RESULT,
 				MAX_NAVIGATION_PAGE);
 		model.addAttribute("paginationOrderInfos", paginationOrderInfos);
 		return "orderList";
-	}*/
+	}
 
-	/*@RequestMapping(value = { "/order" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/order" }, method = RequestMethod.GET)
 	public String orderView(Model model, @RequestParam("orderId") String orderId) {
 		OrderInfo orderInfo = null;
 		if (orderId != null) {
@@ -110,7 +141,7 @@ public class AdminController {
 		orderInfo.setOrderDetailInfos(orderDetailInfos);
 		model.addAttribute("orderInfo", orderInfo);
 		return "order";
-	}*/
+	}
 
 	@RequestMapping(value = { "/product" }, method = RequestMethod.GET)
 	public String product(Model model, @RequestParam(value = "code", defaultValue = "") String code, 
@@ -148,7 +179,7 @@ public class AdminController {
 			model.addAttribute("errorMessage", e.getMessage());
 			return "product";
 		}
-		return "redirect:/productList";
+		return "redirect:/manageProductList";
 	}
 
 	@RequestMapping(value = { "/accountList" }, method = RequestMethod.GET)
@@ -240,7 +271,7 @@ public class AdminController {
 		return "redirect:/accountList";
 	}
 
-	/*@RequestMapping({ "/removeProduct" })
+	@RequestMapping({ "/removeProduct" })
 	public String removeProductHandler(HttpServletRequest request, Model model,
 			@RequestParam(value = "code", defaultValue = "") String code) {
 		Product product = null;
@@ -252,6 +283,6 @@ public class AdminController {
 		if (product != null) {
 			productDAO.removeProductByCode(code);
 		}
-		return "redirect:/productList";
-	}*/
+		return "redirect:/manageProductList";
+	}
 }

@@ -139,6 +139,15 @@ public class OrderDAOImpl implements OrderDAO {
 
 		return orderDetailInfos;
 	}
+	
+	@Override
+	public PaginationResult<OrderInfo> getAllOrderInfos(int page, int maxResult, int maxNavigationPage) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "SELECT NEW " + OrderInfo.class.getName() + "(ORD.id, ORD.orderDate, ORD.orderNum, ORD.amount, ORD.customerName, ORD.customerAddress, ORD.customerEmail,"
+				+ " ORD.customerPhone, ORD.orderstatus, ORD.userAccount)  FROM Order ORD ORDER BY ORD.orderNum DESC";
+		Query<OrderInfo> query = session.createQuery(hql);
+		return new PaginationResult<OrderInfo>(query, page, maxResult, maxNavigationPage);
+	}
 
 	@Override
 	public Order getOrderById(String orderId) {
@@ -183,7 +192,5 @@ public class OrderDAOImpl implements OrderDAO {
 		int result = query.executeUpdate();
 		return new Order();
 	}
-
-
 
 }

@@ -112,6 +112,20 @@ public class ClientController {
 		response.getOutputStream().close();
 	}
 	
+	@RequestMapping(value = {"/productDetail"})
+	public String productDetail(HttpServletRequest request, HttpServletResponse response, Model model,
+			@RequestParam("code") String code) throws IOException {
+		Product product = null;
+		if(code != null) {
+			product = productDAO.getProductByCode(code);
+		}
+		if(product == null) {
+			return "redirect:/productList";
+		}
+		model.addAttribute("productInfo", product);
+		return "productDetail";
+	}
+	
 	@RequestMapping({"/buyProduct"})
 	public String buyProductHandler(HttpServletRequest request, Model model,
 			@RequestParam(value = "code", defaultValue = "") String code) {
