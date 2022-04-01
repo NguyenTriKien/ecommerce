@@ -364,15 +364,18 @@ public class ClientController {
 			@RequestParam(value = "orderId", defaultValue = "") String orderId) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String currentPrincipalName = authentication.getName();
+		String username = currentPrincipalName;
 		Order order = null;
 		if(status.equals("SHIPPED")) {
-			return "myOrderList";
+			return "redirect:/myOrderList?username=" + username;
+		}
+		if(status.equals("CANCELLED")) {
+			return "redirect:/myOrderList?username=" + username;
 		}
 		if(status.equals("SHIPPING")) {
 			order = orderDAO.getOrderById(orderId);
 			orderDAO.updateOrderStatus(orderId);
 		}
-		String username = currentPrincipalName;
 		return "redirect:/myOrderList?username=" + username;//chỗ này chưa gọi đc do thiếu @
 		
 	}

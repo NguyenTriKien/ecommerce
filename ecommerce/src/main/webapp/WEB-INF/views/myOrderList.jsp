@@ -29,7 +29,7 @@
 					<th>Order Date</th>
 					<th>Customer Name</th>
 					<th>Customer Address</th>
-					<th>Customer Email</th>
+					<th>Customer Account</th>
 					<th>Amount</th>
 					<th>Order status</th>
 					<th>View</th>

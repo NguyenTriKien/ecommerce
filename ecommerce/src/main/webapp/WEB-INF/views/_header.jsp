@@ -92,10 +92,10 @@
 						<a class="nav-link"  href="${contextPath}/accountList">User Management </a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">Type</a>
+						<a class="nav-link" href="${contextPath}/type">Type</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">Producer</a>
+						<a class="nav-link" href="${contextPath}/producer">Producer</a>
 					</li>
 					</security:authorize>
 				</ul>

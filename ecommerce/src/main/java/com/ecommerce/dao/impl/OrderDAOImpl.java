@@ -193,4 +193,14 @@ public class OrderDAOImpl implements OrderDAO {
 		return new Order();
 	}
 
+	@Override
+	public Order updateOrderStatus2(String orderId) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "UPDATE Order ORD SET ORD.orderstatus= 'SHIPPED' where ORD.id = :ORDERID";
+		Query<Order> query = session.createQuery(hql);
+		query.setParameter("ORDERID", orderId);
+		int result = query.executeUpdate();
+		return new Order();
+	}
+
 }

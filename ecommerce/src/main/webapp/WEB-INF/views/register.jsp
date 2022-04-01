@@ -137,7 +137,7 @@ label.light {
 </style>
 </head>
 <body>
-	<jsp:include page="_header.jsp" />
+	
 	
 	<form12:form action="${pageContext.request.contextPath}/register" method="POST" modelAttribute="user">
 		<fieldset>

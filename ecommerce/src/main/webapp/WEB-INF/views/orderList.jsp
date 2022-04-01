@@ -28,10 +28,11 @@
 					<th>Order Date</th>
 					<th>Customer Name</th>
 					<th>Customer Address</th>
-					<th>Customer Email</th>
+					<th>Customer Account</th>
 					<th>Amount</th>
 					<th>Order status</th>
 					<th>View</th>
+					<th>Change status</th>
 				</tr>
 				<c:forEach items="${paginationOrderInfos.list }" var="orderInfo">
 					<tr>
@@ -48,6 +49,10 @@
 						<td style="text-align: left;">${orderInfo.orderstatus}</td>
 						<td>
 							<a href="${contextPath}/order?orderId=${orderInfo.id }">View</a>
+						</td>
+						<td>
+						    <a href="${contextPath}/changeOrder?status=${orderInfo.orderstatus}&orderId=${orderInfo.id}">Shipped</a>
+						    <a href="${contextPath}//cancelOrderAdmin?status=${orderInfo.orderstatus}&orderId=${orderInfo.id}">Cancel</a>
 						</td>
 					</tr>
 				</c:forEach>

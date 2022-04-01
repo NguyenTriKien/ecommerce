@@ -9,12 +9,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>User Login</title>
+<title>Type Input</title>
 <link rel="stylesheet" href="css/normalize.css">
 <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="css/main.css">
-<!-- Compiled and minified CSS -->
-
 <style>
 *, *:before, *:after {
 	-moz-box-sizing: border-box;
@@ -70,31 +68,14 @@ select {
 button {
 	padding: 19px 39px 18px 39px;
 	color: #FFF;
-	background-color: salmon ;
+	background-color: #4bc970;
 	font-size: 18px;
-	font-weight: bold;
 	text-align: center;
 	font-style: normal;
 	border-radius: 5px;
 	width: 100%;
-	border: 1px solid #00BFFF;
-	border-width: 1px 1px 1px;
-	box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.1) inset;
-	margin-bottom: 10px;
-}
-
-#googleLogin {
-    padding: 19px 39px 18px 39px;
-	color: white;
-	background-color: salmon;
-	font-size: 15px;
-	font-weight: bold;
-	text-align: center;
-	font-style: normal;
-	border-radius: 5px;
-	width: 100%;
-	border: 1px solid black;
-	border-width: 1px 1px 1px;
+	border: 1px solid #3ac162;
+	border-width: 1px 1px 3px;
 	box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.1) inset;
 	margin-bottom: 10px;
 }
@@ -157,40 +138,17 @@ label.light {
 </head>
 <body>
 	
-	
-	<form12:form action="${pageContext.request.contextPath}/userLogin" method="POST" modelAttribute="userAccount">
+	<jsp:include page="_header.jsp" />
+	<form12:form action="${pageContext.request.contextPath}/type" method="POST" modelAttribute="typeForm">
 		<fieldset>
-			<label for="username">Username:</label>
-				<form12:input type="text" id="username" path="username" placeholder="Enter your username" />
-	            <form12:errors style="color: red;" path="username" class="error-message"></form12:errors>
-			<div>
-				<label for="password">Password:</label>
-				<form12:input type="password" id="password" path="password" placeholder="Enter your password" />
-				<form12:errors style="color: red;" path="password" class="error-message"></form12:errors>
-			</div>
+			<label for="id">ID:</label>
+				<form12:input type="text" id="type" path="id" placeholder="Enter type id" />
+	            <form12:errors style="color: red;" path="id" class="error-message"></form12:errors>
 		</fieldset>
-		<button style="margin-bottom: 5px; margin-top: 1px; border-radius: 5px;" type="submit">Login &nbsp;</button>
-		<div style="color: red;">
-		   <a id="googleLogin" class="btn btn-info" style="margin-bottom: 5px; margin-top: 5px; border-radius: 5px;" href="${contextPath}/register"> 
-              Register
-           </a>   
-         </div>
-		<div>
-		   <a id="googleLogin" class="btn btn-info" style="margin-bottom: 5px; margin-top: 5px; border-radius: 5px;" href="https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://localhost:8080/ecommerce/login-google&response_type=code
-    &client_id=476708859592-ssrek4ntjos4ikd8sr0i9adg2pdfmr9v.apps.googleusercontent.com&approval_prompt=force"> 
-              <img width="15px" style="margin-bottom:3px; margin-right:5px" alt="Google login" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
-              Login with Google
-           </a>   
-         </div>
-         <div style="color: red;">
-		   <a id="googleLogin" class="btn btn-info" style="margin-bottom: 5px; margin-top: 5px; border-radius: 5px;" href="${contextPath}/login"> 
-              Click on this link to go to login form for manager and employee
-           </a>   
-         </div>
-		<div>
+		<button style="margin-bottom: 10px; margin-top: 10px; border-radius: 5px;" type="submit">Apply &nbsp;</button>
 	</form12:form>
 	
-	<div style="margin-bottom: 20px;"></div>
+	<div style="margin-bottom: 240px;"></div>
 	
 	<jsp:include page="_footer.jsp" />
 </body>

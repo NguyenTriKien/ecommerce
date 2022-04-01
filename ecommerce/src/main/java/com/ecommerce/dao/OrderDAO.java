@@ -28,6 +28,6 @@ public interface OrderDAO {
 	
 	public Order updateOrderStatus(String orderId);
 	
-	
+	public Order updateOrderStatus2(String orderId);
 	
 }

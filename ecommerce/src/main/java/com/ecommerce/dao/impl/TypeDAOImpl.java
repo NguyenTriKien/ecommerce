@@ -40,4 +40,26 @@ public class TypeDAOImpl implements TypeDAO {
 		return type;
 	}
 
+	@Override
+	public void saveTypeInfo(TypeInfo typeInfo) {
+		Session session = sessionFactory.getCurrentSession();
+		String id = typeInfo.getId();
+		Type type = null;
+		boolean isNew = false;
+		
+		if(id != null) {
+			type = getTypeById(id);
+		}
+		if(type == null) {
+			isNew = true;
+			type = new Type();
+		}
+		type.setId(id);
+		if (isNew) {
+			session.persist(type);
+		}
+		session.flush();
+		
+	}
+
 }

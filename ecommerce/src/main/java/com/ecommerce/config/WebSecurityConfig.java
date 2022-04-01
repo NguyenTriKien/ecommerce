@@ -31,16 +31,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception{
 		
 		http.csrf().disable();
-		http.authorizeRequests().antMatchers("/orderlist","/order","/accountInfo","/manageProductList")
+		http.authorizeRequests().antMatchers("/orderlist","/order","/accountInfo","/manageProductList","/manageProductList/producttype")
 		.access("hasAnyRole('EMPLOYEE','MANAGER')");
 		
 		http.authorizeRequests().antMatchers("/product","/accountList", "/account").access("hasRole('MANAGER')");
+		
+		http.authorizeRequests().antMatchers("/productList","/shoppingCart","/myOrderList","/productList/producttype").access("hasRole('USER')");
+		
 		
 		http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
 		
 		http.authorizeRequests().and().formLogin()
 			.loginProcessingUrl("/j_spring_security_check")
-			.loginPage("/login")
+			.loginPage("/userLogin")
 			.defaultSuccessUrl("/accountInfo")
 			.failureUrl("/login?error=true")
 			.usernameParameter("username")

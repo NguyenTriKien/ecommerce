@@ -23,6 +23,7 @@ import com.ecommerce.dao.ProducerDAO;
 import com.ecommerce.dao.ProductDAO;
 import com.ecommerce.dao.TypeDAO;
 import com.ecommerce.entity.Account;
+import com.ecommerce.entity.Order;
 import com.ecommerce.entity.Producer;
 import com.ecommerce.entity.Product;
 import com.ecommerce.entity.Type;
@@ -30,17 +31,14 @@ import com.ecommerce.model.AccountInfo;
 import com.ecommerce.model.OrderDetailInfo;
 import com.ecommerce.model.OrderInfo;
 import com.ecommerce.model.PaginationResult;
-//import com.ecommerce.model.OrderDetailInfo;
-//import com.ecommerce.model.OrderInfo;
+import com.ecommerce.model.ProducerInfo;
 import com.ecommerce.model.ProductInfo;
+import com.ecommerce.model.TypeInfo;
 import com.ecommerce.validator.AccountInfoValidator;
 import com.ecommerce.validator.ProductValidator;
 
 @Controller
 public class AdminController {
-
-	//@Autowired
-	//private OrderDAO orderDAO;
 
 	@Autowired
 	private ProductDAO productDAO;
@@ -284,5 +282,107 @@ public class AdminController {
 			productDAO.removeProductByCode(code);
 		}
 		return "redirect:/manageProductList";
+	}
+	
+	@RequestMapping({"/changeOrder"})
+	public String cancelOrder(HttpServletRequest request, Model model,
+			@RequestParam(value = "status", defaultValue = "") String status,  
+			@RequestParam(value = "orderId", defaultValue = "") String orderId) {
+		Order order = null;
+		
+		if(status.equals("SHIPPED")) {
+			return "redirect:/orderList";
+		}
+		if(status.equals("CANCELLED")) {
+			return "redirect:/orderList";
+		}
+		if(status.equals("SHIPPING")) {
+			order = orderDAO.getOrderById(orderId);
+			orderDAO.updateOrderStatus2(orderId);
+		}
+		String username = order.getUserAccount().getUsername();
+		return "redirect:/orderList?username=" + username;//chỗ này chưa gọi đc do thiếu @
+		
+	}
+	
+	@RequestMapping({"/cancelOrderAdmin"})
+	public String cancelOrderAdmin(HttpServletRequest request, Model model,
+			@RequestParam(value = "status", defaultValue = "") String status,  
+			@RequestParam(value = "orderId", defaultValue = "") String orderId) {
+		Order order = null;
+	
+		if(status.equals("SHIPPED")) {
+			return "redirect:/orderList";
+		}
+		if(status.equals("CANCELLED")) {
+			return "redirect:/orderList";
+		}
+		if(status.equals("SHIPPING")) {
+			order = orderDAO.getOrderById(orderId);
+			orderDAO.updateOrderStatus(orderId);
+		}
+		String username = order.getUserAccount().getUsername();
+		return "redirect:/myOrderList?username=" + username;//chỗ này chưa gọi đc do thiếu @
+		
+	}
+	
+	@RequestMapping(value = "/type", method = RequestMethod.GET)
+	public String inputType(Model model, @RequestParam(value = "id", defaultValue = "") String id) {
+		Type type = null;
+		if(id != null) {
+			type = typeDAO.getTypeById(id);
+		}
+		if(id.isEmpty()) {
+			type = new Type();
+		}
+		model.addAttribute("typeForm", type);
+		return "type";
+		
+	}
+	
+	@RequestMapping(value = "/type", method = RequestMethod.POST)
+	public String inputTypeSave(Model model, @ModelAttribute("typeForm") TypeInfo typeInfo, 
+			BindingResult result) {
+		
+		if(result.hasErrors()) {
+			return "type";
+		}try {
+			typeDAO.saveTypeInfo(typeInfo);
+		}catch(Exception e) {
+			model.addAttribute("errorMessage", e.getMessage());
+			return "type";
+		}
+		return "redirect:/manageProductList";
+		
+	}
+	
+	@RequestMapping(value = "/producer", method = RequestMethod.GET)
+	public String inputProducer(Model model, @RequestParam(value = "producerid", defaultValue = "") String producerid) {
+		Producer producer = null;
+		if(producerid != null) {
+			producer = producerDAO.getProducerById2(producerid);
+		}
+		if(producerid.isEmpty()) {
+			producer = new Producer();
+		}
+		model.addAttribute("producerForm", producer);
+		return "producer";
+		
+	}
+	
+	@RequestMapping(value = "/producer", method = RequestMethod.POST)
+	public String inputProducerSave(Model model, @ModelAttribute("producerForm") ProducerInfo producerInfo, 
+			BindingResult result) {
+		
+		if(result.hasErrors()) {
+			return "producer";
+		}try {
+			producerDAO.saveProducerInfo(producerInfo);
+		}catch(Exception e) {
+			model.addAttribute("errorMessage", e.getMessage());
+			return "producer";
+		}
+		return "redirect:/manageProductList";
+		
 	}
 }
