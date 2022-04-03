@@ -29,7 +29,6 @@
 		</div>
 		<ul style="font-size: 20px; margin-left: 200px; list-style-type: none;">
 			<li>Name: ${orderInfo.customerName }</li>
-			<li>Email: ${orderInfo.customerEmail }</li>
 			<li>Phone: ${orderInfo.customerPhone}</li>
 			<li>Address: ${orderInfo.customerAddress}</li>
 		</ul>

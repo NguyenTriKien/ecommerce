@@ -6,11 +6,13 @@ public class CustomerInfo {
 	
 	private String address;
 	
-	private String email;
-	
 	private String phone;
 	
 	private boolean valid;
+
+	public CustomerInfo() {
+		super();
+	}
 
 	public String getName() {
 		return name;
@@ -28,14 +30,6 @@ public class CustomerInfo {
 		this.address = address;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
 	public String getPhone() {
 		return phone;
 	}
@@ -51,5 +45,6 @@ public class CustomerInfo {
 	public void setValid(boolean valid) {
 		this.valid = valid;
 	}
+
 	
 }

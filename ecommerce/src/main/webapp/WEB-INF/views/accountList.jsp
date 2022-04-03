@@ -270,7 +270,8 @@ table.table .avatar {
 										class="material-icons">&#xE8B8;</i></a> <a
 									href="${contextPath}/removeAccount?username=${accountInfo.username}"
 									class="delete" title="Delete" data-toggle="tooltip"><i
-										class="material-icons">&#xE5C9;</i></a></td>
+										class="material-icons">&#xE5C9;</i></a>
+								</td>
 							</tr>
 						</c:forEach>
 					</tbody>

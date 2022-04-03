@@ -2,7 +2,9 @@ package com.ecommerce.model;
 
 public class TypeInfo {
 
-	String id;
+	private String id;
+	
+	private String typename;
 	
 	public TypeInfo() {
 		super();
@@ -13,6 +15,13 @@ public class TypeInfo {
 		this.id = id;
 	}
 
+
+	public TypeInfo(String id, String typename) {
+		super();
+		this.id = id;
+		this.typename = typename;
+	}
+
 	public String getId() {
 		return id;
 	}
@@ -21,7 +30,13 @@ public class TypeInfo {
 		this.id = id;
 	}
 
-	
+	public String getTypename() {
+		return typename;
+	}
+
+	public void setTypename(String typename) {
+		this.typename = typename;
+	}
 	
 	
 }

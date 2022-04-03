@@ -92,7 +92,6 @@ public class AdminController {
 		final int maxResult = 15;
 		final int maxNavigationPage = 10;
 		PaginationResult<ProductInfo> productInfos = productDAO.getAllProductInfos(page, maxResult, maxNavigationPage, likeName, price);
-		
 		model.addAttribute("paginationProductInfos", productInfos);
 		return "manageProductList";
 	}
@@ -330,9 +329,9 @@ public class AdminController {
 	public String inputType(Model model, @RequestParam(value = "id", defaultValue = "") String id) {
 		Type type = null;
 		if(id != null) {
-			type = typeDAO.getTypeById(id);
+			type = typeDAO.getAllTypeById(id);
 		}
-		if(id.isEmpty()) {
+		if(type == null) {
 			type = new Type();
 		}
 		model.addAttribute("typeForm", type);
@@ -352,8 +351,53 @@ public class AdminController {
 			model.addAttribute("errorMessage", e.getMessage());
 			return "type";
 		}
-		return "redirect:/manageProductList";
+		return "redirect:/typeList";
 		
+	}
+	
+	@RequestMapping(value = { "/typeList" }, method = RequestMethod.GET)
+	public String typeList(Model model, @RequestParam(value = "page", defaultValue = "1") String pageStr) {
+		int page = 1;
+		try {
+			page = Integer.parseInt(pageStr);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		final int MAX_RESULT = 10;
+		final int MAX_NAVIGATION_PAGE = 10;
+		PaginationResult<TypeInfo> paginationTypeInfos = typeDAO.getAllTypeInfos(page, MAX_RESULT,
+				MAX_NAVIGATION_PAGE);
+		model.addAttribute("paginationTypeInfos", paginationTypeInfos);
+		return "typeList";
+	}
+	
+	@RequestMapping(value = {"/editType"}, method = RequestMethod.GET)
+	public String edittype (Model model, @RequestParam(value = "id", defaultValue = "") String id) {
+		Type type = null;
+		if (id != null) {
+			type = typeDAO.getAllTypeById(id);
+		}
+		if (type == null) {
+			type = new Type();
+		}
+		model.addAttribute("editTypeForm", type);
+		return "editType";
+	}
+	
+	@RequestMapping(value = {"/editType"}, method = RequestMethod.POST)
+	public String edittypeSave(Model model, @ModelAttribute("editTypeForm") @Validated TypeInfo typeInfo,
+			BindingResult result) {
+		if (result.hasErrors()) {
+			return "editType";
+		}
+		try {
+			typeDAO.saveTypeInfo(typeInfo);
+		} catch (Exception e) {
+			model.addAttribute("errorMessage", e.getMessage());
+			return "editType";
+		}
+		return "redirect:/typeList";
 	}
 	
 	@RequestMapping(value = "/producer", method = RequestMethod.GET)
@@ -370,6 +414,25 @@ public class AdminController {
 		
 	}
 	
+	@RequestMapping(value = { "/producerList" }, method = RequestMethod.GET)
+	public String producerList(Model model, @RequestParam(value = "page", defaultValue = "1") String pageStr,
+			@RequestParam(value = "likeName", defaultValue = "") String likeName,
+			@RequestParam(value = "likeCountry", defaultValue = "") String likeCountry) {
+		int page = 1;
+		try {
+			page = Integer.parseInt(pageStr);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		final int MAX_RESULT = 10;
+		final int MAX_NAVIGATION_PAGE = 10;
+		PaginationResult<ProducerInfo> paginationProducerInfos = producerDAO.getAllProducerInfos(page, MAX_RESULT,
+				MAX_NAVIGATION_PAGE, likeName, likeCountry);
+		model.addAttribute("paginationProducerInfos", paginationProducerInfos);
+		return "producerList";
+	}
+	
 	@RequestMapping(value = "/producer", method = RequestMethod.POST)
 	public String inputProducerSave(Model model, @ModelAttribute("producerForm") ProducerInfo producerInfo, 
 			BindingResult result) {
@@ -382,7 +445,7 @@ public class AdminController {
 			model.addAttribute("errorMessage", e.getMessage());
 			return "producer";
 		}
-		return "redirect:/manageProductList";
+		return "redirect:/producerList";
 		
 	}
 }

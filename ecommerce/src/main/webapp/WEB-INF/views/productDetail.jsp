@@ -13,54 +13,81 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/responsive.css" />
+
 </head>
 <body>
-	<jsp:include page="userHeader.jsp" />
-	<section class="feature_section layout_padding">
-			<div class="container">
-				<div class="heading_container">
-					<h2>Product Detail</h2>
-				</div>
-			</div>
-		</section>
-	<div style="margin-left: 450px; margin-bottom: 5px; margin-right: 450px; margin-top:-50px">
-		<div style="color: #000080; margin-left: 200px; ">
-			<h3>Product Information</h3>				
-		</div>
-		<ul style="font-size: 20px; margin-left: 200px; list-style-type: none;">
-			<li>
-				<img style="width: 200px; height: 200px;" src="${contextPath}/productImage?code=${productInfo.code}" />
-			</li>
-		</ul>
-	</div>
-	<br/>
-	<table border="2" style="width: 100%; font-size: 20px;">
-	      <thead>
-		      <tr style="text-align: center;">
-					<th>Product Name</th>
-					<th>CPU</th>
-					<th>GPU</th>
-					<th>Screen</th>
-					<th>RAM</th>
-					<th>Storage</th>
-					<th>OS</th>
-					<th>Producer</th>
-					<th>Country</th>
-					<th>Price</th>
-				</tr>
-	      </thead>
-		  <tbody>
-		     <td>${productInfo.name }</td>
-		     <td>${productInfo.cpu }</td>
-		     <td>${productInfo.gpu }</td>
-		     <td>${productInfo.screen }</td>
-		     <td>${productInfo.ram }</td>
-		     <td>${productInfo.storage }</td>
-		     <td>${productInfo.os }</td>
-		     <td>${productInfo.producer.producerid }</td>
-		     <td>${productInfo.producer.country }</td>
-		     <td>${productInfo.price }</td>
-		  </tbody>
-		</table>
-</body>
+    <jsp:include page="userHeader.jsp" />
+       <section class="product-details spad">
+        <div class="container" style="margin-top:50px">
+            <div class="row" style="width:100%">
+                <div class="col-lg-6 col-md-6">
+                    <div class="product__details__pic">
+                        <div class="product__details__pic__item">
+                            <img class="product__details__pic__item--large"
+                                src="${contextPath}/productImage?code=${productInfo.code}" alt="" style="width:100%">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="product__details__text">
+                        <h3>Product Detail</h3>
+                        <div class="product__details__rating">
+                           <table style="width:70%; ">
+						   <tr>
+						       <th style="font-size: 20px;">Name</th>
+						       <th style="font-weight:normal; font-size: 20px;">${productInfo.name}</th>
+						   </tr>
+						   <tr>
+							   <th style="font-size: 20px;">CPU</th>
+							   <th style="font-weight:normal; font-size: 20px;">${productInfo.cpu}</th>
+						   </tr>
+						   <tr>
+							   <th style="font-size: 20px;">RAM</th>
+							   <th style="font-weight:normal; font-size: 20px;">${productInfo.ram}</th>
+						   </tr>
+						   <tr>
+							   <th style="font-size: 20px;">Screen(inches)</th>
+							   <th style="font-weight:normal; font-size: 20px;">${productInfo.screen}</th>
+						   </tr>
+						    <tr>
+							   <th style="font-size: 20px;">GPU</th>
+							   <th style="font-weight:normal; font-size: 20px;">${productInfo.gpu}</th>
+						   </tr>
+						   <tr>
+							   <th style="font-size: 20px;">Storage</th>
+							   <th style="font-weight:normal; font-size: 20px;">${productInfo.storage}</th>
+						   </tr>
+						   <tr>
+							   <th style="font-size: 20px;">Operating system</th>
+							   <th style="font-weight:normal; font-size: 20px;">${productInfo.os}</th>
+						   </tr>
+						   <tr>
+							   <th style="font-size: 20px;">Type</th>
+							   <th style="font-weight:normal; font-size: 20px;">${productInfo.type.id}</th>
+						   </tr>
+						   <tr>
+							   <th style="font-size: 20px;">Type</th>
+							   <th style="font-weight:normal; font-size: 20px;">${productInfo.producer.producerid}</th>
+						   </tr>
+						   <tr>
+							   <th style="font-size: 20px;">Country</th>
+							   <th style="font-weight:normal; font-size: 20px;">${productInfo.producer.country}</th>
+						   </tr>
+						   <tr>
+							   <th style="font-size: 20px;">Price:</th>
+							   <th style="font-weight:normal; font-size: 20px">
+							      <fmt:formatNumber value="${productInfo.price}" type="currency"></fmt:formatNumber>
+							   </th>
+							</tr>
+                           </table>
+                        </div>
+                        <br>
+                        <a style="font-size: 20px;" href="${contextPath}/buyProduct?code=${productInfo.code}" class="primary-btn">BUY NOW</a>
+                        <a href="#" clastyle="font-size: 20px;"ss="heart-icon"><span class="icon_heart_alt"></span></a>
+                    </div>
+                </div>
+               </div>
+              </div>
+    </section>
+  </body>
 </html>

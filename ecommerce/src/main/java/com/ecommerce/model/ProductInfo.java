@@ -27,6 +27,8 @@ public class ProductInfo {
     private String os;
     
     private int quantity;
+    
+    private String status;
 	
 	private Type type;
 	
@@ -47,18 +49,19 @@ public class ProductInfo {
 	}
 
 	
-	
-	public ProductInfo(String code, String name, int quantity, Type type, double price) {
+
+	public ProductInfo(String code, String name, int quantity, String status, Type type, double price) {
 		super();
 		this.code = code;
 		this.name = name;
 		this.quantity = quantity;
+		this.status = status;
 		this.type = type;
 		this.price = price;
 	}
 
 	public ProductInfo(String code, String name, String cpu, String ram, double screen, String gpu, String storage,
-			String os, int quantity, Type type, Producer producer, double price) {
+			String os, int quantity, String status, Type type, Producer producer, double price) {
 		super();
 		this.code = code;
 		this.name = name;
@@ -69,9 +72,11 @@ public class ProductInfo {
 		this.storage = storage;
 		this.os = os;
 		this.quantity = quantity;
+		this.status = status;
 		this.type = type;
 		this.producer = producer;
 		this.price = price;
+
 	}
 
 	public ProductInfo(String code, String name, String cpu, String ram, double screen, String gpu, String storage,
@@ -96,19 +101,6 @@ public class ProductInfo {
 		this.producers = producers;
 	}
 
-	public ProductInfo(String code, String name, Type type, double price, boolean newProduct,
-			CommonsMultipartFile fileData, List<Type> types) {
-		super();
-		this.code = code;
-		this.name = name;
-		this.type = type;
-		this.price = price;
-		this.newProduct = newProduct;
-		this.fileData = fileData;
-		this.types = types;
-	}
-
-
 	public ProductInfo(Product product) {
 		this.code = product.getCode();
 		this.name = product.getName();
@@ -122,6 +114,7 @@ public class ProductInfo {
 		this.type = product.getType();
 		this.producer = product.getProducer();
 		this.price = product.getPrice();
+		this.status = product.getStatus();
 	}
 
 	
@@ -253,4 +246,15 @@ public class ProductInfo {
 		this.producers = producers;
 	}
 
+
+	public String getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	
 }

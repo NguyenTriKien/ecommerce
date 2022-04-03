@@ -39,6 +39,7 @@ public class ProductValidator implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "price", "NotEmpty.productForm.price");
 
 		String code = productInfo.getCode();
+		double price = productInfo.getPrice();
 		if (code != null && code.length() > 0) {
 			if (code.matches("\\s+")) {
 				errors.rejectValue("code", "Pattern.productForm.code");
@@ -48,6 +49,10 @@ public class ProductValidator implements Validator {
 					errors.rejectValue("code", "Duplicate.productForm.code");
 				}
 			}
+		}
+		
+		if(price <= 0) {
+			errors.rejectValue("price", "Pattern.productForm.price");
 		}
 	}
 

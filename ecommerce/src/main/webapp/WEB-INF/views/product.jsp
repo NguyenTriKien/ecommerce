@@ -46,6 +46,20 @@
 							</tr>
 							
 							<tr>
+								<td>Image</td>
+								<td><img
+									src="${contextPath}/productImage?code=${productForm.code}"
+									style="width:100px; " /></td>
+								<td></td>
+							</tr>
+							
+							<tr>
+								<td>Upload Image</td>
+								<td><form:input type="file" path="fileData" /></td>
+								<td></td>
+							</tr>
+							
+							<tr>
 								<td>Name *</td>
 								<td><form:input path="name" /></td>
 								<td style="color: red;"><form:errors path="name" class="error-message" /></td>
@@ -91,28 +105,40 @@
 								<td>Quantity *</td>
 								<td><form:input path="quantity" /></td>
 								<td style="color: red;"><form:errors path="quantity" class="error-message" /></td>
+							  
+							</tr>
+							
+							<tr>
+								<td>Status *</td>
+								<td style="color: red;"><form:errors path="status" class="error-message" style="margin-bottom: 25px;" />
+								<form:select path="status" id="statuslist" onChange="getValue3();" style="height:50px; margin-bottom: 25px;">
+							            <form:option value="">--Status--</form:option>
+							            <form:option value="Available">Available</form:option>
+							            <form:option value="Not available">Not available</form:option>
+							    </form:select>
+								</td>
 							</tr>
 							
 							<tr>
 								<td>Type *</td>
 								<td>
-								 <form:input path="type.id" id="types1" style="width:250px"/>
-								  <form:select path="types" id="typelist" multiple="" onChange="getValue();" style="height:50px">
-								     <form:option value="">--Select Type--</form:option>
+								  <form:input path="type.id" id="types1" style="width:250px"/>
+								  <form:select path="types" id="typelist" multiple="" onChange="getValue();"  style="height:50px">
+								     <form:option value="">--Type--</form:option>
 								     <c:forEach items="${productForm.types}" var="type">
 								     	<form:option value="${type.id}">${type.id}</form:option>
 								     </c:forEach>
 								  </form:select>
                                 </td>
-								<td style="color: red;"><form:errors path="type" class="error-message" /></td>
+								<td style="color: red;"><form:errors path="types" class="error-message" /></td>
 							</tr>
 							
 							<tr>
 								<td>Producer *</td>
 								<td>
-								 <form:input path="producer.producerid" id="producers1" style="width:250px"/>
+								  <form:input path="producer.producerid" id="producers1" style="width:250px"/>
 								  <form:select path="producers" id="producerlist" multiple="" onChange="getValue2();" style="height:50px">
-								     <form:option value="">--Select Type--</form:option>
+								     <form:option value="">--Producer--</form:option>
 								     <c:forEach items="${productForm.producers}" var="producer">
 								     	<form:option value="${producer.producerid}">${producer.producerid}</form:option>
 								     </c:forEach>
@@ -125,20 +151,6 @@
 								<td>Price *</td>
 								<td><form:input path="price" /></td>
 								<td><form:errors path="price" class="error-message" /></td>
-							</tr>
-							
-							<tr>
-								<td>Image</td>
-								<td><img
-									src="${contextPath}/productImage?code=${productForm.code}"
-									width="100" /></td>
-								<td></td>
-							</tr>
-							
-							<tr>
-								<td>Upload Image</td>
-								<td><form:input type="file" path="fileData" /></td>
-								<td></td>
 							</tr>
 							
 							<tr>

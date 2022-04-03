@@ -74,7 +74,7 @@
 				    <div class="dropdown">
 					  <button class="dropbtn" onClick="location.href='${contextPath}/manageProductList'">PRODUCT LIST</button>
 					  <div class="dropdown-content">
-					    <a href="${contextPath}/manageProductList/producttype?type=Phone">Phone</a>
+					    <a href="${contextPath}/manageProductList/producttype?type=Smart Phone">Phone</a>
 					    <a href="${contextPath}/manageProductList/producttype?type=Laptop">Laptop</a>
 					  </div>
 					</div>
@@ -92,10 +92,10 @@
 						<a class="nav-link"  href="${contextPath}/accountList">User Management </a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="${contextPath}/type">Type</a>
+						<a class="nav-link" href="${contextPath}/typeList">Type</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="${contextPath}/producer">Producer</a>
+						<a class="nav-link" href="${contextPath}/producerList">Producer</a>
 					</li>
 					</security:authorize>
 				</ul>

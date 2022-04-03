@@ -75,7 +75,6 @@ public class OrderDAOImpl implements OrderDAO {
 		
 		CustomerInfo customerInfo = cartInfo.getCustomerInfo();
 		order.setCustomerName(customerInfo.getName());
-		order.setCustomerEmail(customerInfo.getEmail());
 		order.setCustomerPhone(customerInfo.getPhone());
 		order.setCustomerAddress(customerInfo.getAddress());
 		session.persist(order);
@@ -101,7 +100,7 @@ public class OrderDAOImpl implements OrderDAO {
 	@Override
 	public PaginationResult<OrderInfo> getAllOrderInfosByEmail(int page, int maxResult, int maxNavigationPage, String userAccount) {
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "SELECT NEW " + OrderInfo.class.getName() + "(ORD.id, ORD.orderDate, ORD.orderNum, ORD.amount, ORD.customerName, ORD.customerAddress, ORD.customerEmail,"
+		String hql = "SELECT NEW " + OrderInfo.class.getName() + "(ORD.id, ORD.orderDate, ORD.orderNum, ORD.amount, ORD.customerName, ORD.customerAddress,"
 				+ " ORD.customerPhone, ORD.orderstatus, ORD.userAccount) FROM Order ORD";
 		if(userAccount != null && userAccount.length() > 0) {
 			hql+= " WHERE (ORD.userAccount.username) like :USERNAME ";
@@ -123,7 +122,7 @@ public class OrderDAOImpl implements OrderDAO {
 		}
 
 		OrderInfo orderInfo = new OrderInfo(order.getId(), order.getOrderDate(), getMaxOrderNum(), order.getAmount(),
-				order.getCustomerName(), order.getCustomerAddress(), order.getCustomerEmail(), order.getCustomerPhone(),
+				order.getCustomerName(), order.getCustomerAddress(), order.getCustomerPhone(),
 				order.getOrderstatus(), order.getUserAccount());
 		return orderInfo;
 	}
@@ -143,7 +142,7 @@ public class OrderDAOImpl implements OrderDAO {
 	@Override
 	public PaginationResult<OrderInfo> getAllOrderInfos(int page, int maxResult, int maxNavigationPage) {
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "SELECT NEW " + OrderInfo.class.getName() + "(ORD.id, ORD.orderDate, ORD.orderNum, ORD.amount, ORD.customerName, ORD.customerAddress, ORD.customerEmail,"
+		String hql = "SELECT NEW " + OrderInfo.class.getName() + "(ORD.id, ORD.orderDate, ORD.orderNum, ORD.amount, ORD.customerName, ORD.customerAddress,"
 				+ " ORD.customerPhone, ORD.orderstatus, ORD.userAccount)  FROM Order ORD ORDER BY ORD.orderNum DESC";
 		Query<OrderInfo> query = session.createQuery(hql);
 		return new PaginationResult<OrderInfo>(query, page, maxResult, maxNavigationPage);
@@ -178,8 +177,7 @@ public class OrderDAOImpl implements OrderDAO {
 		}
 
 		OrderInfo orderInfo = new OrderInfo(order.getId(), order.getOrderDate(),order.getOrderNum(),order.getAmount(),
-				order.getCustomerName(), order.getCustomerAddress(), order.getCustomerEmail(),
-				order.getCustomerPhone(), order.getOrderstatus(), order.getUserAccount());
+				order.getCustomerName(), order.getCustomerAddress(), order.getCustomerPhone(), order.getOrderstatus(), order.getUserAccount());
 		return orderInfo;
 	}
 

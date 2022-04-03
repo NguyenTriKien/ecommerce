@@ -160,6 +160,7 @@ label.light {
 	
 	<form12:form action="${pageContext.request.contextPath}/userLogin" method="POST" modelAttribute="userAccount">
 		<fieldset>
+		    <p style="color:red">Login to purchase product</p>
 			<label for="username">Username:</label>
 				<form12:input type="text" id="username" path="username" placeholder="Enter your username" />
 	            <form12:errors style="color: red;" path="username" class="error-message"></form12:errors>

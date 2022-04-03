@@ -2,7 +2,6 @@ package com.ecommerce.validator;
 
 import java.util.Set;
 
-import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -12,9 +11,7 @@ import com.ecommerce.model.CustomerInfo;
 
 @Component
 public class CustomerInfoValidator implements Validator {
-
-	private EmailValidator emailValidator = EmailValidator.getInstance();
-
+    
 	public boolean supports(Class<?> clazz) {
 		return CustomerInfo.class.isAssignableFrom(clazz);
 	}
@@ -22,13 +19,15 @@ public class CustomerInfoValidator implements Validator {
 	@Override
 	public void validate(Object target, Errors errors) {
 		CustomerInfo customerInfo = (CustomerInfo) target;
-
+        String phone = customerInfo.getPhone();
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "NotEmpty.customerForm.name");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "phone", "NotEmpty.customerForm.phone");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "address", "NotEmpty.customerForm.address");
 
-		if (!emailValidator.isValid(customerInfo.getEmail())) {
-			errors.rejectValue("email", "Pattern.customerForm.email");
+		try {
+			Integer.parseInt(phone);
+		} catch (Exception e) {
+			errors.rejectValue("phone", "Pattern.customerForm.phone");
 		}
 	}
 

@@ -14,8 +14,11 @@ public class Producer implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "producerid", length = 50, nullable = false)
+	@Column(name = "producerid", length = 255, nullable = false)
 	private String producerid;
+	
+	@Column(name = "producername", length = 255, nullable = false)
+	private String producername;
 	
 	@Column(name = "country", length = 255, nullable = false)
 	private String country;
@@ -29,9 +32,10 @@ public class Producer implements Serializable {
 		this.producerid = producerid;
 	}
 
-	public Producer(String producerid, String country) {
+	public Producer(String producerid, String producername, String country) {
 		super();
 		this.producerid = producerid;
+		this.producername = producername;
 		this.country = country;
 	}
 
@@ -49,6 +53,14 @@ public class Producer implements Serializable {
 
 	public void setCountry(String country) {
 		this.country = country;
+	}
+
+	public String getProducername() {
+		return producername;
+	}
+
+	public void setProducername(String producername) {
+		this.producername = producername;
 	}
 	
 	

@@ -50,6 +50,9 @@ public class Product implements Serializable{
 	@Column(name = "Quantity", length = 255, nullable = false )
 	private int quantity;
 	
+	@Column(name = "Status", length = 255, nullable = false )
+	private String status;
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "TYPE_ID", nullable = false, foreignKey = @ForeignKey(name ="PRODUCT_TYPE_FK"),updatable = true, insertable = true)
 	private Type type;
@@ -179,6 +182,14 @@ public class Product implements Serializable{
 
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 	

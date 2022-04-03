@@ -207,7 +207,6 @@ public class ClientController {
 	public String shoppingCartCustomer(HttpServletRequest request,  Model model,
 			@ModelAttribute("customerForm") @Validated CustomerInfo customerForm, BindingResult result) {
 		customerInfoValidator.validate(customerForm, result);
-		
 
 		if(result.hasErrors()) {
 			customerForm.setValid(false);

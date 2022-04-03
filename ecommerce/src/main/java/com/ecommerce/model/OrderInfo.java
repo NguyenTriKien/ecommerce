@@ -20,8 +20,6 @@ public class OrderInfo {
 
 	private String customerAddress;
 
-	private String customerEmail;
-
 	private String customerPhone;
 	
 	private String orderstatus;
@@ -30,9 +28,9 @@ public class OrderInfo {
 
 	private List<OrderDetailInfo> orderDetailInfos;
 
+	
 	public OrderInfo(String id, Date orderDate, int orderNum, double amount, String customerName,
-			String customerAddress, String customerEmail, String customerPhone, String orderstatus,
-			UserAccount userAccount) {
+			String customerAddress, String customerPhone, String orderstatus, UserAccount userAccount) {
 		super();
 		this.id = id;
 		this.orderDate = orderDate;
@@ -40,7 +38,6 @@ public class OrderInfo {
 		this.amount = amount;
 		this.customerName = customerName;
 		this.customerAddress = customerAddress;
-		this.customerEmail = customerEmail;
 		this.customerPhone = customerPhone;
 		this.orderstatus = orderstatus;
 		this.userAccount = userAccount;
@@ -93,15 +90,7 @@ public class OrderInfo {
 	public void setCustomerAddress(String customerAddress) {
 		this.customerAddress = customerAddress;
 	}
-
-	public String getCustomerEmail() {
-		return customerEmail;
-	}
-
-	public void setCustomerEmail(String customerEmail) {
-		this.customerEmail = customerEmail;
-	}
-
+    
 	public String getCustomerPhone() {
 		return customerPhone;
 	}
@@ -110,12 +99,12 @@ public class OrderInfo {
 		this.customerPhone = customerPhone;
 	}
 
-	public List<OrderDetailInfo> getOrderDetailInfos() {
-		return orderDetailInfos;
+	public String getOrderstatus() {
+		return orderstatus;
 	}
 
-	public void setOrderDetailInfos(List<OrderDetailInfo> orderDetailInfos) {
-		this.orderDetailInfos = orderDetailInfos;
+	public void setOrderstatus(String orderstatus) {
+		this.orderstatus = orderstatus;
 	}
 
 	public UserAccount getUserAccount() {
@@ -126,12 +115,13 @@ public class OrderInfo {
 		this.userAccount = userAccount;
 	}
 
-	public String getOrderstatus() {
-		return orderstatus;
+	public List<OrderDetailInfo> getOrderDetailInfos() {
+		return orderDetailInfos;
 	}
 
-	public void setOrderstatus(String orderstatus) {
-		this.orderstatus = orderstatus;
+	public void setOrderDetailInfos(List<OrderDetailInfo> orderDetailInfos) {
+		this.orderDetailInfos = orderDetailInfos;
 	}
+
 	
 }

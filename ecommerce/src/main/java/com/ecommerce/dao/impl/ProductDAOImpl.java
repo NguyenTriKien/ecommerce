@@ -37,14 +37,14 @@ public class ProductDAOImpl implements ProductDAO {
 	public PaginationResult<ProductInfo> getAllProductInfos(int page, int maxResult, int maxNavigationPage,
 			String likeName, double price) {
 		Session session = sessionFactory.getCurrentSession();
-		String hql = " SELECT NEW " + ProductInfo.class.getName() + " (PRO.code, PRO.name, PRO.quantity, PRO.type, PRO.price) FROM Product PRO ";
+		String hql = " SELECT NEW " + ProductInfo.class.getName() + " (PRO.code, PRO.name, PRO.quantity, PRO.status ,PRO.type, PRO.price) FROM Product PRO ";
 		if (likeName != null && likeName.length() > 0 && price > 0) {
 			hql += " WHERE LOWER(PRO.name) like :LIKENAME AND PRO.price = :PRICE";
 		} else if(likeName != null && likeName.length() > 0 && price < 0) {
 			hql += " WHERE LOWER(PRO.name) like :LIKENAME";
 		} else if(likeName == null || likeName.length() == 0 && price > 0) {
 			hql += " WHERE PRO.price = :PRICE";
-		} else if(likeName == null || likeName.length() > 0) {
+		} else if(likeName != null || likeName.length() > 0) {
 			hql += " WHERE LOWER(PRO.name) like :LIKENAME";
 		}
 		hql += " ORDER BY PRO.createDate DESC ";
@@ -81,7 +81,7 @@ public class ProductDAOImpl implements ProductDAO {
 		ProductInfo productInfo = new ProductInfo(product.getCode(), product.getName(),product.getCpu(),
 		                                          product.getRam(), product.getScreen(),product.getGpu(),
 		                                          product.getStorage(), product.getOs(), product.getQuantity(), 
-		                                          product.getType(), product.getProducer() ,product.getPrice());
+		                                          product.getStatus(), product.getType(), product.getProducer() ,product.getPrice());
 		return productInfo;
 	}
 
@@ -109,9 +109,10 @@ public class ProductDAOImpl implements ProductDAO {
 		product.setStorage(productInfo.getStorage());
 		product.setOs(productInfo.getOs());
 		product.setQuantity(productInfo.getQuantity());
-		product.setType(productInfo.getTypes().get(0));
-		product.setProducer(productInfo.getProducers().get(0));
+		product.setType(productInfo.getType());
+		product.setProducer(productInfo.getProducer());
 		product.setPrice(productInfo.getPrice());
+		product.setStatus(productInfo.getStatus());
 
 		if (productInfo.getFileData() != null) {
 			byte[] image = productInfo.getFileData().getBytes();
@@ -154,7 +155,7 @@ public class ProductDAOImpl implements ProductDAO {
 	public PaginationResult<ProductInfo> getAllProductInfoByType(int page, int maxResult, int maxNavigationPage,
 			String type) {
 		Session session = sessionFactory.getCurrentSession();
-		String hql = " SELECT NEW " + ProductInfo.class.getName() + " (PRO.code, PRO.name, PRO.quantity, PRO.type, PRO.price) FROM Product PRO ";
+		String hql = " SELECT NEW " + ProductInfo.class.getName() + " (PRO.code, PRO.name, PRO.quantity, PRO.status ,PRO.type, PRO.price) FROM Product PRO ";
 		if (type != null && type.length() > 0) {
 			hql += " WHERE LOWER(PRO.type.id) like :TYPE ";
 		}

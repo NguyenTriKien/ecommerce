@@ -141,9 +141,19 @@ label.light {
 	<jsp:include page="_header.jsp" />
 	<form12:form action="${pageContext.request.contextPath}/type" method="POST" modelAttribute="typeForm">
 		<fieldset>
-			<label for="id">ID:</label>
-				<form12:input type="text" id="type" path="id" placeholder="Enter type id" />
-	            <form12:errors style="color: red;" path="id" class="error-message"></form12:errors>
+			<label for="id">Type id:</label>
+				<c:if test="${not empty typeForm.id}">
+					<form12:hidden path="id" /> ${typeForm.id}
+				</c:if> 
+				<c:if test="${empty typeForm.id}">
+					<form12:input path="id" />
+					<form12:hidden path="newType" /></c:if>
+	            <form12:errors style="color: red;" path="typename" class="error-message"></form12:errors>
+		</fieldset>
+		<fieldset>
+			<label for="id">Type name:</label>
+				<form12:input type="text" id="type" path="typename" placeholder="Enter type name" />
+	            <form12:errors style="color: red;" path="typename" class="error-message"></form12:errors>
 		</fieldset>
 		<button style="margin-bottom: 10px; margin-top: 10px; border-radius: 5px;" type="submit">Apply &nbsp;</button>
 	</form12:form>

@@ -45,6 +45,7 @@
 							<th>Type</th>
 							<th>Quantity</th>
 							<th>Price</th>
+							<th>Status</th>
 	                        <th>CRUD</th>
 						</tr>
 					</thead>
@@ -54,9 +55,10 @@
 							<tr>
 								<td><c:out value="${productInfo.code}"></c:out></td>
 								<td><c:out value="${productInfo.name}"></c:out></td>
-								<td><c:out value="${productInfo.type.id}"></c:out></td>
+								<td><c:out value="${productInfo.type.typename}"></c:out></td>
 								<td><c:out value="${productInfo.quantity}"></c:out></td>
 								<td><c:out value="${productInfo.price}"></c:out></td>
+								<td><c:out value="${productInfo.status}"></c:out></td>
 								<td colspan="2">
 									<li>
 										<a style="color: red;" href="${contextPath}/product?code=${productInfo.code}">Edit Product</a>
@@ -82,6 +84,7 @@
 			</c:forEach>
 		</div>
 	</c:if>
+   
 	
 	<jsp:include page="_footer.jsp" />	
 </body>

@@ -56,16 +56,6 @@
 								<li>
 									<a style="color: green;" href="${contextPath}/productDetail?code=${productInfo.code}">Detail</a>
 								</li>
-								</li>
-								<security:authorize access="hasRole('ROLE_MANAGER')">
-									<li>
-										<a style="color: red;" href="${contextPath}/product?code=${productInfo.code}">Edit Product</a>
-										
-									</li>
-									<li>
-										<a style="color: red;" href="${contextPath}/removeProduct?code=${productInfo.code}">Delete Product</a>
-									</li>
-								</security:authorize>
 							</ul>
 						</div>
 					</div>

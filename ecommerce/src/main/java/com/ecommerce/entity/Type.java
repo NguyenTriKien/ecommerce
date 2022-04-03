@@ -16,15 +16,24 @@ public class Type implements Serializable {
 	public Type() {
 		super();
 	}
-
+	
 	public Type(String id) {
 		super();
 		this.id = id;
 	}
 
+	public Type(String id, String typename) {
+		super();
+		this.id = id;
+		this.typename = typename;
+	}
+
 	@Id
-	@Column(name = "typeid", length = 50, nullable = false)
+	@Column(name = "typeid", length = 255, nullable = false)
 	private String id;
+	
+	@Column(name = "typename", length = 255, nullable = false)
+	private String typename;
 
 	public String getId() {
 		return id;
@@ -32,6 +41,14 @@ public class Type implements Serializable {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getTypename() {
+		return typename;
+	}
+
+	public void setTypename(String typename) {
+		this.typename = typename;
 	}
 	
 	

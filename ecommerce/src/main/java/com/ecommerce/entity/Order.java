@@ -40,9 +40,6 @@ private static final long serialVersionUID = 1L;
 	@Column(name = "Customer_Address", length = 255, nullable = false)
 	private String customerAddress;
 	
-	@Column(name = "Customer_Email", length = 128, nullable = false)
-	private String customerEmail;
-	
 	@Column(name = "Customer_Phone", length = 128, nullable = false)
 	private String customerPhone;
 	
@@ -104,14 +101,6 @@ private static final long serialVersionUID = 1L;
 
 	public void setCustomerAddress(String customerAddress) {
 		this.customerAddress = customerAddress;
-	}
-
-	public String getCustomerEmail() {
-		return customerEmail;
-	}
-
-	public void setCustomerEmail(String customerEmail) {
-		this.customerEmail = customerEmail;
 	}
 
 	public String getCustomerPhone() {

@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/responsive.css" />
 </head>
 <body>
-	<jsp:include page="_header.jsp" />
+	<jsp:include page="userHeader.jsp" />
 	
 	<section class="about_section layout_padding" style="background-color: green; margin-bottom: 10px;">
 		<div class="container" >
