@@ -29,15 +29,17 @@
 						<tr>
 							<td><label style="margin-right: 5px;">Name</label>
 							<input style="margin-right: 5px; width: 75%" type="text" name="name"></td>
-							<td><label style="margin-right: 5px;">Price</label><input style="margin-right: 5px; width: 80%" type="text" name="price"></td>
+							<td><label style="margin-right: 5px;">Price</label>
+							<input style="margin-right: 5px; width: 75%" type="text" name="price">
+							</td>
 							<td colspan="2" align="center">
 								<input style="color: white; background-color: #33CC00; border-radius: 5px; margin-top: -10px" type="submit" value="Search">
 							</td>
 						</tr>
 					</table>		
 			</div>
-	</section>
-		<table class="table table-striped table-hover">
+			
+		    <table class="table table-striped table-hover">
 					<thead>
 						<tr>
 							<th>Code</th>
@@ -71,7 +73,12 @@
 						</c:forEach>
 					</tbody>
 				</table>
+			</div>
+		</form>
+	</section>
+	
 	<br />
+	
 	<c:if test="${paginationProductInfos.totalPages > 1}">
 		<div style="text-align:center;">
 			<c:forEach items="${paginationProductInfos.navigationPages}" var="page">

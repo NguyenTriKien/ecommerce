@@ -134,10 +134,13 @@ public class ClientController {
 			product = productDAO.getProductByCode(code);
 		}
 		
-		if(product != null) {
+		if(product != null && product.getStatus().equals("Available")) {
 			CartInfo cartInfo = Utils.getCartInfoInSession(request);
 			ProductInfo productInfo = new ProductInfo(product);
 			cartInfo.addProduct(productInfo, 1);
+		}
+		if(product != null && product.getStatus().equals("Not available")) {
+			return "redirect:/productList";
 		}
 		return "redirect:/shoppingCart";
 	}

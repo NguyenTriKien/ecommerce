@@ -32,7 +32,7 @@
                     <div class="product__details__text">
                         <h3>Product Detail</h3>
                         <div class="product__details__rating">
-                           <table style="width:70%; ">
+                           <table style="width:95%; ">
 						   <tr>
 						       <th style="font-size: 20px;">Name</th>
 						       <th style="font-weight:normal; font-size: 20px;">${productInfo.name}</th>
@@ -63,15 +63,19 @@
 						   </tr>
 						   <tr>
 							   <th style="font-size: 20px;">Type</th>
-							   <th style="font-weight:normal; font-size: 20px;">${productInfo.type.id}</th>
+							   <th style="font-weight:normal; font-size: 20px;">${productInfo.type.typename}</th>
 						   </tr>
 						   <tr>
-							   <th style="font-size: 20px;">Type</th>
+							   <th style="font-size: 20px;">Producer</th>
 							   <th style="font-weight:normal; font-size: 20px;">${productInfo.producer.producerid}</th>
 						   </tr>
 						   <tr>
 							   <th style="font-size: 20px;">Country</th>
 							   <th style="font-weight:normal; font-size: 20px;">${productInfo.producer.country}</th>
+						   </tr>
+						   <tr>
+							   <th style="font-size: 20px;">Status</th>
+							   <th style="font-weight:normal; font-size: 20px;">${productInfo.status}</th>
 						   </tr>
 						   <tr>
 							   <th style="font-size: 20px;">Price:</th>

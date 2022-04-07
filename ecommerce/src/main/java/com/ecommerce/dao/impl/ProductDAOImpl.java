@@ -42,9 +42,9 @@ public class ProductDAOImpl implements ProductDAO {
 			hql += " WHERE LOWER(PRO.name) like :LIKENAME AND PRO.price = :PRICE";
 		} else if(likeName != null && likeName.length() > 0 && price < 0) {
 			hql += " WHERE LOWER(PRO.name) like :LIKENAME";
-		} else if(likeName == null || likeName.length() == 0 && price > 0) {
+		} else if(likeName == null && likeName.length() == 0 && price > 0) {
 			hql += " WHERE PRO.price = :PRICE";
-		} else if(likeName != null || likeName.length() > 0) {
+		} else if(likeName != null && likeName.length() > 0) {
 			hql += " WHERE LOWER(PRO.name) like :LIKENAME";
 		}
 		hql += " ORDER BY PRO.createDate DESC ";

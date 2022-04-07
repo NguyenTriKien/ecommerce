@@ -86,10 +86,12 @@ public class ProducerDAOImpl implements ProducerDAO {
 			hql += " WHERE LOWER(PROD.producername) like :LIKENAME AND LOWER(PROD.country) like :LIKECOUNTRY";
 		} else if(likeName != null && likeName.length() > 0 && likeCountry == null) {
 			hql += " WHERE LOWER(PROD.producername) like :LIKENAME";
-		} else if(likeName == null || likeName.length() == 0 && likeCountry != null && likeCountry.length() > 0) {
+		} else if(likeName == null && likeName.length() == 0 && likeCountry != null && likeCountry.length() > 0) {
 			hql += " WHERE LOWER(PROD.country) like :LIKECOUNTRY";
-		} else if(likeName != null || likeName.length() > 0) {
+		} else if(likeName != null && likeName.length() > 0) {
 			hql += " WHERE LOWER(PROD.producername) like :LIKENAME";
+		} else if(likeCountry != null && likeCountry.length() > 0) {
+			hql += " WHERE LOWER(PROD.country) like :LIKECOUNTRY";
 		}
 		hql += " ORDER BY PROD.producerid DESC ";
 		

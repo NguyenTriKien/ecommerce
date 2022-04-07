@@ -35,7 +35,6 @@
 							</td>
 						</tr>
 					</table>	
-						
 			</div>
 			
 			<c:forEach items="${paginationProductInfos.list}" var="productInfo">
@@ -51,6 +50,7 @@
 									<fmt:formatNumber value="${productInfo.price}" type="currency" />
 								</li>
 								<li>Type: ${productInfo.type.id}</li>
+								<li>Status: ${productInfo.status}</li>
 								<li>
 									<a style="color: green;" href="${contextPath}/buyProduct?code=${productInfo.code}">Buy Now</a>
 								<li>

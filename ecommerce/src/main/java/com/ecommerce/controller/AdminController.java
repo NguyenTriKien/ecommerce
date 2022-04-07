@@ -400,6 +400,21 @@ public class AdminController {
 		return "redirect:/typeList";
 	}
 	
+	@RequestMapping(value = "/producer", method = RequestMethod.POST)
+	public String inputProducerSave(Model model, @ModelAttribute("producerForm") ProducerInfo producerInfo, 
+			BindingResult result) {
+		
+		if(result.hasErrors()) {
+			return "producer";
+		}try {
+			producerDAO.saveProducerInfo(producerInfo);
+		}catch(Exception e) {
+			model.addAttribute("errorMessage", e.getMessage());
+			return "producer";
+		}
+		return "redirect:/producerList";
+		
+	}
 	@RequestMapping(value = "/producer", method = RequestMethod.GET)
 	public String inputProducer(Model model, @RequestParam(value = "producerid", defaultValue = "") String producerid) {
 		Producer producer = null;
@@ -416,8 +431,8 @@ public class AdminController {
 	
 	@RequestMapping(value = { "/producerList" }, method = RequestMethod.GET)
 	public String producerList(Model model, @RequestParam(value = "page", defaultValue = "1") String pageStr,
-			@RequestParam(value = "likeName", defaultValue = "") String likeName,
-			@RequestParam(value = "likeCountry", defaultValue = "") String likeCountry) {
+			@RequestParam(value = "producername", defaultValue = "") String producername,
+			@RequestParam(value = "country", defaultValue = "") String country) {
 		int page = 1;
 		try {
 			page = Integer.parseInt(pageStr);
@@ -428,24 +443,10 @@ public class AdminController {
 		final int MAX_RESULT = 10;
 		final int MAX_NAVIGATION_PAGE = 10;
 		PaginationResult<ProducerInfo> paginationProducerInfos = producerDAO.getAllProducerInfos(page, MAX_RESULT,
-				MAX_NAVIGATION_PAGE, likeName, likeCountry);
+				MAX_NAVIGATION_PAGE, producername, country);
 		model.addAttribute("paginationProducerInfos", paginationProducerInfos);
 		return "producerList";
 	}
 	
-	@RequestMapping(value = "/producer", method = RequestMethod.POST)
-	public String inputProducerSave(Model model, @ModelAttribute("producerForm") ProducerInfo producerInfo, 
-			BindingResult result) {
-		
-		if(result.hasErrors()) {
-			return "producer";
-		}try {
-			producerDAO.saveProducerInfo(producerInfo);
-		}catch(Exception e) {
-			model.addAttribute("errorMessage", e.getMessage());
-			return "producer";
-		}
-		return "redirect:/producerList";
-		
-	}
+	
 }

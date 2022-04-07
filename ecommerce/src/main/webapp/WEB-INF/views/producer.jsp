@@ -140,10 +140,15 @@ label.light {
 	
 	<jsp:include page="_header.jsp" />
 	<form12:form action="${pageContext.request.contextPath}/producer" method="POST" modelAttribute="producerForm">
-	    <fieldset>
+	  <fieldset>
 			<label for="id">Producer id:</label>
-				<form12:input type="text" id="producer" path="producerid" placeholder="Enter producer name" />
-	            <form12:errors style="color: red;" path="producername" class="error-message"></form12:errors>
+				<c:if test="${not empty producerForm.producerid}">
+					<form12:hidden path="producerid" /> ${producerForm.producerid}
+				</c:if> 
+				<c:if test="${empty producerForm.producerid}">
+					<form12:input path="producerid" />
+					<form12:hidden path="newProducer" /></c:if>
+	            <form12:errors style="color: red;" path="producerid" class="error-message"></form12:errors>
 		</fieldset>
 		<fieldset>
 			<label for="id">Producer name:</label>
