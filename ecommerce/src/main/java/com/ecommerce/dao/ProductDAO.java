@@ -11,7 +11,7 @@ import com.ecommerce.entity.Type;
 public interface ProductDAO {
 
 	public PaginationResult<ProductInfo> getAllProductInfos(int page, int maxResult, int maxNavigationPage,
-			String likeName, double price);
+			String likeName, double price, String producers);
 
 	public Product getProductByCode(String code);
 

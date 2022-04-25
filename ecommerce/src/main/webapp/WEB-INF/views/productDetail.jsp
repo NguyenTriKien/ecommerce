@@ -67,7 +67,7 @@
 						   </tr>
 						   <tr>
 							   <th style="font-size: 20px;">Producer</th>
-							   <th style="font-weight:normal; font-size: 20px;">${productInfo.producer.producerid}</th>
+							   <th style="font-weight:normal; font-size: 20px;">${productInfo.producer.producername}</th>
 						   </tr>
 						   <tr>
 							   <th style="font-size: 20px;">Country</th>

@@ -8,14 +8,32 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Type List</title>
+<title>Producer List</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/responsive.css" />
 </head>
+<style>
+#addProducer {
+    padding: 19px 39px 18px 39px;
+	color: white;
+	background-color: salmon;
+	font-size: 15px;
+	font-weight: bold;
+	text-align: center;
+	font-style: normal;
+	border-radius: 5px;
+	width: 200px;
+	border: 1px solid black;
+	border-width: 1px 1px 1px;
+	box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.1) inset;
+	margin-bottom: 10px;
+}
+</style>
 <body>
 	<jsp:include page="_header.jsp" />
 	<section class="feature_section layout_padding">
+	
 	<form method="GET" action="${contextPath}/producerList">
 		<div class="container">
 			<div class="heading_container heading_center">
@@ -51,6 +69,11 @@
 			</table>
 		</div>
 	</form>
+	   <div style="color: red;">
+		   <a id="addProducer" class="btn btn-info" style="margin-bottom: 5px; margin-top: 5px; border-radius: 5px;" href="${contextPath}/producer"> 
+              Add producer
+           </a>   
+         </div>
 	</section>
 	
 	

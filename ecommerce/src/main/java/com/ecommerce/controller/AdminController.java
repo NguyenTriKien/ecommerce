@@ -35,6 +35,7 @@ import com.ecommerce.model.ProducerInfo;
 import com.ecommerce.model.ProductInfo;
 import com.ecommerce.model.TypeInfo;
 import com.ecommerce.validator.AccountInfoValidator;
+import com.ecommerce.validator.ProducerValidator;
 import com.ecommerce.validator.ProductValidator;
 
 @Controller
@@ -63,6 +64,9 @@ public class AdminController {
 	@Autowired
 	private AccountInfoValidator accountInfoValidator;
 
+	@Autowired
+	private ProducerValidator producerValidator; 
+	
 	@RequestMapping({ "/403" })
 	public String accessDenied() {
 		return "403";
@@ -87,11 +91,15 @@ public class AdminController {
 
 	@RequestMapping({"/manageProductList"})
 	public String getAllProductInfos(Model model, @RequestParam(value = "name", defaultValue = "") String likeName,
+			@RequestParam(value = "producers", defaultValue = "") String producers, 
 			@RequestParam(value = "price", defaultValue = "0") double price,
-			@RequestParam(value = "page", defaultValue = "1") int page) {
+			@RequestParam(value = "page", defaultValue = "1") int page,
+			@RequestParam(value = "producer", defaultValue = "") String producerid) {
 		final int maxResult = 15;
 		final int maxNavigationPage = 10;
-		PaginationResult<ProductInfo> productInfos = productDAO.getAllProductInfos(page, maxResult, maxNavigationPage, likeName, price);
+		PaginationResult<ProductInfo> productInfos = productDAO.getAllProductInfos(page, maxResult, maxNavigationPage, likeName, price, producers);
+		List<Producer> producers2 = producerDAO.getAllProducer(producerid);
+		productInfos.setProducers(producers2);
 		model.addAttribute("paginationProductInfos", productInfos);
 		return "manageProductList";
 	}
@@ -158,7 +166,6 @@ public class AdminController {
 		productInfo.setTypes(types);
 		List<Producer> producers = producerDAO.getAllProducer(producerid);
 		productInfo.setProducers(producers);
-		//model.addAttribute("productForm", typeinfo);
 		model.addAttribute("productForm", productInfo);
 		return "product";
 	}
@@ -403,7 +410,7 @@ public class AdminController {
 	@RequestMapping(value = "/producer", method = RequestMethod.POST)
 	public String inputProducerSave(Model model, @ModelAttribute("producerForm") ProducerInfo producerInfo, 
 			BindingResult result) {
-		
+		producerValidator.validate(producerInfo, result);
 		if(result.hasErrors()) {
 			return "producer";
 		}try {

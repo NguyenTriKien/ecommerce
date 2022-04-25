@@ -21,12 +21,10 @@
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 }
-
 body {
 	font-family: 'Nunito', sans-serif;
 	color: #384047;
 }
-
 form {
 	max-width: 300px;
 	margin: 10px auto;
@@ -34,12 +32,10 @@ form {
 	background: #f4f7f8;
 	border-radius: 8px;
 }
-
 h1 {
 	margin: 0 0 30px 0;
 	text-align: center;
 }
-
 input[type="text"], input[type="password"], input[type="date"], input[type="datetime"],
 	input[type="email"], input[type="number"], input[type="search"], input[type="tel"],
 	input[type="time"], input[type="url"], textarea, select {
@@ -56,17 +52,14 @@ input[type="text"], input[type="password"], input[type="date"], input[type="date
 	box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
 	margin-bottom: 30px;
 }
-
 input[type="radio"], input[type="checkbox"] {
 	margin: 0 4px 8px 0;
 }
-
 select {
 	padding: 6px;
 	height: 32px;
 	border-radius: 2px;
 }
-
 button {
 	padding: 19px 39px 18px 39px;
 	color: #FFF;
@@ -82,7 +75,6 @@ button {
 	box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.1) inset;
 	margin-bottom: 10px;
 }
-
 #googleLogin {
     padding: 19px 39px 18px 39px;
 	color: white;
@@ -98,7 +90,6 @@ button {
 	box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.1) inset;
 	margin-bottom: 10px;
 }
-
 .reset {
 	padding: 19px 39px 18px 39px;
 	color: #FFF;
@@ -113,27 +104,22 @@ button {
 	box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.1) inset;
 	margin-bottom: 10px;
 }
-
 fieldset {
 	margin-bottom: 30px;
 	border: none;
 }
-
 legend {
 	font-size: 1.4em;
 	margin-bottom: 10px;
 }
-
 label {
 	display: block;
 	margin-bottom: 8px;
 }
-
 label.light {
 	font-weight: 300;
 	display: inline;
 }
-
 .number {
 	background-color: #5fcf80;
 	color: #fff;
@@ -147,7 +133,6 @@ label.light {
 	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
 	border-radius: 100%;
 }
-
 @media screen and (min-width: 480px) {
 	form {
 		max-width: 480px;
@@ -161,13 +146,15 @@ label.light {
 	<form12:form action="${pageContext.request.contextPath}/userLogin" method="POST" modelAttribute="userAccount">
 		<fieldset>
 		    <p style="color:red">Login to purchase product</p>
-			<label for="username">Username:</label>
+			    <label for="username">Username:</label>
+			    <form12:errors style="color: red;" path="username" class="error-message"></form12:errors>
 				<form12:input type="text" id="username" path="username" placeholder="Enter your username" />
-	            <form12:errors style="color: red;" path="username" class="error-message"></form12:errors>
+	            
 			<div>
 				<label for="password">Password:</label>
-				<form12:input type="password" id="password" path="password" placeholder="Enter your password" />
 				<form12:errors style="color: red;" path="password" class="error-message"></form12:errors>
+				<form12:input type="password" id="password" path="password" placeholder="Enter your password" />
+				
 			</div>
 		</fieldset>
 		<button style="margin-bottom: 5px; margin-top: 1px; border-radius: 5px;" type="submit">Login &nbsp;</button>

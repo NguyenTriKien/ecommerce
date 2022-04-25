@@ -19,12 +19,10 @@
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 }
-
 body {
 	font-family: 'Nunito', sans-serif;
 	color: #384047;
 }
-
 form {
 	max-width: 300px;
 	margin: 10px auto;
@@ -32,12 +30,10 @@ form {
 	background: #f4f7f8;
 	border-radius: 8px;
 }
-
 h1 {
 	margin: 0 0 30px 0;
 	text-align: center;
 }
-
 input[type="text"], input[type="password"], input[type="date"], input[type="datetime"],
 	input[type="email"], input[type="number"], input[type="search"], input[type="tel"],
 	input[type="time"], input[type="url"], textarea, select {
@@ -54,32 +50,29 @@ input[type="text"], input[type="password"], input[type="date"], input[type="date
 	box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
 	margin-bottom: 30px;
 }
-
 input[type="radio"], input[type="checkbox"] {
 	margin: 0 4px 8px 0;
 }
-
 select {
 	padding: 6px;
 	height: 32px;
 	border-radius: 2px;
 }
-
 button {
 	padding: 19px 39px 18px 39px;
 	color: #FFF;
-	background-color: #4bc970;
+	background-color: salmon ;
 	font-size: 18px;
+	font-weight: bold;
 	text-align: center;
 	font-style: normal;
 	border-radius: 5px;
 	width: 100%;
-	border: 1px solid #3ac162;
-	border-width: 1px 1px 3px;
+	border: 1px solid #00BFFF;
+	border-width: 1px 1px 1px;
 	box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.1) inset;
 	margin-bottom: 10px;
 }
-
 .reset {
 	padding: 19px 39px 18px 39px;
 	color: #FFF;
@@ -94,27 +87,22 @@ button {
 	box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.1) inset;
 	margin-bottom: 10px;
 }
-
 fieldset {
 	margin-bottom: 30px;
 	border: none;
 }
-
 legend {
 	font-size: 1.4em;
 	margin-bottom: 10px;
 }
-
 label {
 	display: block;
 	margin-bottom: 8px;
 }
-
 label.light {
 	font-weight: 300;
 	display: inline;
 }
-
 .number {
 	background-color: #5fcf80;
 	color: #fff;
@@ -128,7 +116,6 @@ label.light {
 	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
 	border-radius: 100%;
 }
-
 @media screen and (min-width: 480px) {
 	form {
 		max-width: 480px;
@@ -140,25 +127,31 @@ label.light {
 	
 	<jsp:include page="_header.jsp" />
 	<form12:form action="${pageContext.request.contextPath}/producer" method="POST" modelAttribute="producerForm">
+	  <form12:errors style="color: red;" path="producerid" class="error-message"></form12:errors>
+	  <br>
+	  <form12:errors style="color: red;" path="producername" class="error-message"></form12:errors>
+	  <br>
+	  <form12:errors style="color: red;" path="country" class="error-message"></form12:errors>
+	  <br>
 	  <fieldset>
 			<label for="id">Producer id:</label>
 				<c:if test="${not empty producerForm.producerid}">
 					<form12:hidden path="producerid" /> ${producerForm.producerid}
 				</c:if> 
 				<c:if test="${empty producerForm.producerid}">
-					<form12:input path="producerid" />
-					<form12:hidden path="newProducer" /></c:if>
-	            <form12:errors style="color: red;" path="producerid" class="error-message"></form12:errors>
+					<form12:input path="producerid" placeholder="Enter producer id" />
+				</c:if>
+	            
 		</fieldset>
 		<fieldset>
 			<label for="id">Producer name:</label>
 				<form12:input type="text" id="producer" path="producername" placeholder="Enter producer name" />
-	            <form12:errors style="color: red;" path="producername" class="error-message"></form12:errors>
+	            
 		</fieldset>
 		<fieldset>
 			<label for="id">Producer Country</label>
 				<form12:input type="text" id="country" path="country" placeholder="Enter country name" />
-	            <form12:errors style="color: red;" path="country" class="error-message"></form12:errors>
+	          
 		</fieldset>
 		<button style="margin-bottom: 10px; margin-top: 10px; border-radius: 5px;" type="submit">Apply &nbsp;</button>
 	</form12:form>

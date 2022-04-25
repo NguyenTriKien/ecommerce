@@ -35,17 +35,25 @@ public class ProductDAOImpl implements ProductDAO {
 	
 	@Override
 	public PaginationResult<ProductInfo> getAllProductInfos(int page, int maxResult, int maxNavigationPage,
-			String likeName, double price) {
+			String likeName, double price, String producers) {
 		Session session = sessionFactory.getCurrentSession();
-		String hql = " SELECT NEW " + ProductInfo.class.getName() + " (PRO.code, PRO.name, PRO.quantity, PRO.status ,PRO.type, PRO.price) FROM Product PRO ";
-		if (likeName != null && likeName.length() > 0 && price > 0) {
+		String hql = " SELECT NEW " + ProductInfo.class.getName() + " (PRO.code, PRO.name, PRO.quantity, PRO.status , PRO.type, PRO.producer ,PRO.price) FROM Product PRO ";
+		if (likeName != null && likeName.length() > 0 && price > 0 && producers != null && producers.length() > 0) {
+			hql += " WHERE LOWER(PRO.name) like :LIKENAME AND PRO.price = :PRICE AND (PRO.producer.producerid) like :PRODUCERS";
+		}else if(likeName != null && likeName.length() > 0 && price < 0 && producers != null && producers.length() > 0) {
+			hql += " WHERE LOWER(PRO.name) like :LIKENAME AND (PRO.producer.producerid) like :PRODUCERS";
+		}else if(likeName == null && likeName.length() == 0 && price > 0 && producers != null && producers.length() > 0) {
+			hql += " WHERE PRO.price = :PRICE AND (PRO.producer.producerid) like :PRODUCERS";
+		}else if(likeName != null && likeName.length() > 0 && price > 0){
 			hql += " WHERE LOWER(PRO.name) like :LIKENAME AND PRO.price = :PRICE";
-		} else if(likeName != null && likeName.length() > 0 && price < 0) {
+		}else if(likeName != null && likeName.length() > 0 && price < 0) {
 			hql += " WHERE LOWER(PRO.name) like :LIKENAME";
-		} else if(likeName == null && likeName.length() == 0 && price > 0) {
+		}else if(likeName == null && likeName.length() == 0 && price > 0){
 			hql += " WHERE PRO.price = :PRICE";
-		} else if(likeName != null && likeName.length() > 0) {
+		}else if(likeName != null && likeName.length() > 0) {
 			hql += " WHERE LOWER(PRO.name) like :LIKENAME";
+		}else if( producers != null && producers.length() > 0) {
+			hql += "WHERE LOWER(PRO.producer.producerid) like :PRODUCERS";
 		}
 		hql += " ORDER BY PRO.createDate DESC ";
 
@@ -56,6 +64,9 @@ public class ProductDAOImpl implements ProductDAO {
 		}
 		if (price > 0) {
 			query.setParameter("PRICE", price);
+		}
+		if (producers != null && producers.length() > 0) {
+			query.setParameter("PRODUCERS", "%" + producers.toLowerCase() + "%");
 		}
 		List<ProductInfo> productInfos = query.list();
 		

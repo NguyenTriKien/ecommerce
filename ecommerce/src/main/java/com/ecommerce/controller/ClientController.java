@@ -1,6 +1,7 @@
 package com.ecommerce.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,12 +24,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ecommerce.dao.UserAccountDAO;
 import com.ecommerce.dao.OrderDAO;
+import com.ecommerce.dao.ProducerDAO;
 import com.ecommerce.dao.ProductDAO;
 import com.ecommerce.entity.UserAccount;
 import com.ecommerce.entity.Order;
+import com.ecommerce.entity.Producer;
 import com.ecommerce.entity.Product;
 import com.ecommerce.model.CartInfo;
 import com.ecommerce.model.CartLineInfo;
@@ -41,6 +45,8 @@ import com.ecommerce.model.UserAccountInfo;
 import com.ecommerce.util.LoginUtils;
 import com.ecommerce.util.Utils;
 import com.ecommerce.validator.CustomerInfoValidator;
+import com.ecommerce.validator.LoginValidator;
+import com.ecommerce.validator.RegisterValidator;
 
 
 @Controller
@@ -62,7 +68,16 @@ public class ClientController {
 	private UserAccountDAO gmailDAO;
 	
 	@Autowired
+	private ProducerDAO producerDAO;
+	
+	@Autowired
 	private LoginUtils loginUtils;
+	
+	@Autowired
+	private RegisterValidator registerValidator;
+	
+	@Autowired
+	private LoginValidator loginValidator;
 
 	@RequestMapping({ "/" })
 	public String home() {
@@ -74,14 +89,23 @@ public class ClientController {
 		return "quantityNotification";
 	}
 	
+
+	@RequestMapping({ "/statusNotification" })
+	public String statusNotification() {
+		return "statusNotification";
+	}
+	
 	@RequestMapping({"/productList"})
 	public String getAllProductInfos(Model model, @RequestParam(value = "name", defaultValue = "") String likeName,
+			 @RequestParam(value = "producers", defaultValue = "") String producers,
 			@RequestParam(value = "price", defaultValue = "0") double price,
-			@RequestParam(value = "page", defaultValue = "1") int page) {
+			@RequestParam(value = "page", defaultValue = "1") int page, 
+			@RequestParam(value = "producer", defaultValue = "") String producerid) {
 		final int maxResult = 15;
 		final int maxNavigationPage = 10;
-		PaginationResult<ProductInfo> productInfos = productDAO.getAllProductInfos(page, maxResult, maxNavigationPage, likeName, price);
-		
+		PaginationResult<ProductInfo> productInfos = productDAO.getAllProductInfos(page, maxResult, maxNavigationPage, likeName, price, producers);
+		List<Producer> producers2 = producerDAO.getAllProducer(producerid);
+		productInfos.setProducers(producers2);
 		model.addAttribute("paginationProductInfos", productInfos);
 		return "productList";
 	}
@@ -140,7 +164,7 @@ public class ClientController {
 			cartInfo.addProduct(productInfo, 1);
 		}
 		if(product != null && product.getStatus().equals("Not available")) {
-			return "redirect:/productList";
+			return "redirect:/statusNotification";
 		}
 		return "redirect:/shoppingCart";
 	}
@@ -346,7 +370,7 @@ public class ClientController {
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String registerSave(Model model, @ModelAttribute("user") UserAccountInfo userAccountInfo, 
 			BindingResult result) {
-		
+		registerValidator.validate(userAccountInfo, result);
 		if(result.hasErrors()) {
 			return "register";
 		}try {
@@ -355,7 +379,7 @@ public class ClientController {
 			model.addAttribute("errorMessage", e.getMessage());
 			return "register";
 		}
-		return "redirect:/login";
+		return "redirect:/userLogin";
 		
 	}
 	
@@ -391,12 +415,20 @@ public class ClientController {
 	}
 	
 	@PostMapping("/userLogin")
-	public String processLogin(@ModelAttribute("userAccount") UserAccountInfo userAccountInfo, Model model) {
+	public String processLogin(@ModelAttribute("userAccount") UserAccountInfo userAccountInfo, Model model, BindingResult result) {
+		loginValidator.validate(userAccountInfo, result);
+		if(result.hasErrors()) {
+			return "userLogin";
+		}try {
 		UserDetails userDetail = loginUtils.buildUser(userAccountInfo);
 		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetail, null,
 		userDetail.getAuthorities());
 		    //authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
+		}catch(Exception e) {
+			model.addAttribute("errorMessage", e.getMessage());
+			return "userLogin";
+		}
 		return "home";
 		
 	}

@@ -28,9 +28,18 @@
 					<table>
 						<tr>
 							<td><label style="margin-right: 5px;">Name</label>
-							<input style="margin-right: 5px; width: 75%" type="text" name="name"></td>
-							<td><label style="margin-right: 5px;">Price</label><input style="margin-right: 5px; width: 80%" type="text" name="price"></td>
-							<td colspan="2" align="center">
+							<input style="margin-right: 5px; width: 200px" type="text" name="name"></td>
+							<td><label style="margin-right: 5px;">Price</label><input style="margin-right: 5px; width: 200px" type="text" name="price"></td>
+							<td>
+								  <label style="margin-right: 5px;">Producer</label><input id="producers1" style="width:100px" name="producers"  type="text"/>
+								  <select path="producers" id="producerlist" onChange="getValue2();" style="height:30px">
+								     <option value="">--Producer--</option>
+								     <c:forEach items="${paginationProductInfos.producers}" var="producer">
+								     	<option value="${producer.producerid}">${producer.producerid}</option>
+								     </c:forEach>
+								  </select>
+                            </td>
+                            	<td colspan="2" align="center">
 								<input style="color: white; background-color: #33CC00; border-radius: 5px; margin-top: -10px" type="submit" value="Search">
 							</td>
 						</tr>

@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.query.Query;
+
+import com.ecommerce.entity.Producer;
+
 import org.hibernate.ScrollMode;
 import org.hibernate.ScrollableResults;
 
@@ -22,6 +25,16 @@ public class PaginationResult<E> {
 	private int maxNavigationPages;
 
 	private List<Integer> navigationPages;
+	
+	private List<Producer> producers;
+
+	public List<Producer> getProducers() {
+		return producers;
+	}
+
+	public void setProducers(List<Producer> producers) {
+		this.producers = producers;
+	}
 
 	public int getTotalRecords() {
 		return totalRecords;

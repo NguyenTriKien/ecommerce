@@ -6,15 +6,16 @@ D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\model\PaginationResult
 D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\entity\Product.java
 D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\entity\Type.java
 D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\config\PaypalPaymentMethod.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\validator\LoginValidator.java
 D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\dao\TypeDAO.java
 D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\entity\Account.java
 D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\model\ProducerInfo.java
 D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\model\CustomerInfo.java
 D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\util\Utils.java
 D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\dao\impl\OrderDAOImpl.java
-D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\entity\Payment.java
 D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\model\TypeInfo.java
 D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\config\AppContext.java
+D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\validator\RegisterValidator.java
 D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\model\ProductInfo.java
 D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\controller\PaymentController.java
 D:\Github\ecommerce\ecommerce\src\main\java\com\ecommerce\util\LoginUtils.java

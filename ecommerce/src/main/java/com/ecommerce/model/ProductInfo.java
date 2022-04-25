@@ -47,8 +47,18 @@ public class ProductInfo {
 	public ProductInfo() {
 		super();
 	}
-
-	
+    
+	public ProductInfo(String code, String name, int quantity, String status, Type type, Producer producer,
+			double price) {
+		super();
+		this.code = code;
+		this.name = name;
+		this.quantity = quantity;
+		this.status = status;
+		this.type = type;
+		this.producer = producer;
+		this.price = price;
+	}
 
 	public ProductInfo(String code, String name, int quantity, String status, Type type, double price) {
 		super();

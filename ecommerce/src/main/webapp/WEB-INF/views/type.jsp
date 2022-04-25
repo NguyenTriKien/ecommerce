@@ -146,9 +146,9 @@ label.light {
 					<form12:hidden path="id" /> ${typeForm.id}
 				</c:if> 
 				<c:if test="${empty typeForm.id}">
-					<form12:input path="id" />
-					<form12:hidden path="newType" /></c:if>
-	            <form12:errors style="color: red;" path="typeid" class="error-message"></form12:errors>
+					<form12:input path="id" placeholder="Enter type type id" />
+				</c:if>
+	            <form12:errors style="color: red;" path="id" class="error-message"></form12:errors>
 		</fieldset>
 		<fieldset>
 			<label for="id">Type name:</label>
