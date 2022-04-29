@@ -1,8 +1,10 @@
 package com.ecommerce.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -102,6 +104,20 @@ public class AdminController {
 		productInfos.setProducers(producers2);
 		model.addAttribute("paginationProductInfos", productInfos);
 		return "manageProductList";
+	}
+	
+	@RequestMapping(value = {"/manageProductDetail"})
+	public String productDetail(HttpServletRequest request, HttpServletResponse response, Model model,
+			@RequestParam("code") String code) throws IOException {
+		Product product = null;
+		if(code != null) {
+			product = productDAO.getProductByCode(code);
+		}
+		if(product == null) {
+			return "redirect:/manageProductList";
+		}
+		model.addAttribute("productInfo", product);
+		return "manageProductDetail";
 	}
 
 	@RequestMapping({"/manageProductList/producttype"})
@@ -311,6 +327,7 @@ public class AdminController {
 		
 	}
 	
+	/*
 	@RequestMapping({"/cancelOrderAdmin"})
 	public String cancelOrderAdmin(HttpServletRequest request, Model model,
 			@RequestParam(value = "status", defaultValue = "") String status,  
@@ -330,7 +347,7 @@ public class AdminController {
 		String username = order.getUserAccount().getUsername();
 		return "redirect:/myOrderList?username=" + username;//chỗ này chưa gọi đc do thiếu @
 		
-	}
+	}*/
 	
 	@RequestMapping(value = "/type", method = RequestMethod.GET)
 	public String inputType(Model model, @RequestParam(value = "id", defaultValue = "") String id) {
@@ -362,22 +379,6 @@ public class AdminController {
 		
 	}
 	
-	@RequestMapping(value = { "/typeList" }, method = RequestMethod.GET)
-	public String typeList(Model model, @RequestParam(value = "page", defaultValue = "1") String pageStr) {
-		int page = 1;
-		try {
-			page = Integer.parseInt(pageStr);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-
-		final int MAX_RESULT = 10;
-		final int MAX_NAVIGATION_PAGE = 10;
-		PaginationResult<TypeInfo> paginationTypeInfos = typeDAO.getAllTypeInfos(page, MAX_RESULT,
-				MAX_NAVIGATION_PAGE);
-		model.addAttribute("paginationTypeInfos", paginationTypeInfos);
-		return "typeList";
-	}
 	
 	@RequestMapping(value = {"/editType"}, method = RequestMethod.GET)
 	public String edittype (Model model, @RequestParam(value = "id", defaultValue = "") String id) {
@@ -405,6 +406,24 @@ public class AdminController {
 			return "editType";
 		}
 		return "redirect:/typeList";
+	}
+	
+
+	@RequestMapping(value = { "/typeList" }, method = RequestMethod.GET)
+	public String typeList(Model model, @RequestParam(value = "page", defaultValue = "1") String pageStr) {
+		int page = 1;
+		try {
+			page = Integer.parseInt(pageStr);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		final int MAX_RESULT = 10;
+		final int MAX_NAVIGATION_PAGE = 10;
+		PaginationResult<TypeInfo> paginationTypeInfos = typeDAO.getAllTypeInfos(page, MAX_RESULT,
+				MAX_NAVIGATION_PAGE);
+		model.addAttribute("paginationTypeInfos", paginationTypeInfos);
+		return "typeList";
 	}
 	
 	@RequestMapping(value = "/producer", method = RequestMethod.POST)

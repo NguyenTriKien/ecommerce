@@ -37,7 +37,8 @@ public class ProductDAOImpl implements ProductDAO {
 	public PaginationResult<ProductInfo> getAllProductInfos(int page, int maxResult, int maxNavigationPage,
 			String likeName, double price, String producers) {
 		Session session = sessionFactory.getCurrentSession();
-		String hql = " SELECT NEW " + ProductInfo.class.getName() + " (PRO.code, PRO.name, PRO.quantity, PRO.status , PRO.type, PRO.producer ,PRO.price) FROM Product PRO ";
+		String hql = " SELECT NEW " + ProductInfo.class.getName() + " (PRO.code, PRO.name, PRO.quantity, PRO.status , PRO.type, PRO.producer ,"
+				+ "PRO.price) FROM Product PRO ";
 		if (likeName != null && likeName.length() > 0 && price > 0 && producers != null && producers.length() > 0) {
 			hql += " WHERE LOWER(PRO.name) like :LIKENAME AND PRO.price = :PRICE AND (PRO.producer.producerid) like :PRODUCERS";
 		}else if(likeName != null && likeName.length() > 0 && price < 0 && producers != null && producers.length() > 0) {

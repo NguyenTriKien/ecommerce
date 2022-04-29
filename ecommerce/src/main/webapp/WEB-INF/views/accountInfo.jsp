@@ -11,6 +11,7 @@
 <meta charset="ISO-8859-1">
 <title>Account Info</title>
 
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/responsive.css" />
 </head>

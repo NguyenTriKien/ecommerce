@@ -101,7 +101,7 @@ public class ClientController {
 			@RequestParam(value = "price", defaultValue = "0") double price,
 			@RequestParam(value = "page", defaultValue = "1") int page, 
 			@RequestParam(value = "producer", defaultValue = "") String producerid) {
-		final int maxResult = 15;
+		final int maxResult = 9;
 		final int maxNavigationPage = 10;
 		PaginationResult<ProductInfo> productInfos = productDAO.getAllProductInfos(page, maxResult, maxNavigationPage, likeName, price, producers);
 		List<Producer> producers2 = producerDAO.getAllProducer(producerid);
@@ -113,7 +113,7 @@ public class ClientController {
 	@RequestMapping({"/productList/producttype"})
 	public String getAllProductInfosByType(Model model, @RequestParam(value = "type", defaultValue = "") String type,
 			@RequestParam(value = "page", defaultValue = "1") int page) {
-		final int maxResult = 15;
+		final int maxResult = 9;
 		final int maxNavigationPage = 10;
 		PaginationResult<ProductInfo> productInfos = productDAO.getAllProductInfoByType(page, maxResult, maxNavigationPage, type);
 		
@@ -309,25 +309,6 @@ public class ClientController {
 		return "shoppingCartFinalize";
 	}
 	
-	//http://localhost:8080/ecommerce/myOrder?gmail=www@gmail.com
-	//Dung de xem order
-	@RequestMapping(value = { "/myOrder" }, method = RequestMethod.GET)
-	public String orderView(Model model, @RequestParam("orderId") String orderId) {
-		OrderInfo orderInfo = null;
-		//Order order;
-		if (orderId != null) {
-			orderInfo = orderDAO.getOrderInfoById(orderId);
-			//nhớ chuyển hàm getOrderById trong getOrderInfoById thành getOrderByGoogleId
-		}
-		if (orderInfo == null) {
-			return "myOrderList";
-		}
-		List<OrderDetailInfo> orderDetailInfos = orderDAO.getAllDetailInfos(orderId);
-		orderInfo.setOrderDetailInfos(orderDetailInfos);
-		model.addAttribute("orderInfo", orderInfo);
-		return "myOrder";
-	}
-	
 	@RequestMapping(value = { "/myOrderList" }, method = RequestMethod.GET)
 	public String orderList(Model model, @RequestParam(value = "page", defaultValue = "1") String pageStr,
 			 @RequestParam("username") String username) {
@@ -352,6 +333,24 @@ public class ClientController {
 		return "myOrderList";
 	}
 	
+	//http://localhost:8080/ecommerce/myOrder?gmail=www@gmail.com
+		//Dung de xem order
+		@RequestMapping(value = { "/myOrder" }, method = RequestMethod.GET)
+		public String orderView(Model model, @RequestParam("orderId") String orderId) {
+			OrderInfo orderInfo = null;
+			//Order order;
+			if (orderId != null) {
+				orderInfo = orderDAO.getOrderInfoById(orderId);
+				//nhớ chuyển hàm getOrderById trong getOrderInfoById thành getOrderByGoogleId
+			}
+			if (orderInfo == null) {
+				return "myOrderList";
+			}
+			List<OrderDetailInfo> orderDetailInfos = orderDAO.getAllDetailInfos(orderId);
+			orderInfo.setOrderDetailInfos(orderDetailInfos);
+			model.addAttribute("orderInfo", orderInfo);
+			return "myOrder";
+		}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String register(Model model, @RequestParam(value = "username", defaultValue = "") String username) {

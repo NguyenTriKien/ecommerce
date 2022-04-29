@@ -66,14 +66,10 @@ public class PaymentController {
 				//System.out.println("New quantity:" + newQuantity);
 				productDAO.updateProductQuantity(code, newQuantity);
 			}
-			orderDAO.saveOrder(cartInfo);
+			
 		} catch (Exception e) {
 			return "shoppingCartConfirmation";
 		}
-		
-		Utils.removeCartInfoInSession(request);
-		
-		Utils.storeLastOrderedCartInfoInSession(request, cartInfo);
 		
 		try {
 			Payment payment = paypalService.createPayment(
@@ -92,6 +88,11 @@ public class PaymentController {
 		} catch (PayPalRESTException e) {
 			log.error(e.getMessage());
 		}
+		orderDAO.saveOrder(cartInfo);
+		
+        Utils.removeCartInfoInSession(request);
+		
+		Utils.storeLastOrderedCartInfoInSession(request, cartInfo);
 		return "redirect:/ecommerce";
 	}
 	@GetMapping(URL_PAYPAL_CANCEL)

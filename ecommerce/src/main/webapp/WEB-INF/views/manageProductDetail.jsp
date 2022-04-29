@@ -16,7 +16,7 @@
 
 </head>
 <body>
-    <jsp:include page="userHeader.jsp" />
+    <jsp:include page="_header.jsp" />
        <section class="product-details spad">
         <div class="container" style="margin-top:50px">
             <div class="row" style="width:100%">
@@ -86,7 +86,7 @@
                            </table>
                         </div>
                         <br>
-                        <a style="font-size: 20px;" href="${contextPath}/product?code=${productInfo.code}">Buy Product</a>
+                        <a style="font-size: 20px;" href="${contextPath}/product?code=${productInfo.code}" class="primary-btn">Edit Product</a>
                         <a href="#" clastyle="font-size: 20px;"ss="heart-icon"><span class="icon_heart_alt"></span></a>
                     </div>
                 </div>

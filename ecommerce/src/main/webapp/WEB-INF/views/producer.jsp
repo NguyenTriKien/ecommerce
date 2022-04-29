@@ -9,7 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Type Input</title>
+<title>Producer Input</title>
 <link rel="stylesheet" href="css/normalize.css">
 <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="css/main.css">

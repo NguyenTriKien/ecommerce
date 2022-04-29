@@ -74,7 +74,7 @@
 					<div class="dropdown">
 					  <button class="dropbtn" onClick="location.href='${contextPath}/productList'">PRODUCT LIST</button>
 					  <div class="dropdown-content">
-					    <a href="${contextPath}/productList/producttype?type=Smart Phone">Phone</a>
+					    <a href="${contextPath}/productList/producttype?type=Phone">Phone</a>
 					    <a href="${contextPath}/productList/producttype?type=Laptop">Laptop</a>
 					  </div>
 					</div>

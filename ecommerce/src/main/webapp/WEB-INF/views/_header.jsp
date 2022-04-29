@@ -69,19 +69,20 @@
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav">
 					<li class="nav-item active">
-						<a class="nav-link" href="${contextPath}/">Home</a>
+						<a class="nav-link" href="${contextPath}/manageProductList">Home</a>
 					</li>
 				    <div class="dropdown">
 					  <button class="dropbtn" onClick="location.href='${contextPath}/manageProductList'">PRODUCT LIST</button>
 					  <div class="dropdown-content">
-					    <a href="${contextPath}/manageProductList/producttype?type=Smart Phone">Phone</a>
+					    <a href="${contextPath}/manageProductList/producttype?type=Phone">Phone</a>
 					    <a href="${contextPath}/manageProductList/producttype?type=Laptop">Laptop</a>
 					  </div>
 					</div>
 					<security:authorize access="hasAnyRole('ROLE_MANAGER','ROLE_EMPLOYEE')">
 					<li class="nav-item">
-						<a class="nav-link" href="${contextPath}/orderList">Order List</a>
+						<a class="nav-link" href="${contextPath}/product">Create Product</a>
 					</li>
+					
 					</security:authorize>
 					
 					<security:authorize access="hasRole('ROLE_MANAGER')">
