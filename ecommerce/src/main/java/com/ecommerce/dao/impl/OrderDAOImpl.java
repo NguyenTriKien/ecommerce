@@ -201,4 +201,19 @@ public class OrderDAOImpl implements OrderDAO {
 		return new Order();
 	}
 
+	@Override
+	public boolean removeOrderByCode(String orderId) {
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			String hql = "DELETE FROM Order ORD WHERE ORD.id = :ORDERID";
+			Query query = session.createQuery(hql);
+			query.setParameter("ORDERID", orderId);
+			query.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return false;
+	}
+
 }

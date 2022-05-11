@@ -53,5 +53,5 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	public CommonsMultipartResolver multipartResolver() {
 		CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
 		return commonsMultipartResolver;
-	}
+	}// cấu hình dùng để tải file lên trang web, vd như hình ảnh
 }

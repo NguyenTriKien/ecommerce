@@ -45,31 +45,7 @@ public class PaymentController {
 		String cancelUrl = PaymentUtil.getBaseURL(request) + "/" + URL_PAYPAL_CANCEL;
 		String successUrl = PaymentUtil.getBaseURL(request) + "/" + URL_PAYPAL_SUCCESS;
 		
-		CartInfo cartInfo = Utils.getCartInfoInSession(request);
-		List<CartLineInfo> cartLineInfo = cartInfo.getCartLineInfos();
-		if(cartInfo.isEmpty()) {
-
-			return "redirect:/shoppingCart";
-		}else if (!cartInfo.isValidCustomer()) {
-
-			return "redirect:/shoppingCartCustomer";
-		}
 		
-		try {
-			for(int i = 0; i < cartLineInfo.size(); i++) {
-				String code = cartLineInfo.get(i).getProductInfo().getCode();
-				Product product = productDAO.getProductByCode(code);
-				int proquantity = product.getQuantity();
-				int cartquantity = cartLineInfo.get(i).getQuantity();
-				//System.out.println("Product quantity: " + proquantity);
-				int newQuantity = proquantity - cartquantity;
-				//System.out.println("New quantity:" + newQuantity);
-				productDAO.updateProductQuantity(code, newQuantity);
-			}
-			
-		} catch (Exception e) {
-			return "shoppingCartConfirmation";
-		}
 		
 		try {
 			Payment payment = paypalService.createPayment(
@@ -80,6 +56,7 @@ public class PaymentController {
 					"payment description",
 					cancelUrl,
 					successUrl);
+			
 			for(Links links : payment.getLinks()){
 				if(links.getRel().equals("approval_url")){
 					return "redirect:" + links.getHref();
@@ -87,28 +64,59 @@ public class PaymentController {
 			}
 		} catch (PayPalRESTException e) {
 			log.error(e.getMessage());
+		
 		}
-		orderDAO.saveOrder(cartInfo);
 		
-        Utils.removeCartInfoInSession(request);
-		
-		Utils.storeLastOrderedCartInfoInSession(request, cartInfo);
 		return "redirect:/ecommerce";
+	
 	}
 	@GetMapping(URL_PAYPAL_CANCEL)
 	public String cancelPay(){
 		return "cancel";
 	}
 	@GetMapping(URL_PAYPAL_SUCCESS)
-	public String successPay(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId){
+	public String successPay(HttpServletRequest request ,@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId){
 		try {
 			Payment payment = paypalService.executePayment(paymentId, payerId);
 			if(payment.getState().equals("approved")){
+				CartInfo cartInfo = Utils.getCartInfoInSession(request);
+				List<CartLineInfo> cartLineInfo = cartInfo.getCartLineInfos();
+				if(cartInfo.isEmpty()) {
+
+					return "redirect:/shoppingCart";
+				}else if (!cartInfo.isValidCustomer()) {
+
+					return "redirect:/shoppingCartCustomer";
+				}
+				
+				try {
+					for(int i = 0; i < cartLineInfo.size(); i++) {
+						String code = cartLineInfo.get(i).getProductInfo().getCode();
+						Product product = productDAO.getProductByCode(code);
+						int proquantity = product.getQuantity();
+						int cartquantity = cartLineInfo.get(i).getQuantity();
+						//System.out.println("Product quantity: " + proquantity);
+						int newQuantity = proquantity - cartquantity;
+						//System.out.println("New quantity:" + newQuantity);
+						productDAO.updateProductQuantity(code, newQuantity);
+					
+					}
+					orderDAO.saveOrder(cartInfo);
+					
+				} catch (Exception e) {
+					return "shoppingCartConfirmation";
+				}
+				
+		        Utils.removeCartInfoInSession(request);
+				
+				Utils.storeLastOrderedCartInfoInSession(request, cartInfo);
 				return "success";
 			}
+			
 		} catch (PayPalRESTException e) {
 			log.error(e.getMessage());
 		}
+		
 		return "redirect:/success";
 	}
 }

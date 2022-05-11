@@ -8,6 +8,6 @@
 </head>
 <body>
     <h1>Canceled by user</h1>
-	<a href="/" >Go Home</a>
+	<a href="/ecommerce" >Go Home</a>
 </body>
 </html>

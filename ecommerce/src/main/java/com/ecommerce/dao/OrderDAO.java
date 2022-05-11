@@ -30,4 +30,6 @@ public interface OrderDAO {
 	
 	public Order updateOrderStatus2(String orderId);
 	
+	public boolean removeOrderByCode(String orderId);
+	
 }
