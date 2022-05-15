@@ -15,7 +15,6 @@ public class TypeInfo {
 		this.id = id;
 	}
 
-
 	public TypeInfo(String id, String typename) {
 		super();
 		this.id = id;

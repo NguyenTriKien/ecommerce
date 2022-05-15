@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/responsive.css" />
 </head>
 <body>
-	<jsp:include page="_header.jsp" />
+	<jsp:include page="userHeader.jsp" />
 	
 	<section class="contact_section">
 		<div class="container">

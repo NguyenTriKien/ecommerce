@@ -82,13 +82,12 @@
 					<li class="nav-item">
 						<a class="nav-link" href="${contextPath}/product">Create Product</a>
 					</li>
-					
 					</security:authorize>
 					
 					<security:authorize access="hasRole('ROLE_MANAGER')">
-					<li class="nav-item">
+					<!--<li class="nav-item">
 						<a class="nav-link" href="${contextPath}/product">Create Product</a>
-					</li>
+					</li>-->
 					<li class="nav-item">
 						<a class="nav-link"  href="${contextPath}/accountList">User Management </a>
 					</li>

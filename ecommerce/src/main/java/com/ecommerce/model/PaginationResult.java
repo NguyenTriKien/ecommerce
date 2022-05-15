@@ -125,8 +125,8 @@ public class PaginationResult<E> {
 		this.list = results; // danh sách sản phẩm
 		this.maxResult = maxResult;// số lượng sản phẩm một trang có thể hiện thị
 
-		this.totalPages = (this.totalRecords / this.maxResult) + 1;// nếu trường hợp record trong một trang 
-		// vượt quá số lượng cho phép, thì record dư ra sẽ được hiển thị trong trang mới
+		this.totalPages = (this.totalRecords / this.maxResult) + 1;/* nếu trường hợp record trong một trang 
+		 vượt quá số lượng cho phép, thì record dư ra sẽ được hiển thị trong trang mới*/
 		this.maxNavigationPages = maxNavigationPage;// số lượng trang website được phép tạo
 
 		if (maxNavigationPage < this.totalPages) {
@@ -148,7 +148,7 @@ public class PaginationResult<E> {
 
 		this.navigationPages.add(1);
 		if (begin > 2) {
-			this.navigationPages.add(-1);// nếu trang bắt đầu lớn hơn 2 thì tạo ....
+			this.navigationPages.add(-1);// nếu trang bắt đầu lớn hơn 2 thì tạo .... vd: 1 2...3 4
 		}
 		for (int i = begin; i < end; i++) {
 			if (i > 1 && i < this.totalPages) {

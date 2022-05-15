@@ -31,10 +31,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception{
 		
 		http.csrf().disable();
-		http.authorizeRequests().antMatchers("/product","/accountInfo").access("hasAnyRole('EMPLOYEE','MANAGER')");
+		http.authorizeRequests().antMatchers("/manageProductList", "/product","/accountInfo").access("hasAnyRole('EMPLOYEE','MANAGER')");
 		
 		http.authorizeRequests().antMatchers("/accountList", "/account","/type","/typeList","/producer","/producerList","/orderlist",
-				"/order","/manageProductList","/manageProductList/producttype").access("hasRole('MANAGER')");
+				"/order","/manageProductList/producttype").access("hasRole('MANAGER')");
 		
 		http.authorizeRequests().antMatchers("/buyProduct","/shoppingCart","/myOrderList").access("hasRole('USER')");
 		

@@ -97,7 +97,7 @@ public class AdminController {
 			@RequestParam(value = "price", defaultValue = "0") double price,
 			@RequestParam(value = "page", defaultValue = "1") int page,
 			@RequestParam(value = "producer", defaultValue = "") String producerid) {
-		final int maxResult = 15;
+		final int maxResult = 9;
 		final int maxNavigationPage = 10;
 		PaginationResult<ProductInfo> productInfos = productDAO.getAllProductInfos(page, maxResult, maxNavigationPage, likeName, price, producers);
 		List<Producer> producers2 = producerDAO.getAllProducer(producerid);
@@ -427,7 +427,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/producer", method = RequestMethod.POST)
-	public String inputProducerSave(Model model, @ModelAttribute("producerForm") ProducerInfo producerInfo, 
+	public String inputProducerSave(Model model, @ModelAttribute("producerForm") @Validated ProducerInfo producerInfo, 
 			BindingResult result) {
 		producerValidator.validate(producerInfo, result);
 		if(result.hasErrors()) {

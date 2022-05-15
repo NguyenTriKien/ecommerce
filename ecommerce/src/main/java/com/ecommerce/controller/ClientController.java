@@ -64,8 +64,8 @@ public class ClientController {
 	@Autowired
 	private CustomerInfoValidator customerInfoValidator;
 	
-	@Autowired
-	private UserAccountDAO gmailDAO;
+	//@Autowired
+	//private UserAccountDAO gmailDAO;
 	
 	@Autowired
 	private ProducerDAO producerDAO;
@@ -217,6 +217,7 @@ public class ClientController {
 				return "redirect:/quantityNotification";
 			}
 		}
+		/* Đoạn code này là đoạn code kiểm tra số lượng khách hàng yêu cầu có lớn hơn số lượng hàng trong kho hay ko */ 
 		if(cartInfo.isEmpty()) {
 			return "redirect:/shoppingCart";
 		}
@@ -287,6 +288,7 @@ public class ClientController {
 				productDAO.updateProductQuantity(code, newQuantity);
 			
 			}
+			/*Đoạn code này dùng để cập nhật số lượng hàng sau khi khách hàng đã đặt*/
 			orderDAO.saveOrder(cartInfo);
 		} catch (Exception e) {
 			return "shoppingCartConfirmation";
@@ -414,7 +416,8 @@ public class ClientController {
 	}
 	
 	@PostMapping("/userLogin")
-	public String processLogin(@ModelAttribute("userAccount") UserAccountInfo userAccountInfo, Model model, BindingResult result) {
+	public String processLogin(@ModelAttribute("userAccount") UserAccountInfo userAccountInfo, Model model, 
+			BindingResult result) {
 		loginValidator.validate(userAccountInfo, result);
 		if(result.hasErrors()) {
 			return "userLogin";

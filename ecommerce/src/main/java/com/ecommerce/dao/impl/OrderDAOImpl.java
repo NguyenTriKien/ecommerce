@@ -41,8 +41,6 @@ public class OrderDAOImpl implements OrderDAO {
 	@Autowired
 	private UserAccountDAO userAccountDAO;
 	
-	
-	
 	@Autowired
 	private SessionFactory sessionFactory;
 

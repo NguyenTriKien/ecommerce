@@ -75,7 +75,8 @@ public class PaymentController {
 		return "cancel";
 	}
 	@GetMapping(URL_PAYPAL_SUCCESS)
-	public String successPay(HttpServletRequest request ,@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId){
+	public String successPay(HttpServletRequest request ,@RequestParam("paymentId") String paymentId, 
+			@RequestParam("PayerID") String payerId){
 		try {
 			Payment payment = paypalService.executePayment(paymentId, payerId);
 			if(payment.getState().equals("approved")){
@@ -110,6 +111,7 @@ public class PaymentController {
 		        Utils.removeCartInfoInSession(request);
 				
 				Utils.storeLastOrderedCartInfoInSession(request, cartInfo);
+				
 				return "success";
 			}
 			

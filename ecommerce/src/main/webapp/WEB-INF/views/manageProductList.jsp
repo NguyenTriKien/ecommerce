@@ -78,9 +78,11 @@
 									<li>
 									<a style="color: green;" href="${contextPath}/manageProductDetail?code=${productInfo.code}">Detail</a>
 								    </li>
+								    <security:authorize access="hasRole('ROLE_MANAGER')">
 									<li>
 										<a style="color: red;" href="${contextPath}/removeProduct?code=${productInfo.code}">Delete Product</a>
 									</li>
+									</security:authorize>
 							</tr>
 						</c:forEach>
 					</tbody>
