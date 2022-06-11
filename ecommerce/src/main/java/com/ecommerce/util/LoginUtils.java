@@ -14,6 +14,7 @@ import com.ecommerce.model.UserAccountInfo;
 
 @Component
 public class LoginUtils  {
+     
 	
 	 public UserDetails buildUser(UserAccountInfo userAccountInfo) {
 		  

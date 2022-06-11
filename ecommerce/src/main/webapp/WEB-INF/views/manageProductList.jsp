@@ -97,7 +97,7 @@
 		<div style="text-align:center;">
 			<c:forEach items="${paginationProductInfos.navigationPages}" var="page">
 				<c:if test="${page != -1}">
-					<a style="font-size: 20px;" href="productList?page=${page}">${page}</a>
+					<a style="font-size: 20px;" href="manageProductList?page=${page}">${page}</a>
 				</c:if>
 				<c:if test="${page == -1}">
 					<span class="nav-item"> ... </span>
